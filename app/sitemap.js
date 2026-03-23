@@ -1,7 +1,7 @@
 export default function sitemap() {
   return [
     {
-      url: 'https://hackorbit.dev',
+      url: 'https://hackorbitglobal.vercel.app/',
       lastModified: new Date(),
       changeFrequency: 'weekly',
       priority: 1,
