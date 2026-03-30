@@ -2,6 +2,7 @@ import { notFound } from 'next/navigation'
 import Navbar from '../../components/Navbar'
 import Footer from '../../components/Footer'
 import IdentityCard from '../../components/identity/IdentityCard'
+import { getUserById as fetchUserById } from '../../lib/sheets'
 
 // ─── Inline QR SVG generator (zero npm deps, server-only) ────────────────────
 // Minimal port of the QR code spec for byte-mode URLs, ECC level M
@@ -198,27 +199,58 @@ function buildQRMatrix(text) {
 }
 
 // ─── Data Fetching ────────────────────────────────────────────────────────────
+// fetchUserById is imported at the top from '../../lib/sheets'.
+// No self-HTTP: server components import utilities directly.
 
-async function getUserById(id) {
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://hackorbitglobal.vercel.app'
-  const res = await fetch(`${baseUrl}/api/user/${id}`, {
-    next: { revalidate: 60 },
-  })
-  if (res.status === 404) return null
-  if (!res.ok) throw new Error('Failed to fetch user')
-  return res.json()
-}
+const GITHUB_ORG = 'Hack-Orbit-Global'
 
 async function getGitHubContributions(github) {
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://hackorbitglobal.vercel.app'
+  console.log(`[ProfilePage] Fetching GitHub contributions for: ${github}`)
+  const token = process.env.GITHUB_TOKEN
+
+  const headers = {
+    Accept: 'application/vnd.github+json',
+    'X-GitHub-Api-Version': '2022-11-28',
+    'User-Agent': 'HackOrbit-Website/1.0',
+    ...(token ? { Authorization: `Bearer ${token}` } : {}),
+  }
+
   try {
-    const res = await fetch(`${baseUrl}/api/github/${github}`, {
-      next: { revalidate: 300 },
-    })
-    if (!res.ok) return { data: null, error: 'Could not load GitHub data.' }
-    const data = await res.json()
+    const [commitsRes, prsRes, mergedRes] = await Promise.allSettled([
+      fetch(
+        `https://api.github.com/search/commits?q=author:${github}+org:${GITHUB_ORG}&per_page=1`,
+        { headers, next: { revalidate: 300 } }
+      ),
+      fetch(
+        `https://api.github.com/search/issues?q=author:${github}+org:${GITHUB_ORG}+type:pr&per_page=1`,
+        { headers, next: { revalidate: 300 } }
+      ),
+      fetch(
+        `https://api.github.com/search/issues?q=author:${github}+org:${GITHUB_ORG}+type:pr+is:merged&per_page=1`,
+        { headers, next: { revalidate: 300 } }
+      ),
+    ])
+
+    const parse = async (settled) => {
+      if (settled.status !== 'fulfilled') return 0
+      if (!settled.value.ok) {
+        console.warn('[ProfilePage] GitHub API non-OK:', settled.value.status)
+        return 0
+      }
+      const json = await settled.value.json().catch(() => ({}))
+      return json.total_count ?? 0
+    }
+
+    const data = {
+      commitCount: await parse(commitsRes),
+      prCount: await parse(prsRes),
+      mergedPrCount: await parse(mergedRes),
+    }
+
+    console.log(`[ProfilePage] GitHub contributions:`, data)
     return { data, error: null }
-  } catch {
+  } catch (err) {
+    console.error('[ProfilePage] GitHub fetch error:', err)
     return { data: null, error: 'GitHub API unavailable.' }
   }
 }
@@ -226,46 +258,53 @@ async function getGitHubContributions(github) {
 // ─── Metadata ────────────────────────────────────────────────────────────────
 
 export async function generateMetadata({ params }) {
-  const { id } = params
-  try {
-    const user = await getUserById(id)
-    if (!user) return { title: 'Profile Not Found | Hack Orbit' }
-    return {
-      title: `${user.name} (${user.id}) | Hack Orbit`,
-      description: `${user.name}'s Hack Orbit developer identity. Skills: ${user.skills}`,
-      openGraph: {
-        title: `${user.name} — Orbit Identity`,
-        description: `${user.name}'s Hack Orbit developer profile · ${user.id}`,
-        url: `https://hackorbitglobal.vercel.app/u/${user.id}`,
-        siteName: 'Hack Orbit',
-      },
-    }
-  } catch {
-    return { title: 'Orbit Identity | Hack Orbit' }
+  const id = (params.id || '').toUpperCase()
+  const { user } = await fetchUserById(id)
+  if (!user) return { title: 'Profile Not Found | Hack Orbit' }
+  return {
+    title: `${user.name} (${user.id}) | Hack Orbit`,
+    description: `${user.name}'s Hack Orbit developer identity. Skills: ${user.skills}`,
+    openGraph: {
+      title: `${user.name} — Orbit Identity`,
+      description: `${user.name}'s Hack Orbit developer profile · ${user.id}`,
+      url: `https://hackorbitglobal.vercel.app/u/${user.id}`,
+      siteName: 'Hack Orbit',
+    },
   }
 }
 
 // ─── Page Component ───────────────────────────────────────────────────────────
 
 export default async function ProfilePage({ params }) {
-  const { id } = params
+  const id = (params.id || '').toUpperCase()
+
+  console.log(`[ProfilePage] Rendering profile for ID: "${id}"`)
 
   // Validate format before hitting DB
-  if (!id || !/^HO-[A-Z0-9]{4}$/i.test(id)) {
+  if (!id || !/^HO-[A-Z0-9]{4}$/.test(id)) {
+    console.warn(`[ProfilePage] Invalid ID format: "${id}"`)
     notFound()
   }
 
-  let user
-  try {
-    user = await getUserById(id.toUpperCase())
-  } catch {
-    // Show error state
+  const { user, error: userError } = await fetchUserById(id)
+
+  if (userError) {
+    console.error(`[ProfilePage] Failed to load user "${id}":`, userError)
+    // Show an informative error rather than a blank crash
     return (
       <div className="min-h-screen bg-[#0B0F19] text-gray-100">
         <Navbar />
         <main className="section-padding pt-32 flex items-center justify-center">
-          <div className="text-center space-y-3">
-            <p className="text-gray-500 text-sm">Failed to load profile. Please try again.</p>
+          <div className="text-center max-w-sm space-y-4">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-red-500/25 bg-red-500/10">
+              <span className="w-2 h-2 rounded-full bg-red-400" />
+              <span className="text-red-300 text-xs font-mono">{id}</span>
+            </div>
+            <p className="text-white font-semibold">Could not load profile</p>
+            <p className="text-gray-500 text-sm leading-relaxed">{userError}</p>
+            <a href="/" className="btn-outline text-sm inline-flex mx-auto">
+              ← Back to Home
+            </a>
           </div>
         </main>
         <Footer />
@@ -273,7 +312,10 @@ export default async function ProfilePage({ params }) {
     )
   }
 
-  if (!user) notFound()
+  if (!user) {
+    console.warn(`[ProfilePage] No user found for ID: "${id}"`)
+    notFound()
+  }
 
   // Fetch GitHub contributions
   const { data: contributions, error: contributionError } = await getGitHubContributions(user.github)
