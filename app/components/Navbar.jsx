@@ -11,6 +11,7 @@ const navLinks = [
   { label: 'Projects', href: '#projects' },
   { label: 'Contribute', href: '#contribute' },
   { label: 'Community', href: '#community' },
+  { label: 'Orbit Identity', href: '/create', isPage: true },
 ]
 
 export default function Navbar() {
@@ -57,12 +58,21 @@ export default function Navbar() {
         <ul className="hidden md:flex items-center gap-1" role="list">
           {navLinks.map((link) => (
             <li key={link.label}>
-              <a
-                href={link.href}
-                className="px-3.5 py-2 rounded-lg text-sm font-medium text-gray-300 hover:text-white hover:bg-white/5 transition-all duration-200"
-              >
-                {link.label}
-              </a>
+              {link.isPage ? (
+                <Link
+                  href={link.href}
+                  className="px-3.5 py-2 rounded-lg text-sm font-medium text-blue-400 hover:text-blue-300 hover:bg-blue-500/8 transition-all duration-200 border border-transparent hover:border-blue-500/20"
+                >
+                  {link.label}
+                </Link>
+              ) : (
+                <a
+                  href={link.href}
+                  className="px-3.5 py-2 rounded-lg text-sm font-medium text-gray-300 hover:text-white hover:bg-white/5 transition-all duration-200"
+                >
+                  {link.label}
+                </a>
+              )}
             </li>
           ))}
         </ul>
@@ -108,13 +118,23 @@ export default function Navbar() {
             <ul className="px-5 pb-5 pt-2 space-y-1" role="list">
               {navLinks.map((link) => (
                 <li key={link.label}>
-                  <a
-                    href={link.href}
-                    onClick={() => setMenuOpen(false)}
-                    className="block px-4 py-3 rounded-xl text-sm font-medium text-gray-300 hover:text-white hover:bg-white/5 transition-all duration-200"
-                  >
-                    {link.label}
-                  </a>
+                  {link.isPage ? (
+                    <Link
+                      href={link.href}
+                      onClick={() => setMenuOpen(false)}
+                      className="block px-4 py-3 rounded-xl text-sm font-medium text-blue-400 hover:text-blue-300 hover:bg-blue-500/8 transition-all duration-200"
+                    >
+                      {link.label}
+                    </Link>
+                  ) : (
+                    <a
+                      href={link.href}
+                      onClick={() => setMenuOpen(false)}
+                      className="block px-4 py-3 rounded-xl text-sm font-medium text-gray-300 hover:text-white hover:bg-white/5 transition-all duration-200"
+                    >
+                      {link.label}
+                    </a>
+                  )}
                 </li>
               ))}
               <li className="pt-2">

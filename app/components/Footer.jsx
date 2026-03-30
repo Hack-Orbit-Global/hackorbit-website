@@ -45,6 +45,7 @@ const footerLinks = [
   { label: 'Projects', href: '#projects' },
   { label: 'Contribute', href: '#contribute' },
   { label: 'Community', href: '#community' },
+  { label: 'Orbit Identity', href: '/create', isPage: true },
 ]
 
 export default function Footer() {
@@ -82,12 +83,21 @@ export default function Footer() {
             <ul className="flex flex-wrap justify-center md:justify-end gap-x-6 gap-y-2" role="list">
               {footerLinks.map((link) => (
                 <li key={link.label}>
-                  <a
-                    href={link.href}
-                    className="text-gray-400 hover:text-white text-sm transition-colors duration-200"
-                  >
-                    {link.label}
-                  </a>
+                  {link.isPage ? (
+                    <Link
+                      href={link.href}
+                      className="text-blue-400 hover:text-blue-300 text-sm transition-colors duration-200"
+                    >
+                      {link.label}
+                    </Link>
+                  ) : (
+                    <a
+                      href={link.href}
+                      className="text-gray-400 hover:text-white text-sm transition-colors duration-200"
+                    >
+                      {link.label}
+                    </a>
+                  )}
                 </li>
               ))}
             </ul>
