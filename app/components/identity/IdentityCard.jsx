@@ -50,7 +50,7 @@ export default function IdentityCard({ user, contributions, contributionError, q
         className="relative rounded-2xl border border-white/10 bg-[#111827] overflow-hidden"
         style={{ boxShadow: '0 0 0 1px rgba(59,130,246,0.08), 0 8px 40px rgba(0,0,0,0.5)' }}
       >
-        {/* Subtle top glow */}
+        {/* Subtle top glow line */}
         <div
           className="absolute top-0 left-0 right-0 h-px"
           style={{
@@ -65,10 +65,12 @@ export default function IdentityCard({ user, contributions, contributionError, q
         />
 
         <div className="relative p-6 sm:p-8">
-          {/* Header row */}
-          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6">
-            {/* Avatar + ID block */}
-            <div className="flex-1 space-y-3">
+
+          {/* ── Top section: ID info + QR side-by-side ── */}
+          <div className="flex items-start justify-between gap-4">
+
+            {/* Left: ID badge, name, handles */}
+            <div className="flex-1 min-w-0 space-y-3">
               {/* Orbit ID badge */}
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-blue-500/30 bg-blue-500/10">
                 <span className="w-1.5 h-1.5 rounded-full bg-blue-400 animate-pulse" />
@@ -83,7 +85,7 @@ export default function IdentityCard({ user, contributions, contributionError, q
               </h1>
 
               {/* Handles */}
-              <div className="flex flex-wrap gap-3">
+              <div className="flex flex-col sm:flex-row flex-wrap gap-2 sm:gap-3">
                 <a
                   href={`https://github.com/${user.github}`}
                   target="_blank"
@@ -91,28 +93,30 @@ export default function IdentityCard({ user, contributions, contributionError, q
                   className="flex items-center gap-1.5 text-sm text-gray-400 hover:text-white transition-colors duration-200"
                 >
                   <GitHubIcon />
-                  <span>@{user.github}</span>
+                  <span className="truncate">@{user.github}</span>
                 </a>
                 <span className="flex items-center gap-1.5 text-sm text-gray-400">
                   <DiscordIcon />
-                  <span>{user.discord}</span>
+                  <span className="truncate">{user.discord}</span>
                 </span>
               </div>
             </div>
 
-            {/* QR Code */}
-            <div className="flex flex-col items-center gap-2 flex-shrink-0">
-              <div className="p-3 rounded-xl bg-white/5 border border-white/10">
-                <QRCode svgString={qrSvg} size={120} id={user.id} />
+            {/* Right: QR code — always top-right, fixed size */}
+            <div className="flex flex-col items-center gap-1.5 flex-shrink-0">
+              <div className="p-2.5 rounded-xl bg-white border border-white/20"
+                style={{ lineHeight: 0 }}>
+                <QRCode svgString={qrSvg} size={100} id={user.id} />
               </div>
-              <span className="text-xs text-gray-600 font-mono">scan to share</span>
+              <span className="text-[10px] text-gray-600 font-mono tracking-wide">scan · share</span>
             </div>
+
           </div>
 
           {/* Divider */}
           <div className="my-5 border-t border-white/5" />
 
-          {/* Skills */}
+          {/* ── Skills ── */}
           {skills.length > 0 && (
             <div className="space-y-2.5">
               <p className="text-xs font-semibold text-gray-500 uppercase tracking-widest">Skills</p>
@@ -124,7 +128,7 @@ export default function IdentityCard({ user, contributions, contributionError, q
             </div>
           )}
 
-          {/* Footer meta */}
+          {/* ── Footer meta ── */}
           <div className="mt-5 flex items-center justify-between">
             <div className="flex items-center gap-1.5">
               <span className="text-xs text-gray-600">Hack</span>
