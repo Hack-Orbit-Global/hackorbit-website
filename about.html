@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>About Hack Orbit — Core Philosophy & Vision</title>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Merriweather:ital,wght@0,300;0,400;0,700;1,300&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<!-- Google Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+<!-- Favicons -->
+<link rel="icon" type="image/svg+xml" href="/frontend/assets/logo/logo.svg">
+<link class="apple-touch-icon" rel="apple-touch-icon" href="/frontend/assets/logo/logo.svg">
+<!-- Open Graph / SEO -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://hackorbitglobal.vercel.app/">
+<meta property="og:title" content="Hack Orbit — Open Source Engineering Sanctuary">
+<meta property="og:description" content="High-fidelity sanctuary for open-source engineering excellence. Founded by Sabarna Barik.">
+<meta property="og:image" content="https://hackorbitglobal.vercel.app/frontend/assets/images/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="stylesheet" href="/frontend/css/styles.css">
+
+  <meta name="description" content="Learn about the origin of Hack Orbit, founded by Sabarna Barik, and discover our core principles of framework-free performance and developer sovereignty.">
+</head>
+<body class="bg-surface-base font-body-md text-on-surface grid-bg min-h-screen">
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+  
+  <header class="header-nav">
+  <div class="header-container">
+    <a href="/index.html" class="header-logo">
+      <img src="/frontend/assets/logo/logo.svg" alt="Hack Orbit Logo" style="width: 32px; height: 32px;">
+      <span class="header-logo-text">Hack Orbit</span>
+    </a>
+    
+    <nav class="nav-menu" aria-label="Primary Navigation">
+      <a href="/index.html" class="nav-item" data-path="home">Home</a>
+      <a href="/about.html" class="nav-item" data-path="about">About</a>
+      <a href="/projects.html" class="nav-item" data-path="projects">Projects</a>
+      <a href="/contribute.html" class="nav-item" data-path="contribute">Contribute</a>
+      <a href="/contact.html" class="nav-item" data-path="contact">Contact</a>
+    </nav>
+    
+    <div class="header-actions">
+      <a href="/join.html" class="btn btn-primary" style="padding: var(--spacing-2) var(--spacing-4); font-size: 0.8125rem;">Join Hack Orbit</a>
+      <a href="/settings.html" class="user-avatar-btn" aria-label="Account Settings" id="nav-avatar-btn" style="display: none;">
+        <span class="material-symbols-outlined">person</span>
+      </a>
+      <button class="mobile-toggle" aria-label="Toggle menu" id="mobile-drawer-toggle">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Mobile Navigation Drawer -->
+<div class="drawer-overlay" id="mobile-drawer-overlay"></div>
+<div class="drawer" id="mobile-drawer" role="dialog" aria-modal="true" aria-label="Mobile Navigation">
+  <div class="flex justify-between items-center" style="margin-bottom: var(--spacing-8);">
+    <span class="text-mono font-semibold text-primary" style="letter-spacing: 0.1em;">NAVIGATION</span>
+    <button class="mobile-toggle" aria-label="Close menu" id="mobile-drawer-close" style="display: flex;">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="18" y1="6" x2="6" y2="18"></line>
+        <line x1="6" y1="6" x2="18" y2="18"></line>
+      </svg>
+    </button>
+  </div>
+  <nav class="flex flex-col gap-6" aria-label="Mobile Primary Navigation">
+    <a href="/index.html" class="nav-item">Home</a>
+    <a href="/about.html" class="nav-item">About</a>
+    <a href="/projects.html" class="nav-item">Projects</a>
+    <a href="/contribute.html" class="nav-item">Contribute</a>
+    <a href="/contact.html" class="nav-item">Contact</a>
+    <a href="/join.html" class="btn btn-primary" style="margin-top: var(--spacing-4);">Join Hack Orbit</a>
+  </nav>
+</div>
+
+
+  <main id="main-content" class="w-full pt-16 bg-transparent relative z-10">
+    <div class="flex flex-col w-full overflow-hidden">
+      
+      <!-- About Hero -->
+      <section class="relative py-24 overflow-hidden">
+        <div class="container relative z-10">
+          <div style="max-width: 800px; display: flex; flex-direction: column; gap: var(--spacing-6);">
+            <div class="flex items-center gap-3 px-3 py-1 bg-primary/10 border-l-2 border-primary" style="width: fit-content;">
+              <span class="text-mono text-primary uppercase font-semibold" style="font-size: var(--text-label-sm); letter-spacing: 0.2em;">Genesis // Whitepaper</span>
+            </div>
+            
+            <h1 class="text-text-primary uppercase" style="font-size: clamp(3rem, 7vw, 4.5rem); leading-trim: both; line-height: 0.95;">
+              The Genesis of <br/>
+              <span class="text-primary font-italic">Hack Orbit.</span>
+            </h1>
+            
+            <p class="text-muted" style="font-size: var(--text-body-lg); line-height: 1.6;">
+              Hack Orbit was founded to establish a sanctuary for developer sovereignty, zero-cost abstraction, and verifiable open-source contribution tracking.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- The Triumvirate Section -->
+      <section class="py-24 bg-surface" style="border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border);">
+        <div class="container">
+          <div class="flex flex-col md:flex-row justify-between items-end gap-8 mb-16">
+            <div>
+              <span class="text-mono text-primary uppercase font-semibold" style="font-size: var(--text-label-sm); letter-spacing: 0.1em; display: block;">THE TRIUMVIRATE</span>
+              <h2>Mission, Vision, and Philosophy</h2>
+            </div>
+            <div class="text-mono text-muted" style="font-size: var(--text-label-sm);">// STITCH PROTOCOL</div>
+          </div>
+
+          <div class="grid grid-cols-1 grid-md-3 gap-8">
+            <!-- Mission -->
+            <div class="bento-card">
+              <div>
+                <span class="card-num">// 01</span>
+                <h3 class="text-text-primary" style="margin-bottom: var(--spacing-4);">Our Mission</h3>
+                <p class="text-muted" style="font-size: var(--text-body-md);">
+                  To champion technical excellence and build resilient systems that perform under any load. We eliminate bloated runtimes and focus on native hardware execution.
+                </p>
+              </div>
+            </div>
+
+            <!-- Vision -->
+            <div class="bento-card">
+              <div>
+                <span class="card-num">// 02</span>
+                <h3 class="text-text-primary" style="margin-bottom: var(--spacing-4);">The Vision</h3>
+                <p class="text-muted" style="font-size: var(--text-body-md);">
+                  A completely decentralized contributor network where proof-of-work is cryptographically secure, visible, and permanently stored on a public ledger.
+                </p>
+              </div>
+            </div>
+
+            <!-- Philosophy -->
+            <div class="bento-card">
+              <div>
+                <span class="card-num">// 03</span>
+                <h3 class="text-text-primary" style="margin-bottom: var(--spacing-4);">Core Philosophy</h3>
+                <p class="text-muted" style="font-size: var(--text-body-md);">
+                  Technology neutrality. Developers should pick the absolute best tool: Go for distributed web, Rust for systems, Python for AI, and Vanilla Web for lightning performance.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Founder Portrait Detail -->
+      <section class="py-24 bg-surface-base">
+        <div class="container">
+          <div class="flex flex-col lg:flex-row items-center gap-20">
+            
+            <!-- Orbit rings with local founder.jpg -->
+            <div class="founder-orbit-container">
+              <div class="orbit-ring-1"></div>
+              <div class="orbit-ring-2"></div>
+              <div class="founder-img-wrapper">
+                <img src="/frontend/assets/images/founder.jpg" alt="Sabarna Barik Portrait" class="founder-img">
+              </div>
+              <div class="founder-badge">FOUNDER</div>
+            </div>
+
+            <!-- Bio -->
+            <div style="flex-grow: 1;">
+              <span class="text-mono text-primary uppercase font-semibold" style="font-size: var(--text-label-sm); letter-spacing: 0.15em; margin-bottom: var(--spacing-4); display: block;">About the Founder</span>
+              <h2 style="margin-bottom: var(--spacing-6);">Sabarna Barik</h2>
+              <div style="display: flex; flex-direction: column; gap: var(--spacing-6); max-width: 650px;">
+                <p style="font-size: var(--text-body-lg); line-height: 1.7;">
+                  Hack Orbit was conceptualized by Sabarna Barik, an advocate for performance engineering and high-fidelity product design. Disillusioned by modern software engineering patterns that favor convenience over efficiency, Sabarna set out to build an ecosystem that rewards raw merit and architectural purity.
+                </p>
+                <p class="text-muted" style="font-size: var(--text-body-md);">
+                  "Our goal is to build things that last. By connecting GitHub pipelines directly to digital credentials, we ensure that every line of code committed is recognized and verifiable indefinitely."
+                </p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- Non-functional specs -->
+      <section class="py-24 bg-surface" style="border-top: 1px solid var(--color-border);">
+        <div class="container">
+          <div style="max-width: 650px; margin-bottom: var(--spacing-12);">
+            <span class="text-mono text-primary uppercase font-semibold" style="font-size: var(--text-label-sm); letter-spacing: 0.1em; display: block;">Technical Architecture</span>
+            <h2>Our Non-Functional Requirements (NFRs)</h2>
+          </div>
+
+          <div class="grid grid-cols-1 grid-md-3 gap-8">
+            <div style="background-color: var(--color-surface-elevated); padding: var(--spacing-8); border: 1px solid var(--color-border); border-radius: var(--radius-md);">
+              <span class="material-symbols-outlined text-primary" style="font-size: 36px; margin-bottom: var(--spacing-4);">speed</span>
+              <h3 style="margin-bottom: var(--spacing-2);">100/100 Lighthouse</h3>
+              <p class="text-muted">
+                Pre-rendered static HTML structures combined with highly optimized serverless API nodes. Zero heavy hydration or layout shift.
+              </p>
+            </div>
+
+            <div style="background-color: var(--color-surface-elevated); padding: var(--spacing-8); border: 1px solid var(--color-border); border-radius: var(--radius-md);">
+              <span class="material-symbols-outlined text-primary" style="font-size: 36px; margin-bottom: var(--spacing-4);">shield</span>
+              <h3 style="margin-bottom: var(--spacing-2);">Sovereign Identity</h3>
+              <p class="text-muted">
+                Your contributions are tied to a cryptographically verifiable public record, independent of proprietary platforms.
+              </p>
+            </div>
+
+            <div style="background-color: var(--color-surface-elevated); padding: var(--spacing-8); border: 1px solid var(--color-border); border-radius: var(--radius-md);">
+              <span class="material-symbols-outlined text-primary" style="font-size: 36px; margin-bottom: var(--spacing-4);">accessibility</span>
+              <h3 style="margin-bottom: var(--spacing-2);">Universal Access</h3>
+              <p class="text-muted">
+                Strict WCAG 2.1 AA keyboard nav, semantic landmarks, aria labels, and optimal high-contrast readability.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <footer class="footer">
+  <div class="container">
+    <div class="grid grid-cols-1 grid-md-4 gap-12" style="margin-bottom: var(--spacing-12);">
+      <div style="grid-column: span 2;">
+        <div style="display: flex; align-items: center; gap: var(--spacing-3); margin-bottom: var(--spacing-6);">
+          <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDWycOvulFmz0SEEjp4teX6QpeEHhsUYVdSQweqTRJggwL2LqlvakKMqDRC6CWdIF9ClUDW5DJ8xQI-6GF69Q5bqQrRLqDF1gJqdx6xpIQP2U7lJvDEexXQgcChMRvhdOjzD9XPBKXrCx1BJ08tZr1Olr1Gsz2tcA3vlRXz4VKPeqd0IX_eYdU1YHPhxHtNi5M5bm-Hbu6qdcV2wgRJACllHP7ZpHTSXX1aS0mec1Q9MIMz9X0_x3G_pBMtgSSGRPp0OzRohOlVqTXd" alt="Hack Orbit Logo" style="height: 24px; width: auto;">
+          <span style="font-family: var(--font-headline); font-weight: 700; color: var(--color-text-primary); letter-spacing: 0.1em; text-transform: uppercase;">Hack Orbit</span>
+        </div>
+        <p class="text-muted" style="max-width: 400px; margin-bottom: var(--spacing-4); font-size: var(--text-body-md);">
+          Advancing the frontier of open-source engineering and orbital connection. Empowering creators through technical noir elegance.
+        </p>
+        <p class="text-mono" style="font-size: var(--text-label-sm); color: var(--color-on-surface-variant); opacity: 0.6;">
+          Founded by Sabarna Barik
+        </p>
+      </div>
+      
+      <div class="flex flex-col gap-4">
+        <h4 class="text-mono text-primary font-semibold uppercase" style="letter-spacing: 0.05em; margin-bottom: var(--spacing-2);">SYSTEM</h4>
+        <a href="/about.html" class="nav-item">Documentation</a>
+        <a href="/projects.html" class="nav-item">Architecture</a>
+        <a href="/verify.html" class="nav-item">Verification</a>
+      </div>
+      
+      <div class="flex flex-col gap-4">
+        <h4 class="text-mono text-primary font-semibold uppercase" style="letter-spacing: 0.05em; margin-bottom: var(--spacing-2);">COMMUNITY</h4>
+        <a href="/join.html" class="nav-item">Join Us</a>
+        <a href="/contribute.html" class="nav-item">Contribute</a>
+        <a href="/contact.html" class="nav-item">Contact</a>
+      </div>
+    </div>
+    
+    <div style="border-top: 1px solid rgba(255, 255, 255, 0.05); padding-top: var(--spacing-8); display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--spacing-4); font-size: var(--text-label-sm);" class="text-mono text-muted">
+      <span>© 2026 HACK ORBIT. ALL SYSTEMS OPERATIONAL.</span>
+      <span class="text-primary">SABARNA BARIK — FOUNDER</span>
+    </div>
+  </div>
+</footer>
+<script type="module" src="/frontend/js/main.js"></script>
+
+</body>
+</html>

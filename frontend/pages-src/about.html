@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>About Hack Orbit — Core Philosophy & Vision</title>
+  {{include:head}}
+  <meta name="description" content="Learn about the origin of Hack Orbit, founded by Sabarna Barik, and discover our core principles of framework-free performance and developer sovereignty.">
+</head>
+<body class="bg-surface-base font-body-md text-on-surface grid-bg min-h-screen">
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+  
+  {{include:nav}}
+
+  <main id="main-content" class="w-full pt-16 bg-transparent relative z-10">
+    <div class="flex flex-col w-full overflow-hidden">
+      
+      <!-- About Hero -->
+      <section class="relative py-24 overflow-hidden">
+        <div class="container relative z-10">
+          <div style="max-width: 800px; display: flex; flex-direction: column; gap: var(--spacing-6);">
+            <div class="flex items-center gap-3 px-3 py-1 bg-primary/10 border-l-2 border-primary" style="width: fit-content;">
+              <span class="text-mono text-primary uppercase font-semibold" style="font-size: var(--text-label-sm); letter-spacing: 0.2em;">Genesis // Whitepaper</span>
+            </div>
+            
+            <h1 class="text-text-primary uppercase" style="font-size: clamp(3rem, 7vw, 4.5rem); leading-trim: both; line-height: 0.95;">
+              The Genesis of <br/>
+              <span class="text-primary font-italic">Hack Orbit.</span>
+            </h1>
+            
+            <p class="text-muted" style="font-size: var(--text-body-lg); line-height: 1.6;">
+              Hack Orbit was founded to establish a sanctuary for developer sovereignty, zero-cost abstraction, and verifiable open-source contribution tracking.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- The Triumvirate Section -->
+      <section class="py-24 bg-surface" style="border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border);">
+        <div class="container">
+          <div class="flex flex-col md:flex-row justify-between items-end gap-8 mb-16">
+            <div>
+              <span class="text-mono text-primary uppercase font-semibold" style="font-size: var(--text-label-sm); letter-spacing: 0.1em; display: block;">THE TRIUMVIRATE</span>
+              <h2>Mission, Vision, and Philosophy</h2>
+            </div>
+            <div class="text-mono text-muted" style="font-size: var(--text-label-sm);">// STITCH PROTOCOL</div>
+          </div>
+
+          <div class="grid grid-cols-1 grid-md-3 gap-8">
+            <!-- Mission -->
+            <div class="bento-card">
+              <div>
+                <span class="card-num">// 01</span>
+                <h3 class="text-text-primary" style="margin-bottom: var(--spacing-4);">Our Mission</h3>
+                <p class="text-muted" style="font-size: var(--text-body-md);">
+                  To champion technical excellence and build resilient systems that perform under any load. We eliminate bloated runtimes and focus on native hardware execution.
+                </p>
+              </div>
+            </div>
+
+            <!-- Vision -->
+            <div class="bento-card">
+              <div>
+                <span class="card-num">// 02</span>
+                <h3 class="text-text-primary" style="margin-bottom: var(--spacing-4);">The Vision</h3>
+                <p class="text-muted" style="font-size: var(--text-body-md);">
+                  A completely decentralized contributor network where proof-of-work is cryptographically secure, visible, and permanently stored on a public ledger.
+                </p>
+              </div>
+            </div>
+
+            <!-- Philosophy -->
+            <div class="bento-card">
+              <div>
+                <span class="card-num">// 03</span>
+                <h3 class="text-text-primary" style="margin-bottom: var(--spacing-4);">Core Philosophy</h3>
+                <p class="text-muted" style="font-size: var(--text-body-md);">
+                  Technology neutrality. Developers should pick the absolute best tool: Go for distributed web, Rust for systems, Python for AI, and Vanilla Web for lightning performance.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Founder Portrait Detail -->
+      <section class="py-24 bg-surface-base">
+        <div class="container">
+          <div class="flex flex-col lg:flex-row items-center gap-20">
+            
+            <!-- Orbit rings with local founder.jpg -->
+            <div class="founder-orbit-container">
+              <div class="orbit-ring-1"></div>
+              <div class="orbit-ring-2"></div>
+              <div class="founder-img-wrapper">
+                <img src="/frontend/assets/images/founder.jpg" alt="Sabarna Barik Portrait" class="founder-img">
+              </div>
+              <div class="founder-badge">FOUNDER</div>
+            </div>
+
+            <!-- Bio -->
+            <div style="flex-grow: 1;">
+              <span class="text-mono text-primary uppercase font-semibold" style="font-size: var(--text-label-sm); letter-spacing: 0.15em; margin-bottom: var(--spacing-4); display: block;">About the Founder</span>
+              <h2 style="margin-bottom: var(--spacing-6);">Sabarna Barik</h2>
+              <div style="display: flex; flex-direction: column; gap: var(--spacing-6); max-width: 650px;">
+                <p style="font-size: var(--text-body-lg); line-height: 1.7;">
+                  Hack Orbit was conceptualized by Sabarna Barik, an advocate for performance engineering and high-fidelity product design. Disillusioned by modern software engineering patterns that favor convenience over efficiency, Sabarna set out to build an ecosystem that rewards raw merit and architectural purity.
+                </p>
+                <p class="text-muted" style="font-size: var(--text-body-md);">
+                  "Our goal is to build things that last. By connecting GitHub pipelines directly to digital credentials, we ensure that every line of code committed is recognized and verifiable indefinitely."
+                </p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- Non-functional specs -->
+      <section class="py-24 bg-surface" style="border-top: 1px solid var(--color-border);">
+        <div class="container">
+          <div style="max-width: 650px; margin-bottom: var(--spacing-12);">
+            <span class="text-mono text-primary uppercase font-semibold" style="font-size: var(--text-label-sm); letter-spacing: 0.1em; display: block;">Technical Architecture</span>
+            <h2>Our Non-Functional Requirements (NFRs)</h2>
+          </div>
+
+          <div class="grid grid-cols-1 grid-md-3 gap-8">
+            <div style="background-color: var(--color-surface-elevated); padding: var(--spacing-8); border: 1px solid var(--color-border); border-radius: var(--radius-md);">
+              <span class="material-symbols-outlined text-primary" style="font-size: 36px; margin-bottom: var(--spacing-4);">speed</span>
+              <h3 style="margin-bottom: var(--spacing-2);">100/100 Lighthouse</h3>
+              <p class="text-muted">
+                Pre-rendered static HTML structures combined with highly optimized serverless API nodes. Zero heavy hydration or layout shift.
+              </p>
+            </div>
+
+            <div style="background-color: var(--color-surface-elevated); padding: var(--spacing-8); border: 1px solid var(--color-border); border-radius: var(--radius-md);">
+              <span class="material-symbols-outlined text-primary" style="font-size: 36px; margin-bottom: var(--spacing-4);">shield</span>
+              <h3 style="margin-bottom: var(--spacing-2);">Sovereign Identity</h3>
+              <p class="text-muted">
+                Your contributions are tied to a cryptographically verifiable public record, independent of proprietary platforms.
+              </p>
+            </div>
+
+            <div style="background-color: var(--color-surface-elevated); padding: var(--spacing-8); border: 1px solid var(--color-border); border-radius: var(--radius-md);">
+              <span class="material-symbols-outlined text-primary" style="font-size: 36px; margin-bottom: var(--spacing-4);">accessibility</span>
+              <h3 style="margin-bottom: var(--spacing-2);">Universal Access</h3>
+              <p class="text-muted">
+                Strict WCAG 2.1 AA keyboard nav, semantic landmarks, aria labels, and optimal high-contrast readability.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  {{include:footer}}
+</body>
+</html>

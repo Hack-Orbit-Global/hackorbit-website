@@ -1,0 +1,29 @@
+# Dependencies
+node_modules/
+
+# Built-in vercel and build directories
+.vercel/
+
+# Design prototypes & references
+design-prototypes/
+
+# Documentation
+docs/
+
+# Large temporary files
+website me img.png
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.webp
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS Files
+.DS_Store
+Thumbs.db

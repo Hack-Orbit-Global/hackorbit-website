@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Contact — Hack Orbit Channel</title>
+  {{include:head}}
+  <meta name="description" content="Get in touch with Hack Orbit. Send inquiries, project proposal requests, or community alignment questions directly to our team.">
+</head>
+<body class="bg-surface-base font-body-md text-on-surface grid-bg min-h-screen">
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+  
+  {{include:nav}}
+
+  <main id="main-content" class="w-full pt-24 pb-32 bg-transparent relative z-10">
+    <div class="container" style="max-width: 600px;">
+      
+      <header style="margin-bottom: var(--spacing-12); text-align: center;">
+        <span class="text-mono text-primary uppercase font-semibold" style="font-size: var(--text-label-sm); letter-spacing: 0.25em;">// Direct Uplink</span>
+        <h1 style="margin-top: var(--spacing-2); margin-bottom: var(--spacing-4); text-transform: uppercase;">Contact Admin</h1>
+        <p class="text-muted" style="font-size: var(--text-body-md);">
+          Establish contact with Hack Orbit coordinators. Submit queries, organizational alliances, or proposal reviews.
+        </p>
+      </header>
+
+      <div class="bento-card" style="padding: var(--spacing-8);">
+        <form id="contact-form">
+          <div class="form-group">
+            <label class="form-label" for="name">Identifier // Name</label>
+            <input class="form-input" type="text" id="name" name="name" required autocomplete="name" placeholder="e.g. Ash Vane">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="email">Uplink Address // Email</label>
+            <input class="form-input" type="email" id="email" name="email" required autocomplete="email" placeholder="e.g. ash@domain.com">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="message">Transmission Content // Message</label>
+            <textarea class="form-input" id="message" name="message" rows="5" required autocomplete="off" placeholder="Describe your inquiry or proposal..." style="resize: vertical; font-family: var(--font-body);"></textarea>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-arrow" style="width: 100%; margin-top: var(--spacing-4);">
+            Send Transmission <span class="material-symbols-outlined">send</span>
+          </button>
+        </form>
+
+        <!-- In-page submission result — shown after submit instead of alert() -->
+        <div id="contact-result" style="display:none; margin-top: var(--spacing-6); padding: var(--spacing-4) var(--spacing-6); border-radius: var(--radius-sm); border: 1px solid; font-family: var(--font-mono); font-size: var(--text-label-sm); letter-spacing: 0.05em;"></div>
+
+      </div>
+
+    </div>
+  </main>
+
+  <script>
+    document.getElementById('contact-form')?.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const result = document.getElementById('contact-result');
+      result.style.display = 'block';
+      result.style.backgroundColor = 'rgba(105, 222, 131, 0.08)';
+      result.style.borderColor = 'rgba(105, 222, 131, 0.35)';
+      result.style.color = 'var(--color-secondary)';
+      result.innerHTML = '&#10003; TRANSMISSION QUEUED &mdash; Forms will connect to the Apps Script relay endpoint in the next deployment milestone.';
+      // Disable submit to prevent double-sends
+      const btn = e.target.querySelector('button[type="submit"]');
+      btn.disabled = true;
+      btn.style.opacity = '0.5';
+    });
+  </script>
+
+  {{include:footer}}
+</body>
+</html>

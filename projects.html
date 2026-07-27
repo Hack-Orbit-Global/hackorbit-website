@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Active Repositories — Hack Orbit Projects</title>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Merriweather:ital,wght@0,300;0,400;0,700;1,300&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<!-- Google Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+<!-- Favicons -->
+<link rel="icon" type="image/svg+xml" href="/frontend/assets/logo/logo.svg">
+<link class="apple-touch-icon" rel="apple-touch-icon" href="/frontend/assets/logo/logo.svg">
+<!-- Open Graph / SEO -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://hackorbitglobal.vercel.app/">
+<meta property="og:title" content="Hack Orbit — Open Source Engineering Sanctuary">
+<meta property="og:description" content="High-fidelity sanctuary for open-source engineering excellence. Founded by Sabarna Barik.">
+<meta property="og:image" content="https://hackorbitglobal.vercel.app/frontend/assets/images/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="stylesheet" href="/frontend/css/styles.css">
+
+  <meta name="description" content="Explore active official and community-driven projects under the Hack Orbit collective, including Void DB, Aether Core, and Nova UI.">
+</head>
+<body class="bg-surface-base font-body-md text-on-surface grid-bg min-h-screen">
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+  
+  <header class="header-nav">
+  <div class="header-container">
+    <a href="/index.html" class="header-logo">
+      <img src="/frontend/assets/logo/logo.svg" alt="Hack Orbit Logo" style="width: 32px; height: 32px;">
+      <span class="header-logo-text">Hack Orbit</span>
+    </a>
+    
+    <nav class="nav-menu" aria-label="Primary Navigation">
+      <a href="/index.html" class="nav-item" data-path="home">Home</a>
+      <a href="/about.html" class="nav-item" data-path="about">About</a>
+      <a href="/projects.html" class="nav-item" data-path="projects">Projects</a>
+      <a href="/contribute.html" class="nav-item" data-path="contribute">Contribute</a>
+      <a href="/contact.html" class="nav-item" data-path="contact">Contact</a>
+    </nav>
+    
+    <div class="header-actions">
+      <a href="/join.html" class="btn btn-primary" style="padding: var(--spacing-2) var(--spacing-4); font-size: 0.8125rem;">Join Hack Orbit</a>
+      <a href="/settings.html" class="user-avatar-btn" aria-label="Account Settings" id="nav-avatar-btn" style="display: none;">
+        <span class="material-symbols-outlined">person</span>
+      </a>
+      <button class="mobile-toggle" aria-label="Toggle menu" id="mobile-drawer-toggle">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Mobile Navigation Drawer -->
+<div class="drawer-overlay" id="mobile-drawer-overlay"></div>
+<div class="drawer" id="mobile-drawer" role="dialog" aria-modal="true" aria-label="Mobile Navigation">
+  <div class="flex justify-between items-center" style="margin-bottom: var(--spacing-8);">
+    <span class="text-mono font-semibold text-primary" style="letter-spacing: 0.1em;">NAVIGATION</span>
+    <button class="mobile-toggle" aria-label="Close menu" id="mobile-drawer-close" style="display: flex;">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="18" y1="6" x2="6" y2="18"></line>
+        <line x1="6" y1="6" x2="18" y2="18"></line>
+      </svg>
+    </button>
+  </div>
+  <nav class="flex flex-col gap-6" aria-label="Mobile Primary Navigation">
+    <a href="/index.html" class="nav-item">Home</a>
+    <a href="/about.html" class="nav-item">About</a>
+    <a href="/projects.html" class="nav-item">Projects</a>
+    <a href="/contribute.html" class="nav-item">Contribute</a>
+    <a href="/contact.html" class="nav-item">Contact</a>
+    <a href="/join.html" class="btn btn-primary" style="margin-top: var(--spacing-4);">Join Hack Orbit</a>
+  </nav>
+</div>
+
+
+  <main id="main-content" class="w-full pt-24 pb-32 bg-transparent relative z-10">
+    <div class="container">
+      
+      <header style="margin-bottom: var(--spacing-16); text-align: center;">
+        <span class="text-mono text-primary uppercase font-semibold" style="font-size: var(--text-label-sm); letter-spacing: 0.25em;">// Repository Index</span>
+        <h1 style="margin-top: var(--spacing-2); margin-bottom: var(--spacing-4); text-transform: uppercase;">Active Projects</h1>
+        <p class="text-muted" style="max-width: 600px; margin-left: auto; margin-right: auto; font-size: var(--text-body-lg);">
+          The official open-source codebase registry of Hack Orbit. Filter by status or organization level.
+        </p>
+      </header>
+
+      <!-- Filters -->
+      <div style="display: flex; justify-content: center; gap: var(--spacing-4); margin-bottom: var(--spacing-16); flex-wrap: wrap;">
+        <button class="btn btn-primary btn-filter" data-filter="all">All Projects</button>
+        <button class="btn btn-secondary btn-filter" data-filter="official">Official</button>
+        <button class="btn btn-secondary btn-filter" data-filter="community">Community</button>
+      </div>
+
+      <!-- Grid -->
+      <div class="grid grid-cols-1 grid-md-3 gap-8" id="projects-grid">
+        
+        <!-- Project 1 -->
+        <div class="project-card bento-card" data-type="official" style="padding: 0;">
+          <div class="project-card-image">
+            <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDE6KwLwF3E7DdnCaiI0WcYVZLob7QXvbzQpyOC2z6SiaHwvLBqUy4iiRylWmdElfz_ibW3hXm9wL8V6r8y7gLNg96Oib_SIlA2OQ5gZjV0b186fGb9SsHkNbJcji9KwGJlDUl1kRF1FSqxYy5jK9oMpxAcA1cgVmloTVBACMAw5DoJwFX6rlKI-nvFGIBZNQUtJB385CDUXM-iBRJRieJY40DAX45kDVk40ivBbNDncbktzSc9mRYmu12NauvmwPUBHDVKUNRKRYiI" alt="Aether Core System Graphic">
+            <div class="absolute inset-0 bg-gradient-to-t from-surface-base to-transparent opacity-60"></div>
+            <div class="badge badge-official" style="position: absolute; top: var(--spacing-4); right: var(--spacing-4); background-color: var(--color-primary); color: var(--color-on-primary);">OFFICIAL</div>
+          </div>
+          <div class="project-card-content">
+            <h3 style="margin-bottom: var(--spacing-2);">Aether Core</h3>
+            <p class="text-muted" style="font-size: var(--text-body-md); margin-bottom: var(--spacing-6); flex-grow: 1;">
+              The backbone of the Orbit event layer. A high-throughput, low-latency message broker optimized for edge networks.
+            </p>
+            <div class="flex justify-between items-center" style="border-top: 1px solid var(--color-border); padding-top: var(--spacing-4);">
+              <span class="text-mono" style="font-size: var(--text-label-sm); color: var(--color-primary);">Rust / Go</span>
+              <a href="https://github.com/hackorbit/aether-core" target="_blank" rel="noopener noreferrer" class="text-mono nav-item flex items-center gap-1" style="font-size: var(--text-label-sm);">
+                CODEBASE <span class="material-symbols-outlined" style="font-size: 14px;">open_in_new</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 2 -->
+        <div class="project-card bento-card" data-type="official" style="padding: 0;">
+          <div class="project-card-image">
+            <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDd52RoMailzUhkCIyb-bB98zx_epZj2YRvIFOWEmWsdYGaklYguLA9xltva6GO3HT_sKrp5AL0c63TuBqGg7Su_HL5hVKUr6DT3QFlj2Ytofxn6GMj_Wkjkj6Wxefmfp3Znqnc-D7v1SJZO_mPSOrNULZMcRRX3tM_m6zasGFupYQZBg62Ha1kT3sjSyO8ioNy1ylovFmWSFyIC7bzg1qRcIApJnahwCHh0R7v5wJaazn6BVymMwHG1_L3jelU_DKpje699jnsPuZG" alt="Void DB Storage Graphic">
+            <div class="absolute inset-0 bg-gradient-to-t from-surface-base to-transparent opacity-60"></div>
+            <div class="badge badge-official" style="position: absolute; top: var(--spacing-4); right: var(--spacing-4); background-color: var(--color-primary); color: var(--color-on-primary);">OFFICIAL</div>
+          </div>
+          <div class="project-card-content">
+            <h3 style="margin-bottom: var(--spacing-2);">Void DB</h3>
+            <p class="text-muted" style="font-size: var(--text-body-md); margin-bottom: var(--spacing-6); flex-grow: 1;">
+              An immutable, cryptographic ledger-based storage engine built specifically for tamper-proof audit trails.
+            </p>
+            <div class="flex justify-between items-center" style="border-top: 1px solid var(--color-border); padding-top: var(--spacing-4);">
+              <span class="text-mono" style="font-size: var(--text-label-sm); color: var(--color-primary);">C++</span>
+              <a href="https://github.com/hackorbit/void-db" target="_blank" rel="noopener noreferrer" class="text-mono nav-item flex items-center gap-1" style="font-size: var(--text-label-sm);">
+                CODEBASE <span class="material-symbols-outlined" style="font-size: 14px;">open_in_new</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 3 -->
+        <div class="project-card bento-card" data-type="community" style="padding: 0;">
+          <div class="project-card-image">
+            <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuA_EUbIIqrdwz2C6vRs8T6v9FC4F98itOYashEhCNUXcBs95olPblW0YMwf-hrZwIM8BAJ4RmtYfebd3SJGYvS8GypQQDHv5ffkX2hEHKjD0tOFh7uH-mwmZul4h-QneqYGoiQYwEaGyTeOBPTRUt5D-Gaiuq9Ts3aLmvJ5O5E7HweGKI3ErxY-Aw7NIAANWsgQStA1HCYU1CPIGriy6iZVzSkHiMDYMUhMErMndiP0BCaIJ1tT-9sNBcW-ctIBYdaDsc-qLjfSzn8f" alt="Nova UI Components Graphic">
+            <div class="absolute inset-0 bg-gradient-to-t from-surface-base to-transparent opacity-60"></div>
+            <div class="badge badge-community" style="position: absolute; top: var(--spacing-4); right: var(--spacing-4); background-color: var(--color-secondary); color: var(--color-on-secondary);">COMMUNITY</div>
+          </div>
+          <div class="project-card-content">
+            <h3 style="margin-bottom: var(--spacing-2);">Nova UI</h3>
+            <p class="text-muted" style="font-size: var(--text-body-md); margin-bottom: var(--spacing-6); flex-grow: 1;">
+              A component library designed for high typographic fidelity and absolute fluid accessibility.
+            </p>
+            <div class="flex justify-between items-center" style="border-top: 1px solid var(--color-border); padding-top: var(--spacing-4);">
+              <span class="text-mono" style="font-size: var(--text-label-sm); color: var(--color-primary);">CSS / JS</span>
+              <a href="https://github.com/hackorbit/nova-ui" target="_blank" rel="noopener noreferrer" class="text-mono nav-item flex items-center gap-1" style="font-size: var(--text-label-sm);">
+                CODEBASE <span class="material-symbols-outlined" style="font-size: 14px;">open_in_new</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const filters = document.querySelectorAll('.btn-filter');
+      const cards = document.querySelectorAll('.project-card');
+
+      filters.forEach(filter => {
+        filter.addEventListener('click', () => {
+          const type = filter.getAttribute('data-filter');
+
+          filters.forEach(btn => {
+            btn.classList.remove('btn-primary');
+            btn.classList.add('btn-secondary');
+          });
+          filter.classList.remove('btn-secondary');
+          filter.classList.add('btn-primary');
+
+          cards.forEach(card => {
+            const cardType = card.getAttribute('data-type');
+            if (type === 'all' || cardType === type) {
+              card.style.display = 'flex';
+            } else {
+              card.style.display = 'none';
+            }
+          });
+        });
+      });
+    });
+  </script>
+
+  <footer class="footer">
+  <div class="container">
+    <div class="grid grid-cols-1 grid-md-4 gap-12" style="margin-bottom: var(--spacing-12);">
+      <div style="grid-column: span 2;">
+        <div style="display: flex; align-items: center; gap: var(--spacing-3); margin-bottom: var(--spacing-6);">
+          <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDWycOvulFmz0SEEjp4teX6QpeEHhsUYVdSQweqTRJggwL2LqlvakKMqDRC6CWdIF9ClUDW5DJ8xQI-6GF69Q5bqQrRLqDF1gJqdx6xpIQP2U7lJvDEexXQgcChMRvhdOjzD9XPBKXrCx1BJ08tZr1Olr1Gsz2tcA3vlRXz4VKPeqd0IX_eYdU1YHPhxHtNi5M5bm-Hbu6qdcV2wgRJACllHP7ZpHTSXX1aS0mec1Q9MIMz9X0_x3G_pBMtgSSGRPp0OzRohOlVqTXd" alt="Hack Orbit Logo" style="height: 24px; width: auto;">
+          <span style="font-family: var(--font-headline); font-weight: 700; color: var(--color-text-primary); letter-spacing: 0.1em; text-transform: uppercase;">Hack Orbit</span>
+        </div>
+        <p class="text-muted" style="max-width: 400px; margin-bottom: var(--spacing-4); font-size: var(--text-body-md);">
+          Advancing the frontier of open-source engineering and orbital connection. Empowering creators through technical noir elegance.
+        </p>
+        <p class="text-mono" style="font-size: var(--text-label-sm); color: var(--color-on-surface-variant); opacity: 0.6;">
+          Founded by Sabarna Barik
+        </p>
+      </div>
+      
+      <div class="flex flex-col gap-4">
+        <h4 class="text-mono text-primary font-semibold uppercase" style="letter-spacing: 0.05em; margin-bottom: var(--spacing-2);">SYSTEM</h4>
+        <a href="/about.html" class="nav-item">Documentation</a>
+        <a href="/projects.html" class="nav-item">Architecture</a>
+        <a href="/verify.html" class="nav-item">Verification</a>
+      </div>
+      
+      <div class="flex flex-col gap-4">
+        <h4 class="text-mono text-primary font-semibold uppercase" style="letter-spacing: 0.05em; margin-bottom: var(--spacing-2);">COMMUNITY</h4>
+        <a href="/join.html" class="nav-item">Join Us</a>
+        <a href="/contribute.html" class="nav-item">Contribute</a>
+        <a href="/contact.html" class="nav-item">Contact</a>
+      </div>
+    </div>
+    
+    <div style="border-top: 1px solid rgba(255, 255, 255, 0.05); padding-top: var(--spacing-8); display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--spacing-4); font-size: var(--text-label-sm);" class="text-mono text-muted">
+      <span>© 2026 HACK ORBIT. ALL SYSTEMS OPERATIONAL.</span>
+      <span class="text-primary">SABARNA BARIK — FOUNDER</span>
+    </div>
+  </div>
+</footer>
+<script type="module" src="/frontend/js/main.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Account Settings — Edit Profile</title>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Merriweather:ital,wght@0,300;0,400;0,700;1,300&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<!-- Google Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+<!-- Favicons -->
+<link rel="icon" type="image/svg+xml" href="/frontend/assets/logo/logo.svg">
+<link class="apple-touch-icon" rel="apple-touch-icon" href="/frontend/assets/logo/logo.svg">
+<!-- Open Graph / SEO -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://hackorbitglobal.vercel.app/">
+<meta property="og:title" content="Hack Orbit — Open Source Engineering Sanctuary">
+<meta property="og:description" content="High-fidelity sanctuary for open-source engineering excellence. Founded by Sabarna Barik.">
+<meta property="og:image" content="https://hackorbitglobal.vercel.app/frontend/assets/images/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="stylesheet" href="/frontend/css/styles.css">
+
+  <meta name="description" content="Manage your Hack Orbit profile metadata, edit bio, customize skills, and manage linked OAuth accounts.">
+</head>
+<body class="bg-surface-base font-body-md text-on-surface grid-bg min-h-screen">
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+  
+  <header class="header-nav">
+  <div class="header-container">
+    <a href="/index.html" class="header-logo">
+      <img src="/frontend/assets/logo/logo.svg" alt="Hack Orbit Logo" style="width: 32px; height: 32px;">
+      <span class="header-logo-text">Hack Orbit</span>
+    </a>
+    
+    <nav class="nav-menu" aria-label="Primary Navigation">
+      <a href="/index.html" class="nav-item" data-path="home">Home</a>
+      <a href="/about.html" class="nav-item" data-path="about">About</a>
+      <a href="/projects.html" class="nav-item" data-path="projects">Projects</a>
+      <a href="/contribute.html" class="nav-item" data-path="contribute">Contribute</a>
+      <a href="/contact.html" class="nav-item" data-path="contact">Contact</a>
+    </nav>
+    
+    <div class="header-actions">
+      <a href="/join.html" class="btn btn-primary" style="padding: var(--spacing-2) var(--spacing-4); font-size: 0.8125rem;">Join Hack Orbit</a>
+      <a href="/settings.html" class="user-avatar-btn" aria-label="Account Settings" id="nav-avatar-btn" style="display: none;">
+        <span class="material-symbols-outlined">person</span>
+      </a>
+      <button class="mobile-toggle" aria-label="Toggle menu" id="mobile-drawer-toggle">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Mobile Navigation Drawer -->
+<div class="drawer-overlay" id="mobile-drawer-overlay"></div>
+<div class="drawer" id="mobile-drawer" role="dialog" aria-modal="true" aria-label="Mobile Navigation">
+  <div class="flex justify-between items-center" style="margin-bottom: var(--spacing-8);">
+    <span class="text-mono font-semibold text-primary" style="letter-spacing: 0.1em;">NAVIGATION</span>
+    <button class="mobile-toggle" aria-label="Close menu" id="mobile-drawer-close" style="display: flex;">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="18" y1="6" x2="6" y2="18"></line>
+        <line x1="6" y1="6" x2="18" y2="18"></line>
+      </svg>
+    </button>
+  </div>
+  <nav class="flex flex-col gap-6" aria-label="Mobile Primary Navigation">
+    <a href="/index.html" class="nav-item">Home</a>
+    <a href="/about.html" class="nav-item">About</a>
+    <a href="/projects.html" class="nav-item">Projects</a>
+    <a href="/contribute.html" class="nav-item">Contribute</a>
+    <a href="/contact.html" class="nav-item">Contact</a>
+    <a href="/join.html" class="btn btn-primary" style="margin-top: var(--spacing-4);">Join Hack Orbit</a>
+  </nav>
+</div>
+
+
+  <main id="main-content" class="w-full pt-24 pb-32 bg-transparent relative z-10">
+    <div class="container" style="max-width: 650px;">
+      
+      <header style="margin-bottom: var(--spacing-12);">
+        <span class="text-mono text-primary uppercase font-semibold" style="font-size: var(--text-label-sm); letter-spacing: 0.25em;">// Profile Manager</span>
+        <h1 style="margin-top: var(--spacing-2); margin-bottom: var(--spacing-4); text-transform: uppercase;">Account Settings</h1>
+        <p class="text-muted" style="font-size: var(--text-body-md);">
+          Modify your signature coordinates, biography, skills index, and bound social identifiers.
+        </p>
+      </header>
+
+      <div class="bento-card" style="margin-bottom: var(--spacing-8); padding: var(--spacing-8);">
+        <h2 style="font-size: 1.25rem; margin-bottom: var(--spacing-6); border-bottom: 1px solid var(--color-border); padding-bottom: var(--spacing-2); text-transform: uppercase;">Profile Coordinates</h2>
+        <form id="profile-settings-form">
+          <div class="form-group">
+            <label class="form-label" for="settings-display-name">Signature Name</label>
+            <input class="form-input" type="text" id="settings-display-name" name="name" autocomplete="name" required placeholder="e.g. Ash Vane">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="settings-avatar-url">Avatar Image URL</label>
+            <input class="form-input text-mono" type="url" id="settings-avatar-url" name="avatar" autocomplete="photo" placeholder="https://...">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="settings-bio">Biography // Logs</label>
+            <textarea class="form-input" id="settings-bio" name="bio" autocomplete="off" rows="4" placeholder="Brief technical bio..." style="resize: vertical; font-family: var(--font-body);"></textarea>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="settings-skills">Technology Index (comma separated)</label>
+            <input class="form-input" type="text" id="settings-skills" name="skills" autocomplete="off" placeholder="e.g. Rust, Go, TypeScript">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="settings-linkedin">LinkedIn Coordinates (optional)</label>
+            <input class="form-input text-mono" type="url" id="settings-linkedin" name="linkedin" autocomplete="url" placeholder="https://linkedin.com/in/...">
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-arrow" style="width: 100%; margin-top: var(--spacing-4);">
+            Commit Changes <span class="material-symbols-outlined">save</span>
+          </button>
+        </form>
+
+        <div id="settings-result" style="display:none; margin-top: var(--spacing-6); padding: var(--spacing-4) var(--spacing-6); border-radius: var(--radius-sm); border: 1px solid; font-family: var(--font-mono); font-size: var(--text-label-sm); letter-spacing: 0.05em;"></div>
+      </div>
+
+
+      <!-- Linked Accounts Card -->
+      <div class="bento-card" style="padding: var(--spacing-8);">
+        <h2 style="font-size: 1.25rem; margin-bottom: var(--spacing-6); border-bottom: 1px solid var(--color-border); padding-bottom: var(--spacing-2); text-transform: uppercase;">Identity Bindings</h2>
+        
+        <div style="display: flex; flex-direction: column; gap: var(--spacing-4);">
+          <!-- Google -->
+          <div style="display: flex; justify-content: space-between; align-items: center; padding: var(--spacing-4); background-color: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-sm);">
+            <div style="display: flex; align-items: center; gap: var(--spacing-3);">
+              <span class="material-symbols-outlined text-primary">security</span>
+              <span style="font-weight: 600;">Google Profile Anchor</span>
+            </div>
+            <span class="badge badge-official">CONNECTED</span>
+          </div>
+
+          <!-- GitHub -->
+          <div style="display: flex; justify-content: space-between; align-items: center; padding: var(--spacing-4); background-color: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-sm);">
+            <div style="display: flex; align-items: center; gap: var(--spacing-3);">
+              <span class="material-symbols-outlined text-primary">terminal</span>
+              <span style="font-weight: 600;">GitHub Account Link</span>
+            </div>
+            <span class="badge badge-official" id="github-badge">CONNECTED</span>
+          </div>
+
+          <!-- Discord -->
+          <div style="display: flex; justify-content: space-between; align-items: center; padding: var(--spacing-4); background-color: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-sm);">
+            <div style="display: flex; align-items: center; gap: var(--spacing-3);">
+              <span class="material-symbols-outlined text-primary">forum</span>
+              <span style="font-weight: 600;">Discord Identity Link</span>
+            </div>
+            <span class="badge badge-official" id="discord-badge">CONNECTED</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <script type="module">
+    import { apiCall } from '/frontend/js/api.js';
+
+    async function loadSettings() {
+      const response = await apiCall('/api/auth/session');
+      if (!response.ok || !response.data || !response.data.session) {
+        window.location.href = '/join.html';
+        return;
+      }
+      
+      const session = response.data.session;
+      document.getElementById('settings-display-name').value = session.displayName || '';
+      document.getElementById('settings-avatar-url').value = session.avatarUrl || '';
+      document.getElementById('settings-bio').value = session.bio || '';
+      document.getElementById('settings-skills').value = session.skills || '';
+      document.getElementById('settings-linkedin').value = session.linkedinUrl || '';
+
+      const ghBadge = document.getElementById('github-badge');
+      if (session.githubLinked) {
+        ghBadge.className = 'badge badge-official';
+        ghBadge.innerText = 'CONNECTED';
+      } else {
+        ghBadge.className = 'badge badge-community';
+        ghBadge.style.backgroundColor = 'var(--color-error-container)';
+        ghBadge.style.borderColor = 'var(--color-error)';
+        ghBadge.style.color = 'var(--color-error)';
+        ghBadge.innerText = 'DISCONNECTED';
+      }
+
+      const dsBadge = document.getElementById('discord-badge');
+      if (session.discordLinked) {
+        dsBadge.className = 'badge badge-official';
+        dsBadge.innerText = 'CONNECTED';
+      } else {
+        dsBadge.className = 'badge badge-community';
+        dsBadge.style.backgroundColor = 'var(--color-error-container)';
+        dsBadge.style.borderColor = 'var(--color-error)';
+        dsBadge.style.color = 'var(--color-error)';
+        dsBadge.innerText = 'DISCONNECTED';
+      }
+    }
+
+    document.getElementById('profile-settings-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const displayName = document.getElementById('settings-display-name').value;
+      const avatarUrl = document.getElementById('settings-avatar-url').value;
+      const bio = document.getElementById('settings-bio').value;
+      const skills = document.getElementById('settings-skills').value;
+      const linkedinUrl = document.getElementById('settings-linkedin').value;
+
+      const res = await apiCall('/api/members/me', {
+        method: 'PATCH',
+        body: JSON.stringify({ displayName, avatarUrl, bio, skills, linkedinUrl })
+      });
+
+      const result = document.getElementById('settings-result');
+      result.style.display = 'block';
+
+      if (res.ok) {
+        result.style.backgroundColor = 'rgba(105, 222, 131, 0.08)';
+        result.style.borderColor = 'rgba(105, 222, 131, 0.35)';
+        result.style.color = 'var(--color-secondary)';
+        result.innerHTML = '&#10003; METADATA CHANGES COMMITTED SUCCESSFULLY TO GOOGLE SHEETS!';
+      } else {
+        result.style.backgroundColor = 'rgba(255, 180, 169, 0.08)';
+        result.style.borderColor = 'rgba(255, 180, 169, 0.35)';
+        result.style.color = 'var(--color-error)';
+        result.innerHTML = '&#9888; ' + (res.message || 'Profile update failed').toUpperCase();
+      }
+    });
+
+    document.addEventListener('DOMContentLoaded', loadSettings);
+  </script>
+
+  <footer class="footer">
+  <div class="container">
+    <div class="grid grid-cols-1 grid-md-4 gap-12" style="margin-bottom: var(--spacing-12);">
+      <div style="grid-column: span 2;">
+        <div style="display: flex; align-items: center; gap: var(--spacing-3); margin-bottom: var(--spacing-6);">
+          <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDWycOvulFmz0SEEjp4teX6QpeEHhsUYVdSQweqTRJggwL2LqlvakKMqDRC6CWdIF9ClUDW5DJ8xQI-6GF69Q5bqQrRLqDF1gJqdx6xpIQP2U7lJvDEexXQgcChMRvhdOjzD9XPBKXrCx1BJ08tZr1Olr1Gsz2tcA3vlRXz4VKPeqd0IX_eYdU1YHPhxHtNi5M5bm-Hbu6qdcV2wgRJACllHP7ZpHTSXX1aS0mec1Q9MIMz9X0_x3G_pBMtgSSGRPp0OzRohOlVqTXd" alt="Hack Orbit Logo" style="height: 24px; width: auto;">
+          <span style="font-family: var(--font-headline); font-weight: 700; color: var(--color-text-primary); letter-spacing: 0.1em; text-transform: uppercase;">Hack Orbit</span>
+        </div>
+        <p class="text-muted" style="max-width: 400px; margin-bottom: var(--spacing-4); font-size: var(--text-body-md);">
+          Advancing the frontier of open-source engineering and orbital connection. Empowering creators through technical noir elegance.
+        </p>
+        <p class="text-mono" style="font-size: var(--text-label-sm); color: var(--color-on-surface-variant); opacity: 0.6;">
+          Founded by Sabarna Barik
+        </p>
+      </div>
+      
+      <div class="flex flex-col gap-4">
+        <h4 class="text-mono text-primary font-semibold uppercase" style="letter-spacing: 0.05em; margin-bottom: var(--spacing-2);">SYSTEM</h4>
+        <a href="/about.html" class="nav-item">Documentation</a>
+        <a href="/projects.html" class="nav-item">Architecture</a>
+        <a href="/verify.html" class="nav-item">Verification</a>
+      </div>
+      
+      <div class="flex flex-col gap-4">
+        <h4 class="text-mono text-primary font-semibold uppercase" style="letter-spacing: 0.05em; margin-bottom: var(--spacing-2);">COMMUNITY</h4>
+        <a href="/join.html" class="nav-item">Join Us</a>
+        <a href="/contribute.html" class="nav-item">Contribute</a>
+        <a href="/contact.html" class="nav-item">Contact</a>
+      </div>
+    </div>
+    
+    <div style="border-top: 1px solid rgba(255, 255, 255, 0.05); padding-top: var(--spacing-8); display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--spacing-4); font-size: var(--text-label-sm);" class="text-mono text-muted">
+      <span>© 2026 HACK ORBIT. ALL SYSTEMS OPERATIONAL.</span>
+      <span class="text-primary">SABARNA BARIK — FOUNDER</span>
+    </div>
+  </div>
+</footer>
+<script type="module" src="/frontend/js/main.js"></script>
+
+</body>
+</html>

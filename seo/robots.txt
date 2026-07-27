@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+
+# Block private/functional paths
+Disallow: /api/
+Disallow: /settings
+Disallow: /join
+
+# Sitemap
+Sitemap: https://hackorbitglobal.vercel.app/sitemap.xml

@@ -1,0 +1,88 @@
+/* ====================================================
+   HACK ORBIT — Design System Variables
+   Cinematic Tech Noir — Dark Mode by Default
+   Extracted from official Stitch design prototypes
+   ==================================================== */
+:root {
+  /* ── Core Backgrounds ─────────────────────────────── */
+  --color-bg:               #070A0F; /* surface-base: deepest background */
+  --color-surface:          #101419; /* surface / surface-dim */
+  --color-surface-elevated: #10161F; /* cards, elevated panels */
+  --color-surface-overlay:  #19222D; /* modals, overlays */
+  --color-surface-container:         #1d2025;
+  --color-surface-container-low:     #181c21;
+  --color-surface-container-high:    #272a30;
+  --color-surface-container-highest: #32353b;
+  --color-surface-container-lowest:  #0b0e13;
+
+  /* ── Primary (Orbital Blue) ───────────────────────── */
+  --color-primary:           #a6c8ff; /* bright blue accent */
+  --color-primary-container: #1b5fa8;
+  --color-primary-fixed:     #d4e3ff;
+  --color-primary-fixed-dim: #a6c8ff;
+  --color-on-primary:        #00315f;
+  --color-on-primary-container: #c4daff;
+
+  /* ── Secondary (Signal Green) ─────────────────────── */
+  --color-secondary:         #69de83;
+  --color-secondary-fixed:   #85fb9d;
+  --color-on-secondary:      #003915;
+
+  /* ── Tertiary / Error ─────────────────────────────── */
+  --color-tertiary:          #ffb4a9;
+  --color-error:             #ffb4ab;
+  --color-error-container:   #93000a;
+
+  /* ── Text ─────────────────────────────────────────── */
+  --color-on-surface:        #e0e2ea; /* primary text */
+  --color-on-surface-variant:#c2c6d3; /* secondary text */
+  --color-text-primary:      #F8FAFC; /* brightest headlines */
+  --color-text-secondary:    #94A3B8; /* muted body text */
+
+  /* ── Borders ──────────────────────────────────────── */
+  --color-border:            #1E293B; /* border-subtle */
+  --color-outline:           #8c919c;
+  --color-outline-variant:   #424751;
+
+  /* ── Typography ───────────────────────────────────── */
+  --font-headline: 'Merriweather', Georgia, serif;
+  --font-body:     'Geist Sans', 'Inter', system-ui, sans-serif;
+  --font-mono:     'JetBrains Mono', 'Fira Code', monospace;
+
+  /* ── Type Scale ───────────────────────────────────── */
+  --text-headline-xl: clamp(2.5rem, 6vw, 3rem);  /* 48px */
+  --text-headline-lg: 2rem;                        /* 32px */
+  --text-body-lg:     1.125rem;                    /* 18px */
+  --text-body-md:     1rem;                        /* 16px */
+  --text-label-md:    0.875rem;                    /* 14px */
+  --text-label-sm:    0.75rem;                     /* 12px */
+
+  /* ── Border Radius ────────────────────────────────── */
+  --radius-sm:  0.125rem; /* 2px — sharp */
+  --radius-md:  0.25rem;  /* 4px */
+  --radius-lg:  0.5rem;   /* 8px */
+  --radius-full: 0.75rem; /* 12px */
+
+  /* ── Spacing (8px grid) ───────────────────────────── */
+  --spacing-1:  0.25rem;  /* 4px  */
+  --spacing-2:  0.5rem;   /* 8px  */
+  --spacing-3:  0.75rem;  /* 12px */
+  --spacing-4:  1rem;     /* 16px */
+  --spacing-6:  1.5rem;   /* 24px */
+  --spacing-8:  2rem;     /* 32px */
+  --spacing-12: 3rem;     /* 48px */
+  --spacing-16: 4rem;     /* 64px */
+  --spacing-20: 5rem;     /* 80px */
+  --spacing-24: 6rem;     /* 96px */
+  --spacing-32: 8rem;     /* 128px */
+
+  /* ── Layout ───────────────────────────────────────── */
+  --max-width:        1280px;
+  --margin-desktop:   4rem;   /* 64px */
+  --margin-mobile:    1.25rem;/* 20px */
+
+  /* ── Grid Background Pattern ──────────────────────── */
+  --grid-bg: linear-gradient(to right,  #1E293B 1px, transparent 1px),
+             linear-gradient(to bottom, #1E293B 1px, transparent 1px);
+  --grid-size: 40px 40px;
+}

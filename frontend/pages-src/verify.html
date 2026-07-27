@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Verify Certificate — Hack Orbit Ledger</title>
+  {{include:head}}
+  <meta name="description" content="Verify Hack Orbit credentials and certificates. Enter a valid certificate serial to query the public organization ledger.">
+</head>
+<body class="bg-surface-base font-body-md text-on-surface grid-bg min-h-screen">
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+  
+  {{include:nav}}
+
+  <main id="main-content" class="w-full pt-24 pb-32 bg-transparent relative z-10">
+    <div class="container" style="max-width: 600px;">
+      
+      <header style="margin-bottom: var(--spacing-12); text-align: center;">
+        <span class="text-mono text-primary uppercase font-semibold" style="font-size: var(--text-label-sm); letter-spacing: 0.25em;">// Cryptographic Ledger</span>
+        <h1 style="margin-top: var(--spacing-2); margin-bottom: var(--spacing-4); text-transform: uppercase;">Verify Certificate</h1>
+        <p class="text-muted" style="font-size: var(--text-body-md);">
+          Query our atomic credential ledger to verify the signature of any certificate issued by Hack Orbit.
+        </p>
+      </header>
+
+      <div class="bento-card" style="margin-bottom: var(--spacing-8); padding: var(--spacing-8);">
+        <form id="verify-form">
+          <div class="form-group">
+            <label class="form-label" for="cert-id">Signature ID // Certificate Serial</label>
+            <input class="form-input text-mono" type="text" id="cert-id" required placeholder="HO-CERT-2026-000001" style="text-transform: uppercase;">
+          </div>
+          <button type="submit" class="btn btn-primary btn-arrow" style="width: 100%; margin-top: var(--spacing-4);">
+            Query Ledger <span class="material-symbols-outlined">search</span>
+          </button>
+        </form>
+      </div>
+
+      <!-- Result Card -->
+      <div id="verify-result-card" class="bento-card" style="display: none; padding: var(--spacing-8);">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--spacing-6); border-bottom: 1px solid var(--color-border); padding-bottom: var(--spacing-4);">
+          <h2 style="font-size: 1.25rem; text-transform: uppercase;">Ledger Record</h2>
+          <span id="cert-status" class="status status-valid">
+            <span class="status-dot" style="display: inline-block; width: 8px; height: 8px; border-radius: 50%;"></span>
+            <span class="status-text text-mono" style="font-size: var(--text-label-sm); font-weight: 700;">VALID</span>
+          </span>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: var(--spacing-6);">
+          <div>
+            <span class="text-mono text-muted" style="font-size: var(--text-label-sm); display: block; margin-bottom: 4px;">RECIPIENT SIGNATURE</span>
+            <p id="cert-member" style="font-weight: 700; font-size: var(--text-body-lg); color: var(--color-text-primary);"></p>
+          </div>
+
+          <div>
+            <span class="text-mono text-muted" style="font-size: var(--text-label-sm); display: block; margin-bottom: 4px;">CREDENTIAL CATEGORY</span>
+            <p id="cert-type" class="text-primary font-bold text-mono" style="font-size: var(--text-label-md);"></p>
+          </div>
+
+          <div>
+            <span class="text-mono text-muted" style="font-size: var(--text-label-sm); display: block; margin-bottom: 4px;">ORBITAL SCOPE</span>
+            <p id="cert-event" style="font-weight: 600;"></p>
+          </div>
+
+          <div>
+            <span class="text-mono text-muted" style="font-size: var(--text-label-sm); display: block; margin-bottom: 4px;">ACHIEVEMENT RECORD</span>
+            <p id="cert-description" class="text-muted" style="font-size: var(--text-body-md); line-height: 1.6;"></p>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--spacing-6); border-top: 1px solid var(--color-border); padding-top: var(--spacing-6);">
+            <div>
+              <span class="text-mono text-muted" style="font-size: var(--text-label-sm); display: block; margin-bottom: 4px;">REGISTRATION DATE</span>
+              <p id="cert-date" style="font-weight: 600; font-size: var(--text-label-md);"></p>
+            </div>
+            <div>
+              <span class="text-mono text-muted" style="font-size: var(--text-label-sm); display: block; margin-bottom: 4px;">ISSUING NODE</span>
+              <p id="cert-issuer" style="font-weight: 600; font-size: var(--text-label-md);"></p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Error Card -->
+      <div id="verify-error-card" class="bento-card" style="display: none; border-color: var(--color-error); padding: var(--spacing-8);">
+        <div style="display: flex; align-items: flex-start; gap: var(--spacing-4);">
+          <span class="material-symbols-outlined text-primary" style="font-size: 28px; color: var(--color-error) !important;">warning</span>
+          <div>
+            <h3 style="font-size: 1.25rem; color: var(--color-error); text-transform: uppercase;">Query Failed</h3>
+            <p id="verify-error-text" class="text-muted" style="font-size: var(--text-body-md); margin-top: var(--spacing-2);"></p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <script type="module">
+    import { apiCall } from '/frontend/js/api.js';
+
+    document.getElementById('verify-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const certId = document.getElementById('cert-id').value.trim().toUpperCase();
+      
+      const resultCard = document.getElementById('verify-result-card');
+      const errorCard = document.getElementById('verify-error-card');
+      resultCard.style.display = 'none';
+      errorCard.style.display = 'none';
+
+      const response = await apiCall(`/api/certificates/verify?id=${encodeURIComponent(certId)}`);
+      
+      if (response.ok && response.data && response.data.found) {
+        const cert = response.data.certificate;
+        
+        document.getElementById('cert-member').innerText = cert.display_name;
+        document.getElementById('cert-type').innerText = cert.type.toUpperCase();
+        document.getElementById('cert-event').innerText = cert.event_name || 'N/A';
+        document.getElementById('cert-description').innerText = cert.achievement_description;
+        document.getElementById('cert-date').innerText = cert.issue_date;
+        document.getElementById('cert-issuer').innerText = cert.issued_by;
+
+        const statusNode = document.getElementById('cert-status');
+        const dot = statusNode.querySelector('.status-dot');
+        const text = statusNode.querySelector('.status-text');
+        
+        if (cert.status === 'valid') {
+          dot.style.backgroundColor = 'var(--color-secondary)';
+          dot.style.boxShadow = '0 0 8px var(--color-secondary)';
+          text.style.color = 'var(--color-secondary)';
+          text.innerText = 'VALID';
+        } else {
+          dot.style.backgroundColor = 'var(--color-error)';
+          dot.style.boxShadow = '0 0 8px var(--color-error)';
+          text.style.color = 'var(--color-error)';
+          text.innerText = 'REVOKED';
+        }
+
+        resultCard.style.display = 'block';
+      } else {
+        document.getElementById('verify-error-text').innerText = response.message || 'The requested Certificate Serial could not be located in the ledger.';
+        errorCard.style.display = 'block';
+      }
+    });
+  </script>
+
+  {{include:footer}}
+</body>
+</html>

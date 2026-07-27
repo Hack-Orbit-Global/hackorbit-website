@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Active Repositories — Hack Orbit Projects</title>
+  {{include:head}}
+  <meta name="description" content="Explore active official and community-driven projects under the Hack Orbit collective, including Void DB, Aether Core, and Nova UI.">
+</head>
+<body class="bg-surface-base font-body-md text-on-surface grid-bg min-h-screen">
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+  
+  {{include:nav}}
+
+  <main id="main-content" class="w-full pt-24 pb-32 bg-transparent relative z-10">
+    <div class="container">
+      
+      <header style="margin-bottom: var(--spacing-16); text-align: center;">
+        <span class="text-mono text-primary uppercase font-semibold" style="font-size: var(--text-label-sm); letter-spacing: 0.25em;">// Repository Index</span>
+        <h1 style="margin-top: var(--spacing-2); margin-bottom: var(--spacing-4); text-transform: uppercase;">Active Projects</h1>
+        <p class="text-muted" style="max-width: 600px; margin-left: auto; margin-right: auto; font-size: var(--text-body-lg);">
+          The official open-source codebase registry of Hack Orbit. Filter by status or organization level.
+        </p>
+      </header>
+
+      <!-- Filters -->
+      <div style="display: flex; justify-content: center; gap: var(--spacing-4); margin-bottom: var(--spacing-16); flex-wrap: wrap;">
+        <button class="btn btn-primary btn-filter" data-filter="all">All Projects</button>
+        <button class="btn btn-secondary btn-filter" data-filter="official">Official</button>
+        <button class="btn btn-secondary btn-filter" data-filter="community">Community</button>
+      </div>
+
+      <!-- Grid -->
+      <div class="grid grid-cols-1 grid-md-3 gap-8" id="projects-grid">
+        
+        <!-- Project 1 -->
+        <div class="project-card bento-card" data-type="official" style="padding: 0;">
+          <div class="project-card-image">
+            <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDE6KwLwF3E7DdnCaiI0WcYVZLob7QXvbzQpyOC2z6SiaHwvLBqUy4iiRylWmdElfz_ibW3hXm9wL8V6r8y7gLNg96Oib_SIlA2OQ5gZjV0b186fGb9SsHkNbJcji9KwGJlDUl1kRF1FSqxYy5jK9oMpxAcA1cgVmloTVBACMAw5DoJwFX6rlKI-nvFGIBZNQUtJB385CDUXM-iBRJRieJY40DAX45kDVk40ivBbNDncbktzSc9mRYmu12NauvmwPUBHDVKUNRKRYiI" alt="Aether Core System Graphic">
+            <div class="absolute inset-0 bg-gradient-to-t from-surface-base to-transparent opacity-60"></div>
+            <div class="badge badge-official" style="position: absolute; top: var(--spacing-4); right: var(--spacing-4); background-color: var(--color-primary); color: var(--color-on-primary);">OFFICIAL</div>
+          </div>
+          <div class="project-card-content">
+            <h3 style="margin-bottom: var(--spacing-2);">Aether Core</h3>
+            <p class="text-muted" style="font-size: var(--text-body-md); margin-bottom: var(--spacing-6); flex-grow: 1;">
+              The backbone of the Orbit event layer. A high-throughput, low-latency message broker optimized for edge networks.
+            </p>
+            <div class="flex justify-between items-center" style="border-top: 1px solid var(--color-border); padding-top: var(--spacing-4);">
+              <span class="text-mono" style="font-size: var(--text-label-sm); color: var(--color-primary);">Rust / Go</span>
+              <a href="https://github.com/hackorbit/aether-core" target="_blank" rel="noopener noreferrer" class="text-mono nav-item flex items-center gap-1" style="font-size: var(--text-label-sm);">
+                CODEBASE <span class="material-symbols-outlined" style="font-size: 14px;">open_in_new</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 2 -->
+        <div class="project-card bento-card" data-type="official" style="padding: 0;">
+          <div class="project-card-image">
+            <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDd52RoMailzUhkCIyb-bB98zx_epZj2YRvIFOWEmWsdYGaklYguLA9xltva6GO3HT_sKrp5AL0c63TuBqGg7Su_HL5hVKUr6DT3QFlj2Ytofxn6GMj_Wkjkj6Wxefmfp3Znqnc-D7v1SJZO_mPSOrNULZMcRRX3tM_m6zasGFupYQZBg62Ha1kT3sjSyO8ioNy1ylovFmWSFyIC7bzg1qRcIApJnahwCHh0R7v5wJaazn6BVymMwHG1_L3jelU_DKpje699jnsPuZG" alt="Void DB Storage Graphic">
+            <div class="absolute inset-0 bg-gradient-to-t from-surface-base to-transparent opacity-60"></div>
+            <div class="badge badge-official" style="position: absolute; top: var(--spacing-4); right: var(--spacing-4); background-color: var(--color-primary); color: var(--color-on-primary);">OFFICIAL</div>
+          </div>
+          <div class="project-card-content">
+            <h3 style="margin-bottom: var(--spacing-2);">Void DB</h3>
+            <p class="text-muted" style="font-size: var(--text-body-md); margin-bottom: var(--spacing-6); flex-grow: 1;">
+              An immutable, cryptographic ledger-based storage engine built specifically for tamper-proof audit trails.
+            </p>
+            <div class="flex justify-between items-center" style="border-top: 1px solid var(--color-border); padding-top: var(--spacing-4);">
+              <span class="text-mono" style="font-size: var(--text-label-sm); color: var(--color-primary);">C++</span>
+              <a href="https://github.com/hackorbit/void-db" target="_blank" rel="noopener noreferrer" class="text-mono nav-item flex items-center gap-1" style="font-size: var(--text-label-sm);">
+                CODEBASE <span class="material-symbols-outlined" style="font-size: 14px;">open_in_new</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 3 -->
+        <div class="project-card bento-card" data-type="community" style="padding: 0;">
+          <div class="project-card-image">
+            <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuA_EUbIIqrdwz2C6vRs8T6v9FC4F98itOYashEhCNUXcBs95olPblW0YMwf-hrZwIM8BAJ4RmtYfebd3SJGYvS8GypQQDHv5ffkX2hEHKjD0tOFh7uH-mwmZul4h-QneqYGoiQYwEaGyTeOBPTRUt5D-Gaiuq9Ts3aLmvJ5O5E7HweGKI3ErxY-Aw7NIAANWsgQStA1HCYU1CPIGriy6iZVzSkHiMDYMUhMErMndiP0BCaIJ1tT-9sNBcW-ctIBYdaDsc-qLjfSzn8f" alt="Nova UI Components Graphic">
+            <div class="absolute inset-0 bg-gradient-to-t from-surface-base to-transparent opacity-60"></div>
+            <div class="badge badge-community" style="position: absolute; top: var(--spacing-4); right: var(--spacing-4); background-color: var(--color-secondary); color: var(--color-on-secondary);">COMMUNITY</div>
+          </div>
+          <div class="project-card-content">
+            <h3 style="margin-bottom: var(--spacing-2);">Nova UI</h3>
+            <p class="text-muted" style="font-size: var(--text-body-md); margin-bottom: var(--spacing-6); flex-grow: 1;">
+              A component library designed for high typographic fidelity and absolute fluid accessibility.
+            </p>
+            <div class="flex justify-between items-center" style="border-top: 1px solid var(--color-border); padding-top: var(--spacing-4);">
+              <span class="text-mono" style="font-size: var(--text-label-sm); color: var(--color-primary);">CSS / JS</span>
+              <a href="https://github.com/hackorbit/nova-ui" target="_blank" rel="noopener noreferrer" class="text-mono nav-item flex items-center gap-1" style="font-size: var(--text-label-sm);">
+                CODEBASE <span class="material-symbols-outlined" style="font-size: 14px;">open_in_new</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const filters = document.querySelectorAll('.btn-filter');
+      const cards = document.querySelectorAll('.project-card');
+
+      filters.forEach(filter => {
+        filter.addEventListener('click', () => {
+          const type = filter.getAttribute('data-filter');
+
+          filters.forEach(btn => {
+            btn.classList.remove('btn-primary');
+            btn.classList.add('btn-secondary');
+          });
+          filter.classList.remove('btn-secondary');
+          filter.classList.add('btn-primary');
+
+          cards.forEach(card => {
+            const cardType = card.getAttribute('data-type');
+            if (type === 'all' || cardType === type) {
+              card.style.display = 'flex';
+            } else {
+              card.style.display = 'none';
+            }
+          });
+        });
+      });
+    });
+  </script>
+
+  {{include:footer}}
+</body>
+</html>

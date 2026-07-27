@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Contribute — Hack Orbit Guidelines</title>
+  {{include:head}}
+  <meta name="description" content="Find guidelines on how to contribute to Hack Orbit's official and community-led repositories. Learn how our automated tracking systems reward your engineering.">
+</head>
+<body class="bg-surface-base font-body-md text-on-surface grid-bg min-h-screen">
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+  
+  {{include:nav}}
+
+  <main id="main-content" class="w-full pt-24 pb-32 bg-transparent relative z-10">
+    <div class="container" style="max-width: 900px;">
+      
+      <header style="margin-bottom: var(--spacing-16); text-align: center;">
+        <span class="text-mono text-primary uppercase font-semibold" style="font-size: var(--text-label-sm); letter-spacing: 0.25em;">// Protocol Sequence</span>
+        <h1 style="margin-top: var(--spacing-2); margin-bottom: var(--spacing-4); text-transform: uppercase;">Contributing Guide</h1>
+        <p class="text-muted" style="max-width: 600px; margin-left: auto; margin-right: auto; font-size: var(--text-body-lg);">
+          Our automated systems trace, review, and reward open-source contributions directly via our digital ledger.
+        </p>
+      </header>
+
+      <!-- Steps Timeline -->
+      <div class="flex flex-col gap-12">
+        
+        <!-- Step 1 -->
+        <div class="bento-card flex flex-col md:flex-row gap-8 items-start" style="padding: var(--spacing-8);">
+          <div class="text-mono font-bold text-primary" style="font-size: 2.5rem; line-height: 1; border-right: 1px solid var(--color-border); padding-right: var(--spacing-8); min-width: 80px;">
+            01
+          </div>
+          <div style="flex-grow: 1;">
+            <span class="text-mono text-secondary uppercase font-semibold" style="font-size: var(--text-label-sm); letter-spacing: 0.1em; display: block; margin-bottom: var(--spacing-2);">Authentication</span>
+            <h2 style="font-size: 1.5rem; margin-bottom: var(--spacing-3); text-transform: uppercase;">Establish Member Signature</h2>
+            <p class="text-muted" style="font-size: var(--text-body-md); line-height: 1.7;">
+              Begin by completing our secure OAuth registration flow. Connecting your Google, GitHub, and Discord identities links your public commits to your profile automatically.
+            </p>
+            <div style="margin-top: var(--spacing-4);">
+              <a href="/join.html" class="btn btn-secondary" style="padding: var(--spacing-2) var(--spacing-4);">Register ID</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="bento-card flex flex-col md:flex-row gap-8 items-start" style="padding: var(--spacing-8);">
+          <div class="text-mono font-bold text-primary" style="font-size: 2.5rem; line-height: 1; border-right: 1px solid var(--color-border); padding-right: var(--spacing-8); min-width: 80px;">
+            02
+          </div>
+          <div style="flex-grow: 1;">
+            <span class="text-mono text-secondary uppercase font-semibold" style="font-size: var(--text-label-sm); letter-spacing: 0.1em; display: block; margin-bottom: var(--spacing-2);">Coordination</span>
+            <h2 style="font-size: 1.5rem; margin-bottom: var(--spacing-3); text-transform: uppercase;">Claim or Propose Issues</h2>
+            <p class="text-muted" style="font-size: var(--text-body-md); line-height: 1.7;">
+              Explore active repositories inside the projects portal. You can pick unresolved issues labeled with contribution difficulty or submit RFC whitepapers on Discord to build new modules.
+            </p>
+          </div>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="bento-card flex flex-col md:flex-row gap-8 items-start" style="padding: var(--spacing-8);">
+          <div class="text-mono font-bold text-primary" style="font-size: 2.5rem; line-height: 1; border-right: 1px solid var(--color-border); padding-right: var(--spacing-8); min-width: 80px;">
+            03
+          </div>
+          <div style="flex-grow: 1;">
+            <span class="text-mono text-secondary uppercase font-semibold" style="font-size: var(--text-label-sm); letter-spacing: 0.1em; display: block; margin-bottom: var(--spacing-2);">Validation</span>
+            <h2 style="font-size: 1.5rem; margin-bottom: var(--spacing-3); text-transform: uppercase;">Commit & Capture</h2>
+            <p class="text-muted" style="font-size: var(--text-body-md); line-height: 1.7;">
+              Push your commits and open a Pull Request. Once successfully approved and merged, our webhooks synchronize the state with the Apps Script ledger, awarding badges or certificates.
+            </p>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </main>
+
+  {{include:footer}}
+</body>
+</html>
