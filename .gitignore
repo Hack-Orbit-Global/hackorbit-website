@@ -3,6 +3,7 @@ node_modules/
 
 # Built-in vercel and build directories
 .vercel/
+frontend/build-output/
 
 # Design prototypes & references
 design-prototypes/

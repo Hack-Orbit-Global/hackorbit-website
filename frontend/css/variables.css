@@ -75,6 +75,7 @@
   --spacing-20: 5rem;     /* 80px */
   --spacing-24: 6rem;     /* 96px */
   --spacing-32: 8rem;     /* 128px */
+  --spacing-40: 10rem;    /* 160px */
 
   /* ── Layout ───────────────────────────────────────── */
   --max-width:        1280px;
@@ -82,7 +83,8 @@
   --margin-mobile:    1.25rem;/* 20px */
 
   /* ── Grid Background Pattern ──────────────────────── */
-  --grid-bg: linear-gradient(to right,  #1E293B 1px, transparent 1px),
-             linear-gradient(to bottom, #1E293B 1px, transparent 1px);
+  /* Make grid lines slightly bluish and semi-transparent so they show on dark bg */
+  --grid-bg: linear-gradient(to right,  rgba(166,200,255,0.08) 1px, transparent 1px),
+             linear-gradient(to bottom, rgba(166,200,255,0.08) 1px, transparent 1px);
   --grid-size: 40px 40px;
 }

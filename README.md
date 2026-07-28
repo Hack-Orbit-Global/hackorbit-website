@@ -22,10 +22,10 @@ npm run dev
 
 ```
 hackorbit-website/
-├── index.html / about.html / ...  ← Assembled static pages (root, auto-built)
 ├── frontend/
 │   ├── pages-src/   ← Hand-authored page content with {{include:}} placeholders
 │   ├── partials/    ← Shared head.html, nav.html, footer.html
+│   ├── build-output/ ← Generated deployment pages (auto-built, ignored by git)
 │   ├── templates/   ← SSR templates for profile and verify-result pages
 │   ├── css/         ← Design tokens → components → minified to styles.css
 │   ├── js/          ← Vanilla JS modules (no framework)

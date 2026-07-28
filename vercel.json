@@ -1,6 +1,7 @@
 {
   "version": 2,
   "cleanUrls": true,
+  "outputDirectory": "frontend/build-output",
   "rewrites": [
     { "source": "/profile/:id",           "destination": "/api/profile/[id]" },
     { "source": "/verify-result/:id",     "destination": "/api/verify/[id]" },

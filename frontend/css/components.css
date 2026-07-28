@@ -3,6 +3,17 @@
    ==================================================== */
 
 /* Header & Navbar */
+body {
+  padding-top: 64px;
+  scroll-padding-top: 88px;
+}
+
+@media (min-width: 1024px) {
+  body {
+    padding-top: 72px;
+  }
+}
+
 .header-nav {
   position: fixed;
   top: 0;
@@ -342,12 +353,12 @@
   height: 100%;
   object-fit: cover;
   border-radius: 50%;
-  filter: grayscale(100%);
-  transition: filter 0.5s ease;
+  transition: filter 0.3s ease, transform 0.3s ease;
 }
 
+/* Remove forced grayscale — images should display in natural color by default */
 .founder-img-wrapper:hover .founder-img {
-  filter: grayscale(0%);
+  filter: none;
 }
 
 .founder-badge {

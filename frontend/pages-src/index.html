@@ -13,11 +13,10 @@
   <main id="main-content" class="w-full pt-16 bg-transparent relative z-10">
     <div class="flex flex-col w-full overflow-hidden">
       
-      <!-- Hero Section -->
-      <section class="relative min-h-[85vh] flex items-center justify-start overflow-hidden" style="margin-top: -64px;">
-        <!-- WebGL Network Shader Canvas -->
-        <div class="absolute inset-0 w-full h-full opacity-60" style="display:block; z-index: 0;">
-          <canvas id="shader-canvas-ANIMATION_23" style="display:block; width:100%; height:100%;"></canvas>
+      <!-- Hero Section (match About page spacing and layout) -->
+      <section class="relative py-24 overflow-hidden">
+        <!-- WebGL Network Shader Canvas (blend so body grid shows through) -->
+        <div class="absolute inset-0 w-full h-full" style="display:block; z-index: 0;">
           <script>
             (function() {
               const canvas = document.getElementById('shader-canvas-ANIMATION_23');
@@ -114,10 +113,9 @@
           </script>
         </div>
 
-        <!-- Scrim -->
-        <div class="absolute inset-0 bg-gradient-to-r from-surface-base via-surface-base/40 to-transparent" style="z-index: 1;"></div>
         
-        <div class="container relative z-10 w-full pt-16">
+        
+        <div class="container relative z-10 w-full">
           <div style="max-width: 800px; display: flex; flex-direction: column; gap: var(--spacing-8);">
             <div class="flex items-center gap-3 px-3 py-1 bg-primary/10 border-l-2 border-primary" style="width: fit-content;">
               <span class="text-mono text-primary uppercase font-semibold" style="font-size: var(--text-label-sm); letter-spacing: 0.2em;">System Status: Operational</span>
@@ -144,9 +142,6 @@
         </div>
         
         <!-- Vertical side label -->
-        <div class="absolute right-12 bottom-24 hidden lg:block [writing-mode:vertical-rl] select-none" style="z-index: 10;">
-          <span class="text-mono uppercase" style="font-size: var(--text-label-sm); color: rgba(255,255,255,0.2); letter-spacing: 0.6em;">Orbiting Open Source // 2026</span>
-        </div>
       </section>
 
       <!-- Bento Domains Section -->

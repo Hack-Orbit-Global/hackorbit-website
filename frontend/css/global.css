@@ -104,6 +104,18 @@ h3 {
   color: var(--color-on-surface-variant) !important;
 }
 
+.text-on-surface {
+  color: var(--color-on-surface) !important;
+}
+
+.text-text-primary {
+  color: var(--color-text-primary) !important;
+}
+
+.text-on-surface-variant {
+  color: var(--color-on-surface-variant) !important;
+}
+
 .font-italic {
   font-style: italic;
 }
@@ -132,12 +144,116 @@ h3 {
   font-weight: 700;
 }
 
+.font-body-md {
+  font-size: var(--text-body-md);
+}
+
+.bg-surface-base {
+  background-color: var(--color-bg);
+}
+
+.bg-surface {
+  background-color: var(--color-surface);
+}
+
+.bg-surface-container-lowest {
+  background-color: var(--color-surface-container-lowest);
+}
+
+.bg-transparent {
+  background-color: transparent;
+}
+
+.bg-primary\/10 {
+  background-color: rgba(166, 200, 255, 0.1);
+}
+
+.bg-secondary\/10 {
+  background-color: rgba(105, 222, 131, 0.1);
+}
+
+.border-l-2 {
+  border-left: 2px solid;
+}
+
+.border-primary {
+  border-color: var(--color-primary);
+}
+
+/* Layout and spacing utilities */
+.w-full { width: 100%; }
+.h-full { height: 100%; }
+.min-h-screen { min-height: 100vh; }
+.overflow-hidden { overflow: hidden; }
+.relative { position: relative; }
+.absolute { position: absolute; }
+.inset-0 { inset: 0; }
+.z-0 { z-index: 0; }
+.z-10 { z-index: 10; }
+.hidden { display: none; }
+.select-none { user-select: none; }
+.pointer-events-none { pointer-events: none; }
+.items-end { align-items: flex-end; }
+.justify-start { justify-content: flex-start; }
+.mt-0 { margin-top: 0; }
+.mb-16 { margin-bottom: var(--spacing-16); }
+.mb-20 { margin-bottom: var(--spacing-20); }
+.pt-4 { padding-top: var(--spacing-4); }
+.pt-16 { padding-top: var(--spacing-16); }
+.pt-24 { padding-top: var(--spacing-24); }
+.pt-32 { padding-top: var(--spacing-32); }
+.pb-32 { padding-bottom: var(--spacing-32); }
+.py-1 { padding-top: var(--spacing-1); padding-bottom: var(--spacing-1); }
+.py-4 { padding-top: var(--spacing-4); padding-bottom: var(--spacing-4); }
+.py-24 { padding-top: var(--spacing-24); padding-bottom: var(--spacing-24); }
+.py-32 { padding-top: var(--spacing-32); padding-bottom: var(--spacing-32); }
+.py-40 { padding-top: var(--spacing-40); padding-bottom: var(--spacing-40); }
+.px-3 { padding-left: var(--spacing-3); padding-right: var(--spacing-3); }
+.px-4 { padding-left: var(--spacing-4); padding-right: var(--spacing-4); }
+
+/* Gradient utilities */
+.bg-gradient-to-r {
+  background-image: linear-gradient(to right, var(--tw-gradient-stops));
+}
+
+.bg-gradient-to-t {
+  background-image: linear-gradient(to top, var(--tw-gradient-stops));
+}
+
+.bg-gradient-to-br {
+  background-image: linear-gradient(to bottom right, var(--tw-gradient-stops));
+}
+
+.from-surface-base {
+  --tw-gradient-from: var(--color-bg);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(0, 0, 0, 0));
+}
+
+.via-surface-base\/40 {
+  --tw-gradient-stops: var(--tw-gradient-from, transparent), rgba(16, 20, 25, 0.4), var(--tw-gradient-to, transparent);
+}
+
+.to-transparent {
+  --tw-gradient-to: transparent;
+}
+
+.from-primary {
+  --tw-gradient-from: var(--color-primary);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(0, 0, 0, 0));
+}
+
+.to-secondary {
+  --tw-gradient-to: var(--color-secondary);
+  --tw-gradient-stops: var(--tw-gradient-from, transparent), var(--tw-gradient-to);
+}
+
 /* Flex / Grid layouts */
 .flex { display: flex; }
 .flex-col { flex-direction: column; }
 .items-center { align-items: center; }
 .justify-between { justify-content: space-between; }
 .justify-center { justify-content: center; }
+.justify-start { justify-content: flex-start; }
 .flex-wrap { flex-wrap: wrap; }
 .gap-2 { gap: var(--spacing-2); }
 .gap-3 { gap: var(--spacing-3); }
@@ -149,6 +265,26 @@ h3 {
 
 .grid { display: grid; }
 .grid-cols-1 { grid-template-columns: 1fr; }
+
+@media (min-width: 640px) {
+  .sm\:flex-row { flex-direction: row; }
+}
+
+@media (min-width: 768px) {
+  .md\:block { display: block; }
+  .md\:flex-row { flex-direction: row; }
+  .grid-md-2 { grid-template-columns: repeat(2, 1fr); }
+  .grid-md-3 { grid-template-columns: repeat(3, 1fr); }
+  .grid-md-4 { grid-template-columns: repeat(4, 1fr); }
+  .grid-md-12 { grid-template-columns: repeat(12, 1fr); }
+}
+
+@media (min-width: 1024px) {
+  .lg\:block { display: block; }
+  .lg\:flex-row { flex-direction: row; }
+  .grid-lg-3 { grid-template-columns: repeat(3, 1fr); }
+  .grid-lg-4 { grid-template-columns: repeat(4, 1fr); }
+}
 
 @media (min-width: 768px) {
   .grid-md-2 { grid-template-columns: repeat(2, 1fr); }

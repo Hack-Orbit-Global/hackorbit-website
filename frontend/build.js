@@ -3,10 +3,11 @@ const path = require('path');
 
 // Configuration
 const FRONTEND_DIR = __dirname;                        // frontend/
+const PROJECT_ROOT = path.join(FRONTEND_DIR, '..');
 const SRC_DIR    = path.join(FRONTEND_DIR, 'pages-src');
 const PARTIALS_DIR = path.join(FRONTEND_DIR, 'partials');
 const CSS_DIR    = path.join(FRONTEND_DIR, 'css');
-const OUTPUT_DIR = path.join(FRONTEND_DIR, '..');      // project root — HTML files served from here
+const OUTPUT_DIR = path.join(FRONTEND_DIR, 'build-output');
 
 // Helper: Minify CSS (simple whitespace and comment removal)
 function minifyCSS(cssText) {
@@ -38,7 +39,8 @@ function buildCSS() {
     if (fs.existsSync(filePath)) {
       let source = fs.readFileSync(filePath, 'utf8');
       // Extract all @import lines before concatenating so they stay at the top
-      source = source.replace(/@import\s+[^;]+;/g, (match) => {
+      // Handle potential semicolons inside url(...) queries (e.g. Google Fonts)
+      source = source.replace(/@import\s+(?:url\([^)]+\)|"[^"]+"|'[^']+')\s*;/g, (match) => {
         if (!importRules.includes(match.trim())) {
           importRules.push(match.trim());
         }
@@ -59,6 +61,54 @@ function buildCSS() {
   console.log(`CSS build completed: ${outputCSSPath} (${minifiedCSS.length} bytes)`);
 }
 
+function prepareOutputDirectory() {
+  fs.rmSync(OUTPUT_DIR, { recursive: true, force: true });
+  fs.mkdirSync(OUTPUT_DIR, { recursive: true });
+
+  const frontendOutputDir = path.join(OUTPUT_DIR, 'frontend');
+  fs.mkdirSync(frontendOutputDir, { recursive: true });
+
+  fs.readdirSync(FRONTEND_DIR, { withFileTypes: true }).forEach(entry => {
+    if (entry.name === 'build-output') {
+      return;
+    }
+
+    const srcPath = path.join(FRONTEND_DIR, entry.name);
+    const destPath = path.join(frontendOutputDir, entry.name);
+
+    if (entry.isDirectory()) {
+      fs.cpSync(srcPath, destPath, { recursive: true });
+    } else {
+      fs.copyFileSync(srcPath, destPath);
+    }
+  });
+
+  const sitemapSource = path.join(PROJECT_ROOT, 'sitemap.xml');
+  if (fs.existsSync(sitemapSource)) {
+    fs.copyFileSync(sitemapSource, path.join(OUTPUT_DIR, 'sitemap.xml'));
+  }
+
+  const robotsSource = path.join(PROJECT_ROOT, 'seo', 'robots.txt');
+  if (fs.existsSync(robotsSource)) {
+    fs.copyFileSync(robotsSource, path.join(OUTPUT_DIR, 'robots.txt'));
+  }
+}
+
+function cleanGeneratedOutput(sourceFiles) {
+  const expectedOutputNames = new Set(sourceFiles);
+
+  fs.readdirSync(OUTPUT_DIR, { withFileTypes: true }).forEach(entry => {
+    if (!entry.isFile() || path.extname(entry.name) !== '.html') {
+      return;
+    }
+
+    if (!expectedOutputNames.has(entry.name)) {
+      fs.unlinkSync(path.join(OUTPUT_DIR, entry.name));
+      console.log(`Removed stale output: ${entry.name}`);
+    }
+  });
+}
+
 // 2. Assemble Pages from Source and Partials
 function buildPages() {
   console.log('Assembling HTML pages...');
@@ -71,30 +121,31 @@ function buildPages() {
   const partials = { head, nav, footer };
 
   // Read all files from pages-src/
-  const files = fs.readdirSync(SRC_DIR);
+  const files = fs.readdirSync(SRC_DIR).filter(file => path.extname(file) === '.html');
+  cleanGeneratedOutput(files);
+
   files.forEach(file => {
-    if (path.extname(file) === '.html') {
-      const srcPath = path.join(SRC_DIR, file);
-      let content = fs.readFileSync(srcPath, 'utf8');
+    const srcPath = path.join(SRC_DIR, file);
+    let content = fs.readFileSync(srcPath, 'utf8');
 
-      // Replace include placeholders: {{include:name}}
-      content = content.replace(/\{\{include:([a-zA-Z0-9_-]+)\}\}/g, (match, partialName) => {
-        if (partials[partialName] !== undefined) {
-          return partials[partialName];
-        }
-        console.warn(`Warning: Partial "${partialName}" not found in ${file}`);
-        return match;
-      });
+    // Replace include placeholders: {{include:name}}
+    content = content.replace(/\{\{include:([a-zA-Z0-9_-]+)\}\}/g, (match, partialName) => {
+      if (partials[partialName] !== undefined) {
+        return partials[partialName];
+      }
+      console.warn(`Warning: Partial "${partialName}" not found in ${file}`);
+      return match;
+    });
 
-      const destPath = path.join(OUTPUT_DIR, file);
-      fs.writeFileSync(destPath, content, 'utf8');
-      console.log(`Assembled: ${file} -> ${destPath}`);
-    }
+    const destPath = path.join(OUTPUT_DIR, file);
+    fs.writeFileSync(destPath, content, 'utf8');
+    console.log(`Assembled: ${file} -> ${destPath}`);
   });
 }
 
 // Main Runner
 try {
+  prepareOutputDirectory();
   buildCSS();
   buildPages();
   console.log('Build completed successfully!');
