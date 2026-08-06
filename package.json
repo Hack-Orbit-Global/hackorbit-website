@@ -14,9 +14,6 @@
   "engines": {
     "node": ">=18.0.0"
   },
-  "dependencies": {
-    "jose": "^5.9.6"
-  },
   "devDependencies": {
     "esbuild": "^0.24.0"
   }

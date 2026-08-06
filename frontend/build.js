@@ -27,9 +27,9 @@ const ASSETS_SRC = join(FRONTEND, 'assets');
 const OUT = join(ROOT, 'public');
 
 const TOKENS = {
-  '{{HEAD}}': 'head.html',
-  '{{NAV}}': 'nav.html',
-  '{{FOOTER}}': 'footer.html',
+  '<!-- {{HEAD}} -->': 'head.html',
+  '<!-- {{NAV}} -->': 'nav.html',
+  '<!-- {{FOOTER}} -->': 'footer.html',
 };
 
 /** Site base URL — override via SITE_URL env var at build/deploy time. */
@@ -146,7 +146,7 @@ async function main() {
 
   // Resolve the hashed stylesheet href and inject it into the head partial.
   const { manifestPath } = await buildCss();
-  partials['{{HEAD}}'] = partials['{{HEAD}}'].replaceAll('{{CSS_HREF}}', manifestPath);
+  partials['<!-- {{HEAD}} -->'] = partials['<!-- {{HEAD}} -->'].replaceAll('{{CSS_HREF}}', manifestPath);
 
   // Build each page.
   const pages = readdirSync(PAGES_SRC).filter((f) => f.endsWith('.html'));
