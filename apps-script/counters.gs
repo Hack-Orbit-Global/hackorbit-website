@@ -1,45 +1,43 @@
-/**
- * apps-script/counters.gs
- * Atomic counter helpers using LockService for safe concurrent increments.
- */
+var HO_COUNTER_HEADERS = ['counter_name', 'current_value'];
 
-function getNextMemberId() {
-  const lock = LockService.getScriptLock();
-  lock.waitLock(10000); // wait up to 10s
-  try {
-    const sheet = getSheet('Counters');
-    const data  = sheet.getDataRange().getValues();
-    for (let i = 1; i < data.length; i++) {
-      if (data[i][0] === 'member_id') {
-        const next = (parseInt(data[i][1], 10) || 0) + 1;
-        sheet.getRange(i + 1, 2).setValue(next);
-        return 'HO-' + String(next).padStart(6, '0');
-      }
-    }
-    // First member ever
-    sheet.appendRow(['member_id', 1]);
-    return 'HO-000001';
-  } finally {
-    lock.releaseLock();
+function hoCounterSheet() {
+  var sheet = hoSheet('Counters');
+  if (hoHeaders(sheet).length === 0) {
+    hoSetRow(sheet, HO_COUNTER_HEADERS, 1, HO_COUNTER_HEADERS);
   }
+  return sheet;
 }
 
-function getNextCertId(year) {
-  const lock = LockService.getScriptLock();
-  lock.waitLock(10000);
+function hoGetCounter(name) {
+  var sheet = hoCounterSheet();
+  var headers = hoHeaders(sheet);
+  var row = hoFindRow(sheet, headers, 'counter_name', name);
+  if (row === -1) {
+    hoAppendRow(sheet, headers, [name, 0]);
+    return 0;
+  }
+  var val = sheet.getRange(row, 2).getValue();
+  return isNaN(val) ? 0 : Number(val);
+}
+
+function hoSetCounter(name, value) {
+  var sheet = hoCounterSheet();
+  var headers = hoHeaders(sheet);
+  var row = hoFindRow(sheet, headers, 'counter_name', name);
+  if (row === -1) hoAppendRow(sheet, headers, [name, value]);
+  else sheet.getRange(row, 2).setValue(value);
+}
+
+function hoNextId(prefix, counterName) {
+  var lock = LockService.getScriptLock();
+  var acquired = lock.tryLock(10000);
+  if (!acquired) hoFail('LOCK_TIMEOUT', 'Could not acquire ID lock.');
   try {
-    const key   = 'certificate_id_' + year;
-    const sheet = getSheet('Counters');
-    const data  = sheet.getDataRange().getValues();
-    for (let i = 1; i < data.length; i++) {
-      if (data[i][0] === key) {
-        const next = (parseInt(data[i][1], 10) || 0) + 1;
-        sheet.getRange(i + 1, 2).setValue(next);
-        return 'HO-CERT-' + year + '-' + String(next).padStart(6, '0');
-      }
-    }
-    sheet.appendRow([key, 1]);
-    return 'HO-CERT-' + year + '-000001';
+    var next = hoGetCounter(counterName) + 1;
+    hoSetCounter(counterName, next);
+    var digits = String(next);
+    while (digits.length < 6) digits = '0' + digits;
+    return prefix + digits;
   } finally {
     lock.releaseLock();
   }

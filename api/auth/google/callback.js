@@ -1,77 +1,60 @@
-/**
- * api/auth/google/callback.js
- * GET /api/auth/google/callback
- * Validates state, exchanges code (with PKCE), creates/finds member, sets session.
- */
+import { exchangeGoogleCode, getGoogleUser } from '../../../lib/oauth/google.js';
+import { redirectUri } from '../../../lib/oauth/common.js';
+import { getOAuthStateCookie, clearOAuthStateCookie } from '../../../lib/oauth/stateCookie.js';
+import { signSession, setSessionCookie, redirect } from '../../../lib/session.js';
+import { callAppsScript } from '../../../lib/appsScriptClient.js';
+import { getBaseUrl } from '../../../lib/http.js';
 
-'use strict';
-
-const { exchangeCode, getUserInfo } = require('../../../lib/oauth/google');
-const { callAppsScript }            = require('../../../lib/appsScriptClient');
-const { createSession }             = require('../../../lib/session');
-
-function parseCookies(req) {
-  return Object.fromEntries(
-    (req.headers.cookie || '').split(';').map(c => c.trim().split('=').map(decodeURIComponent))
-  );
-}
-
-module.exports = async (req, res) => {
-  if (req.method !== 'GET') return res.status(405).end('Method Not Allowed');
-
-  const { code, state, error } = req.query || {};
-  const cookies = parseCookies(req);
-
-  // Google declined access
-  if (error) return res.redirect(302, '/join?error=google_denied');
-
-  // CSRF state check
-  if (!state || state !== cookies.ho_oauth_state) {
-    return res.status(400).json({ ok: false, error_code: 'INVALID_STATE', message: 'State mismatch' });
+export default async function handler(req, res) {
+  if (req.method !== 'GET') {
+    res.statusCode = 405;
+    res.setHeader('Allow', 'GET');
+    return res.end();
   }
 
-  const verifier = cookies.ho_pkce_verifier;
-  if (!verifier) {
-    return res.status(400).json({ ok: false, error_code: 'MISSING_VERIFIER', message: 'PKCE verifier missing' });
-  }
+  const oauthState = getOAuthStateCookie(req);
+  const { code, state, error } = req.query;
+
+  const fail = () => redirect(res, '/join?error=google_failed');
+
+  if (error || !code || !state) return fail();
+  if (!oauthState || oauthState.provider !== 'google' || oauthState.state !== state) return fail();
 
   try {
-    // Exchange code → tokens → user profile
-    const tokens   = await exchangeCode(code, verifier);
-    const profile  = await getUserInfo(tokens.access_token);
+    const token = await exchangeGoogleCode({
+      code,
+      codeVerifier: oauthState.codeVerifier,
+      redirectUri: getBaseUrl(req) + '/api/auth/google/callback',
+    });
+    const user = await getGoogleUser(token.access_token);
 
-    // Create or find the member record in Apps Script / Sheets
-    const result = await callAppsScript('createMember', {
-      google_sub:   profile.sub,
-      email:        profile.email,
-      display_name: profile.name,
-      avatar_url:   profile.picture,
+    await callAppsScript('linkGoogleIdentity', {
+      google_sub: user.sub,
+      email: user.email,
+      display_name: user.name || user.given_name || 'Hack Orbit member',
+      avatar_url: user.picture || '',
     });
 
-    // Build session payload
-    const sessionPayload = {
-      member_id:       result.member_id || null,
-      google_sub:      profile.sub,
-      google_linked:   true,
-      github_linked:   false,
-      discord_linked:  false,
-      display_name:    profile.name,
-      avatar_url:      profile.picture,
-      status:          result.status || 'pending',
-    };
+    const member = await callAppsScript('getMemberByGoogleSub', {
+      google_sub: user.sub,
+    });
 
-    const sessionCookie = await createSession(sessionPayload);
+    clearOAuthStateCookie(res);
 
-    // Clear temp OAuth cookies, set session
-    res.setHeader('Set-Cookie', [
-      sessionCookie,
-      'ho_pkce_verifier=; Max-Age=0; Path=/',
-      'ho_oauth_state=; Max-Age=0; Path=/',
-    ]);
+    const session = await signSession({
+      google_sub: user.sub,
+      member_id: (member && member.member_id) || null,
+      github_username: (member && member.github_username) || null,
+      discord_id: (member && member.discord_id) || null,
+      status: (member && member.status) || 'pending',
+      step: 'google',
+      display_name: (member && member.display_name) || user.name || '',
+    });
 
-    res.redirect(302, '/join');
+    setSessionCookie(res, session);
+    return redirect(res, member.member_id && member.status === 'verified' ? '/settings' : '/join');
   } catch (err) {
-    console.error('[google/callback]', err);
-    res.redirect(302, `/join?error=google_failed`);
+    console.error('[auth/google/callback]', err);
+    return fail();
   }
-};
+}

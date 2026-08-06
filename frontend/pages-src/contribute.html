@@ -1,79 +1,174 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <title>Contribute — Hack Orbit Guidelines</title>
-  {{include:head}}
-  <meta name="description" content="Find guidelines on how to contribute to Hack Orbit's official and community-led repositories. Learn how our automated tracking systems reward your engineering.">
-</head>
-<body class="bg-surface-base font-body-md text-on-surface grid-bg min-h-screen">
-  <a href="#main-content" class="skip-link">Skip to main content</a>
-  
-  {{include:nav}}
+  <head>
+    <!-- {{HEAD}} -->
+    <title>Contribute to Hack Orbit</title>
+    <meta
+      name="description"
+      content="Learn how to contribute to Hack Orbit open-source projects: join the community, find good first issues, open your first pull request, and earn verifiable recognition."
+    />
+    <link rel="canonical" href="{{SITE_URL}}/contribute" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Contribute to Hack Orbit" />
+    <meta
+      property="og:description"
+      content="Step-by-step guide to contributing to Hack Orbit open-source projects."
+    />
+    <meta property="og:url" content="{{SITE_URL}}/contribute" />
+    <meta property="og:image" content="{{SITE_URL}}/assets/logo/logo.svg" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Contribute to Hack Orbit" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Home", "item": "{{SITE_URL}}/" },
+          { "@type": "ListItem", "position": 2, "name": "Contribute", "item": "{{SITE_URL}}/contribute" }
+        ]
+      }
+    </script>
+  </head>
+  <body>
+    <!-- {{NAV}} -->
+    <main id="main">
+      <section class="section--tight orbital" aria-labelledby="contribute-title">
+        <div class="container">
+          <span class="eyebrow">Contribute</span>
+          <h1 id="contribute-title">How to contribute to Hack Orbit</h1>
+          <p class="lead" style="max-width: 62ch; margin-top: 16px">
+            Contribution is at the heart of Hack Orbit. Here's exactly how to go from visitor to
+            recognised contributor — with your work reflected on a public, verifiable profile.
+          </p>
+        </div>
+      </section>
 
-  <main id="main-content" class="w-full pt-24 pb-32 bg-transparent relative z-10">
-    <div class="container" style="max-width: 900px;">
-      
-      <header style="margin-bottom: var(--spacing-16); text-align: center;">
-        <span class="text-mono text-primary uppercase font-semibold" style="font-size: var(--text-label-sm); letter-spacing: 0.25em;">// Protocol Sequence</span>
-        <h1 style="margin-top: var(--spacing-2); margin-bottom: var(--spacing-4); text-transform: uppercase;">Contributing Guide</h1>
-        <p class="text-muted" style="max-width: 600px; margin-left: auto; margin-right: auto; font-size: var(--text-body-lg);">
-          Our automated systems trace, review, and reward open-source contributions directly via our digital ledger.
-        </p>
-      </header>
-
-      <!-- Steps Timeline -->
-      <div class="flex flex-col gap-12">
-        
-        <!-- Step 1 -->
-        <div class="bento-card flex flex-col md:flex-row gap-8 items-start" style="padding: var(--spacing-8);">
-          <div class="text-mono font-bold text-primary" style="font-size: 2.5rem; line-height: 1; border-right: 1px solid var(--color-border); padding-right: var(--spacing-8); min-width: 80px;">
-            01
+      <section class="section" aria-labelledby="steps-title">
+        <div class="container">
+          <div class="section-heading">
+            <h2 id="steps-title">Five steps to your first contribution</h2>
           </div>
-          <div style="flex-grow: 1;">
-            <span class="text-mono text-secondary uppercase font-semibold" style="font-size: var(--text-label-sm); letter-spacing: 0.1em; display: block; margin-bottom: var(--spacing-2);">Authentication</span>
-            <h2 style="font-size: 1.5rem; margin-bottom: var(--spacing-3); text-transform: uppercase;">Establish Member Signature</h2>
-            <p class="text-muted" style="font-size: var(--text-body-md); line-height: 1.7;">
-              Begin by completing our secure OAuth registration flow. Connecting your Google, GitHub, and Discord identities links your public commits to your profile automatically.
+          <div class="steps">
+            <article class="step is-complete">
+              <div class="step__number" aria-hidden="true"></div>
+              <div class="step__content">
+                <h3>Verify your identity</h3>
+                <p>
+                  Complete the three-step verification flow (Google → GitHub → Discord) to receive
+                  your permanent Member ID. This is what ties your future contributions to your
+                  profile.
+                </p>
+              </div>
+            </article>
+            <article class="step">
+              <div class="step__number" aria-hidden="true"></div>
+              <div class="step__content">
+                <h3>Find a project</h3>
+                <p>
+                  Browse the Projects page for official Hack Orbit repositories. Official repos
+                  are where your contributions are tracked automatically.
+                </p>
+              </div>
+            </article>
+            <article class="step">
+              <div class="step__number" aria-hidden="true"></div>
+              <div class="step__content">
+                <h3>Pick a good first issue</h3>
+                <p>
+                  Look for issues labelled <span class="mono">good first issue</span> or
+                  <span class="mono">help wanted</span> in the official repositories. Introduce
+                  yourself, ask questions, and claim an issue before starting.
+                </p>
+              </div>
+            </article>
+            <article class="step">
+              <div class="step__number" aria-hidden="true"></div>
+              <div class="step__content">
+                <h3>Open a pull request</h3>
+                <p>
+                  Fork the repository, make your change, and open a pull request. Follow each
+                  repo's contributing guide and keep PRs focused and well-tested.
+                </p>
+              </div>
+            </article>
+            <article class="step">
+              <div class="step__number" aria-hidden="true"></div>
+              <div class="step__content">
+                <h3>Get recognised</h3>
+                <p>
+                  When your pull request merges, the contribution is attributed to your Member ID
+                  automatically — earning you badges and building your public contribution record.
+                </p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="guidelines-title" style="background: var(--surface-container-low)">
+        <div class="container">
+          <div class="section-heading">
+            <h2 id="guidelines-title">Contribution guidelines</h2>
+          </div>
+          <div class="grid grid-cols-2">
+            <article class="card card--hover">
+              <h3 class="card__title">Do</h3>
+              <ul class="stack-sm" style="margin-top: 12px">
+                <li>· Discuss significant changes before implementing them</li>
+                <li>· Write tests alongside your changes</li>
+                <li>· Keep pull requests small and focused</li>
+                <li>· Be respectful and constructive in reviews</li>
+                <li>· Ask for help when you're stuck — that's what a community is for</li>
+              </ul>
+            </article>
+            <article class="card card--hover">
+              <h3 class="card__title">Avoid</h3>
+              <ul class="stack-sm" style="margin-top: 12px">
+                <li>· Opening PRs without reading the contributing guide</li>
+                <li>· Scope-creeping a PR beyond its stated purpose</li>
+                <li>· Claiming issues you haven't started</li>
+                <li>· Submitting the same contribution to multiple organisations</li>
+              </ul>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="tracked-title">
+        <div class="container" style="max-width: 780px">
+          <span class="eyebrow">What gets tracked</span>
+          <h2 id="tracked-title">Contributions that count on your profile</h2>
+          <div class="stack-md" style="margin-top: 20px">
+            <p>
+              Hack Orbit tracks contribution activity within its official GitHub organisation's
+              repositories. Merged pull requests, closed issues you resolved, and submitted code
+              reviews are all attributed to your Member ID and shown on your public profile.
             </p>
-            <div style="margin-top: var(--spacing-4);">
-              <a href="/join.html" class="btn btn-secondary" style="padding: var(--spacing-2) var(--spacing-4);">Register ID</a>
+            <div class="callout callout--info">
+              <p>
+                We deliberately do not scan members' personal GitHub accounts. Recognition is
+                based on work done within Hack Orbit's official repositories — accurate to what
+                matters, and scalable by design.
+              </p>
             </div>
           </div>
         </div>
+      </section>
 
-        <!-- Step 2 -->
-        <div class="bento-card flex flex-col md:flex-row gap-8 items-start" style="padding: var(--spacing-8);">
-          <div class="text-mono font-bold text-primary" style="font-size: 2.5rem; line-height: 1; border-right: 1px solid var(--color-border); padding-right: var(--spacing-8); min-width: 80px;">
-            02
-          </div>
-          <div style="flex-grow: 1;">
-            <span class="text-mono text-secondary uppercase font-semibold" style="font-size: var(--text-label-sm); letter-spacing: 0.1em; display: block; margin-bottom: var(--spacing-2);">Coordination</span>
-            <h2 style="font-size: 1.5rem; margin-bottom: var(--spacing-3); text-transform: uppercase;">Claim or Propose Issues</h2>
-            <p class="text-muted" style="font-size: var(--text-body-md); line-height: 1.7;">
-              Explore active repositories inside the projects portal. You can pick unresolved issues labeled with contribution difficulty or submit RFC whitepapers on Discord to build new modules.
-            </p>
-          </div>
-        </div>
-
-        <!-- Step 3 -->
-        <div class="bento-card flex flex-col md:flex-row gap-8 items-start" style="padding: var(--spacing-8);">
-          <div class="text-mono font-bold text-primary" style="font-size: 2.5rem; line-height: 1; border-right: 1px solid var(--color-border); padding-right: var(--spacing-8); min-width: 80px;">
-            03
-          </div>
-          <div style="flex-grow: 1;">
-            <span class="text-mono text-secondary uppercase font-semibold" style="font-size: var(--text-label-sm); letter-spacing: 0.1em; display: block; margin-bottom: var(--spacing-2);">Validation</span>
-            <h2 style="font-size: 1.5rem; margin-bottom: var(--spacing-3); text-transform: uppercase;">Commit & Capture</h2>
-            <p class="text-muted" style="font-size: var(--text-body-md); line-height: 1.7;">
-              Push your commits and open a Pull Request. Once successfully approved and merged, our webhooks synchronize the state with the Apps Script ledger, awarding badges or certificates.
-            </p>
+      <section class="section orbital" aria-labelledby="cta-title">
+        <div class="container" style="max-width: 720px; text-align: center">
+          <h2 id="cta-title">Start contributing today</h2>
+          <p class="lead" style="margin: 16px auto 32px; max-width: 52ch">
+            Your first step is verifying your identity as a Hack Orbit member.
+          </p>
+          <div class="hero__actions">
+            <a class="btn btn--primary btn--lg" href="/join">Join Hack Orbit</a>
+            <a class="btn btn--secondary btn--lg" href="/projects">Browse projects</a>
           </div>
         </div>
-
-      </div>
-
-    </div>
-  </main>
-
-  {{include:footer}}
-</body>
+      </section>
+    </main>
+    <!-- {{FOOTER}} -->
+    <script type="module" src="/js/main.js"></script>
+  </body>
 </html>

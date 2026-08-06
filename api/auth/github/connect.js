@@ -1,16 +1,28 @@
-/**
- * api/auth/github/connect.js
- * GET /api/auth/github/connect  (requires active session)
- */
-'use strict';
-const { generateState, buildAuthUrl } = require('../../../lib/oauth/github');
-const { getSession }                  = require('../../../lib/session');
+import { buildGithubAuthUrl } from '../../../lib/oauth/github.js';
+import { generateState, redirectUri } from '../../../lib/oauth/common.js';
+import { setOAuthStateCookie } from '../../../lib/oauth/stateCookie.js';
+import { getSessionCookie, verifySession, redirect } from '../../../lib/session.js';
+import { getBaseUrl } from '../../../lib/http.js';
 
-module.exports = async (req, res) => {
-  const session = await getSession(req);
-  if (!session) return res.redirect(302, '/join?error=unauthenticated');
+export default async function handler(req, res) {
+  if (req.method !== 'GET') {
+    res.statusCode = 405;
+    res.setHeader('Allow', 'GET');
+    return res.end();
+  }
+
+  const token = getSessionCookie(req);
+  if (!token) return redirect(res, '/join?error=unauthenticated');
+
+  try {
+    await verifySession(token);
+  } catch {
+    return redirect(res, '/join?error=session_expired');
+  }
 
   const state = generateState();
-  res.setHeader('Set-Cookie', `ho_oauth_state=${state}; HttpOnly; Secure; SameSite=Lax; Max-Age=600; Path=/`);
-  res.redirect(302, buildAuthUrl(state));
-};
+  setOAuthStateCookie(res, { state, provider: 'github' });
+
+  const url = buildGithubAuthUrl({ state, redirectUri: getBaseUrl(req) + '/api/auth/github/callback' });
+  return redirect(res, url);
+}

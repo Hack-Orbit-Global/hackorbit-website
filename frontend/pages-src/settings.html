@@ -1,174 +1,66 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <title>Account Settings — Edit Profile</title>
-  {{include:head}}
-  <meta name="description" content="Manage your Hack Orbit profile metadata, edit bio, customize skills, and manage linked OAuth accounts.">
-</head>
-<body class="bg-surface-base font-body-md text-on-surface grid-bg min-h-screen">
-  <a href="#main-content" class="skip-link">Skip to main content</a>
-  
-  {{include:nav}}
+  <head>
+    <!-- {{HEAD}} -->
+    <title>Profile Settings — Hack Orbit</title>
+    <meta name="description" content="Edit your Hack Orbit public profile: display name, bio, skills, and links." />
+    <meta name="robots" content="noindex, nofollow" />
+    <link rel="canonical" href="{{SITE_URL}}/settings" />
+  </head>
+  <body>
+    <!-- {{NAV}} -->
+    <main id="main">
+      <section class="section orbital" aria-labelledby="settings-title">
+        <div class="container" style="max-width: 680px">
+          <span class="eyebrow">Account</span>
+          <h1 id="settings-title">Profile settings</h1>
+          <p class="lead" style="margin-top: 12px">
+            These details appear on your public profile at
+            <span class="mono" id="profile-link">/profile/HO-XXXXXX</span>.
+          </p>
 
-  <main id="main-content" class="w-full pt-24 pb-32 bg-transparent relative z-10">
-    <div class="container" style="max-width: 650px;">
-      
-      <header style="margin-bottom: var(--spacing-12);">
-        <span class="text-mono text-primary uppercase font-semibold" style="font-size: var(--text-label-sm); letter-spacing: 0.25em;">// Profile Manager</span>
-        <h1 style="margin-top: var(--spacing-2); margin-bottom: var(--spacing-4); text-transform: uppercase;">Account Settings</h1>
-        <p class="text-muted" style="font-size: var(--text-body-md);">
-          Modify your signature coordinates, biography, skills index, and bound social identifiers.
-        </p>
-      </header>
-
-      <div class="bento-card" style="margin-bottom: var(--spacing-8); padding: var(--spacing-8);">
-        <h2 style="font-size: 1.25rem; margin-bottom: var(--spacing-6); border-bottom: 1px solid var(--color-border); padding-bottom: var(--spacing-2); text-transform: uppercase;">Profile Coordinates</h2>
-        <form id="profile-settings-form">
-          <div class="form-group">
-            <label class="form-label" for="settings-display-name">Signature Name</label>
-            <input class="form-input" type="text" id="settings-display-name" name="name" autocomplete="name" required placeholder="e.g. Ash Vane">
-          </div>
-
-          <div class="form-group">
-            <label class="form-label" for="settings-avatar-url">Avatar Image URL</label>
-            <input class="form-input text-mono" type="url" id="settings-avatar-url" name="avatar" autocomplete="photo" placeholder="https://...">
-          </div>
-
-          <div class="form-group">
-            <label class="form-label" for="settings-bio">Biography // Logs</label>
-            <textarea class="form-input" id="settings-bio" name="bio" autocomplete="off" rows="4" placeholder="Brief technical bio..." style="resize: vertical; font-family: var(--font-body);"></textarea>
-          </div>
-
-          <div class="form-group">
-            <label class="form-label" for="settings-skills">Technology Index (comma separated)</label>
-            <input class="form-input" type="text" id="settings-skills" name="skills" autocomplete="off" placeholder="e.g. Rust, Go, TypeScript">
-          </div>
-
-          <div class="form-group">
-            <label class="form-label" for="settings-linkedin">LinkedIn Coordinates (optional)</label>
-            <input class="form-input text-mono" type="url" id="settings-linkedin" name="linkedin" autocomplete="url" placeholder="https://linkedin.com/in/...">
-          </div>
-
-          <button type="submit" class="btn btn-primary btn-arrow" style="width: 100%; margin-top: var(--spacing-4);">
-            Commit Changes <span class="material-symbols-outlined">save</span>
-          </button>
-        </form>
-
-        <div id="settings-result" style="display:none; margin-top: var(--spacing-6); padding: var(--spacing-4) var(--spacing-6); border-radius: var(--radius-sm); border: 1px solid; font-family: var(--font-mono); font-size: var(--text-label-sm); letter-spacing: 0.05em;"></div>
-      </div>
-
-
-      <!-- Linked Accounts Card -->
-      <div class="bento-card" style="padding: var(--spacing-8);">
-        <h2 style="font-size: 1.25rem; margin-bottom: var(--spacing-6); border-bottom: 1px solid var(--color-border); padding-bottom: var(--spacing-2); text-transform: uppercase;">Identity Bindings</h2>
-        
-        <div style="display: flex; flex-direction: column; gap: var(--spacing-4);">
-          <!-- Google -->
-          <div style="display: flex; justify-content: space-between; align-items: center; padding: var(--spacing-4); background-color: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-sm);">
-            <div style="display: flex; align-items: center; gap: var(--spacing-3);">
-              <span class="material-symbols-outlined text-primary">security</span>
-              <span style="font-weight: 600;">Google Profile Anchor</span>
+          <div id="session-gate" class="stack-md" style="margin-top: 32px">
+            <div class="callout callout--info">
+              <p id="settings-status" aria-live="polite">Checking your session…</p>
             </div>
-            <span class="badge badge-official">CONNECTED</span>
           </div>
 
-          <!-- GitHub -->
-          <div style="display: flex; justify-content: space-between; align-items: center; padding: var(--spacing-4); background-color: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-sm);">
-            <div style="display: flex; align-items: center; gap: var(--spacing-3);">
-              <span class="material-symbols-outlined text-primary">terminal</span>
-              <span style="font-weight: 600;">GitHub Account Link</span>
+          <form id="settings-form" class="card stack-md" style="margin-top: 24px" hidden novalidate>
+            <div class="form-group">
+              <label for="settings-name">Display name <span class="required" aria-hidden="true">*</span></label>
+              <input class="form-input" id="settings-name" name="display_name" type="text" autocomplete="name" required aria-required="true" placeholder="How you want to appear publicly" />
+              <p class="form-help">Your legal name is never required — this is your public name.</p>
             </div>
-            <span class="badge badge-official" id="github-badge">CONNECTED</span>
-          </div>
-
-          <!-- Discord -->
-          <div style="display: flex; justify-content: space-between; align-items: center; padding: var(--spacing-4); background-color: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-sm);">
-            <div style="display: flex; align-items: center; gap: var(--spacing-3);">
-              <span class="material-symbols-outlined text-primary">forum</span>
-              <span style="font-weight: 600;">Discord Identity Link</span>
+            <div class="form-group">
+              <label for="settings-bio">Bio</label>
+              <textarea class="form-textarea" id="settings-bio" name="bio" maxlength="500" placeholder="A short line about what you build."></textarea>
+              <p class="form-help">Up to 500 characters.</p>
             </div>
-            <span class="badge badge-official" id="discord-badge">CONNECTED</span>
-          </div>
+            <div class="form-group">
+              <label for="settings-skills">Skills &amp; technologies</label>
+              <input class="form-input" id="settings-skills" name="skills" type="text" autocomplete="off" placeholder="JavaScript, Kubernetes, PyTorch…" />
+              <p class="form-help">Comma-separated list shown as tags on your profile.</p>
+            </div>
+            <div class="form-group">
+              <label for="settings-linkedin">LinkedIn URL</label>
+              <input class="form-input" id="settings-linkedin" name="linkedin_url" type="url" autocomplete="url" placeholder="https://www.linkedin.com/in/you" />
+            </div>
+            <div class="form-group">
+              <label for="settings-other-links">Other links</label>
+              <input class="form-input" id="settings-other-links" name="other_links" type="text" autocomplete="url" placeholder="https://github.com/you, https://your.site" />
+              <p class="form-help">Comma-separated. GitHub is already shown from your verified connection.</p>
+            </div>
+            <div class="form-actions">
+              <button class="btn btn--primary" type="submit" id="settings-save">Save changes</button>
+              <button class="btn btn--ghost" type="button" id="logout-btn">Sign out</button>
+              <span class="form-status" aria-live="polite"></span>
+            </div>
+          </form>
         </div>
-      </div>
-
-    </div>
-  </main>
-
-  <script type="module">
-    import { apiCall } from '/frontend/js/api.js';
-
-    async function loadSettings() {
-      const response = await apiCall('/api/auth/session');
-      if (!response.ok || !response.data || !response.data.session) {
-        window.location.href = '/join.html';
-        return;
-      }
-      
-      const session = response.data.session;
-      document.getElementById('settings-display-name').value = session.displayName || '';
-      document.getElementById('settings-avatar-url').value = session.avatarUrl || '';
-      document.getElementById('settings-bio').value = session.bio || '';
-      document.getElementById('settings-skills').value = session.skills || '';
-      document.getElementById('settings-linkedin').value = session.linkedinUrl || '';
-
-      const ghBadge = document.getElementById('github-badge');
-      if (session.githubLinked) {
-        ghBadge.className = 'badge badge-official';
-        ghBadge.innerText = 'CONNECTED';
-      } else {
-        ghBadge.className = 'badge badge-community';
-        ghBadge.style.backgroundColor = 'var(--color-error-container)';
-        ghBadge.style.borderColor = 'var(--color-error)';
-        ghBadge.style.color = 'var(--color-error)';
-        ghBadge.innerText = 'DISCONNECTED';
-      }
-
-      const dsBadge = document.getElementById('discord-badge');
-      if (session.discordLinked) {
-        dsBadge.className = 'badge badge-official';
-        dsBadge.innerText = 'CONNECTED';
-      } else {
-        dsBadge.className = 'badge badge-community';
-        dsBadge.style.backgroundColor = 'var(--color-error-container)';
-        dsBadge.style.borderColor = 'var(--color-error)';
-        dsBadge.style.color = 'var(--color-error)';
-        dsBadge.innerText = 'DISCONNECTED';
-      }
-    }
-
-    document.getElementById('profile-settings-form').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const displayName = document.getElementById('settings-display-name').value;
-      const avatarUrl = document.getElementById('settings-avatar-url').value;
-      const bio = document.getElementById('settings-bio').value;
-      const skills = document.getElementById('settings-skills').value;
-      const linkedinUrl = document.getElementById('settings-linkedin').value;
-
-      const res = await apiCall('/api/members/me', {
-        method: 'PATCH',
-        body: JSON.stringify({ displayName, avatarUrl, bio, skills, linkedinUrl })
-      });
-
-      const result = document.getElementById('settings-result');
-      result.style.display = 'block';
-
-      if (res.ok) {
-        result.style.backgroundColor = 'rgba(105, 222, 131, 0.08)';
-        result.style.borderColor = 'rgba(105, 222, 131, 0.35)';
-        result.style.color = 'var(--color-secondary)';
-        result.innerHTML = '&#10003; METADATA CHANGES COMMITTED SUCCESSFULLY TO GOOGLE SHEETS!';
-      } else {
-        result.style.backgroundColor = 'rgba(255, 180, 169, 0.08)';
-        result.style.borderColor = 'rgba(255, 180, 169, 0.35)';
-        result.style.color = 'var(--color-error)';
-        result.innerHTML = '&#9888; ' + (res.message || 'Profile update failed').toUpperCase();
-      }
-    });
-
-    document.addEventListener('DOMContentLoaded', loadSettings);
-  </script>
-
-  {{include:footer}}
-</body>
+      </section>
+    </main>
+    <!-- {{FOOTER}} -->
+    <script type="module" src="/js/main.js"></script>
+    <script type="module" src="/js/profile.js"></script>
+  </body>
 </html>

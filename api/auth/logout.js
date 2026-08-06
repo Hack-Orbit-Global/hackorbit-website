@@ -1,12 +1,11 @@
-/**
- * api/auth/logout.js
- * POST /api/auth/logout
- */
-'use strict';
-const { clearSession } = require('../../lib/session');
+import { clearSessionCookie, json } from '../../lib/session.js';
 
-module.exports = async (req, res) => {
-  if (req.method !== 'POST') return res.status(405).end('Method Not Allowed');
-  res.setHeader('Set-Cookie', clearSession());
-  res.status(200).json({ ok: true });
-};
+export default function handler(req, res) {
+  if (req.method !== 'POST') {
+    res.statusCode = 405;
+    res.setHeader('Allow', 'POST');
+    return res.end();
+  }
+  clearSessionCookie(res);
+  return json(res, 200, { ok: true });
+}

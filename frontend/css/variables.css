@@ -1,90 +1,82 @@
-/* ====================================================
-   HACK ORBIT — Design System Variables
-   Cinematic Tech Noir — Dark Mode by Default
-   Extracted from official Stitch design prototypes
-   ==================================================== */
+/* Hack Orbit — Design Tokens
+ * Source of truth: design-prototypes/cinematic_tech_noir/DESIGN.md
+ * and implementation.md §6.1. "Cinematic Tech Noir" aesthetic. */
+
 :root {
-  /* ── Core Backgrounds ─────────────────────────────── */
-  --color-bg:               #070A0F; /* surface-base: deepest background */
-  --color-surface:          #101419; /* surface / surface-dim */
-  --color-surface-elevated: #10161F; /* cards, elevated panels */
-  --color-surface-overlay:  #19222D; /* modals, overlays */
-  --color-surface-container:         #1d2025;
-  --color-surface-container-low:     #181c21;
-  --color-surface-container-high:    #272a30;
-  --color-surface-container-highest: #32353b;
-  --color-surface-container-lowest:  #0b0e13;
+  color-scheme: dark;
 
-  /* ── Primary (Orbital Blue) ───────────────────────── */
-  --color-primary:           #a6c8ff; /* bright blue accent */
-  --color-primary-container: #1b5fa8;
-  --color-primary-fixed:     #d4e3ff;
-  --color-primary-fixed-dim: #a6c8ff;
-  --color-on-primary:        #00315f;
-  --color-on-primary-container: #c4daff;
+  /* ---- Color palette (Deep Midnight) ---- */
+  --surface-base: #070a0f;          /* canvas */
+  --surface-elevated: #10161f;      /* raised surfaces */
+  --surface-container-low: #0b0e13; /* lowest raised tier */
+  --surface-container: #181c21;     /* active/overlay tier */
+  --surface-container-high: #272a30;
 
-  /* ── Secondary (Signal Green) ─────────────────────── */
-  --color-secondary:         #69de83;
-  --color-secondary-fixed:   #85fb9d;
-  --color-on-secondary:      #003915;
+  --border-subtle: #1e293b;         /* 1px outlines on raised surfaces */
+  --border-focus: #3b82f6;
 
-  /* ── Tertiary / Error ─────────────────────────────── */
-  --color-tertiary:          #ffb4a9;
-  --color-error:             #ffb4ab;
-  --color-error-container:   #93000a;
+  /* ---- Text ---- */
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+  --text-muted: #8494a9;            /* lightened for WCAG AA on base */
 
-  /* ── Text ─────────────────────────────────────────── */
-  --color-on-surface:        #e0e2ea; /* primary text */
-  --color-on-surface-variant:#c2c6d3; /* secondary text */
-  --color-text-primary:      #F8FAFC; /* brightest headlines */
-  --color-text-secondary:    #94A3B8; /* muted body text */
+  /* ---- Brand accents ---- */
+  --accent-cyan: #06b6d4;
+  --accent-blue: #3b82f6;
+  --accent-purple: #8b5cf6;
+  --primary-blue: #a6c8ff;          /* cinematic primary (tech blue) */
+  --on-primary-blue: #00315f;
+  --primary-container: #1b5fa8;
+  --orbit-green: #69de83;           /* secondary — success/community */
+  --on-orbit-green: #003915;
+  --creation-red: #ffb4a9;          /* tertiary — sparing highlights */
+  --accent-glow: rgba(6, 182, 212, 0.15);
 
-  /* ── Borders ──────────────────────────────────────── */
-  --color-border:            #1E293B; /* border-subtle */
-  --color-outline:           #8c919c;
-  --color-outline-variant:   #424751;
+  /* ---- Status ---- */
+  --status-verified: #10b981;
+  --status-pending: #f59e0b;
+  --status-revoked: #ef4444;
 
-  /* ── Typography ───────────────────────────────────── */
-  --font-headline: 'Merriweather', Georgia, serif;
-  --font-body:     'Geist Sans', 'Inter', system-ui, sans-serif;
-  --font-mono:     'JetBrains Mono', 'Fira Code', monospace;
+  /* ---- Typography ---- */
+  --font-serif: 'Merriweather', Georgia, 'Times New Roman', serif;
+  --font-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono: 'JetBrains Mono', 'SFMono-Regular', Consolas, monospace;
 
-  /* ── Type Scale ───────────────────────────────────── */
-  --text-headline-xl: clamp(2.5rem, 6vw, 3rem);  /* 48px */
-  --text-headline-lg: 2rem;                        /* 32px */
-  --text-body-lg:     1.125rem;                    /* 18px */
-  --text-body-md:     1rem;                        /* 16px */
-  --text-label-md:    0.875rem;                    /* 14px */
-  --text-label-sm:    0.75rem;                     /* 12px */
+  --text-xs: 0.75rem;
+  --text-sm: 0.8125rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.375rem;
+  --text-2xl: 1.75rem;
+  --text-3xl: 2.25rem;
+  --text-4xl: 3rem;
 
-  /* ── Border Radius ────────────────────────────────── */
-  --radius-sm:  0.125rem; /* 2px — sharp */
-  --radius-md:  0.25rem;  /* 4px */
-  --radius-lg:  0.5rem;   /* 8px */
-  --radius-full: 0.75rem; /* 12px */
+  --leading-tight: 1.2;
+  --leading-snug: 1.35;
+  --leading-normal: 1.6;
 
-  /* ── Spacing (8px grid) ───────────────────────────── */
-  --spacing-1:  0.25rem;  /* 4px  */
-  --spacing-2:  0.5rem;   /* 8px  */
-  --spacing-3:  0.75rem;  /* 12px */
-  --spacing-4:  1rem;     /* 16px */
-  --spacing-6:  1.5rem;   /* 24px */
-  --spacing-8:  2rem;     /* 32px */
-  --spacing-12: 3rem;     /* 48px */
-  --spacing-16: 4rem;     /* 64px */
-  --spacing-20: 5rem;     /* 80px */
-  --spacing-24: 6rem;     /* 96px */
-  --spacing-32: 8rem;     /* 128px */
-  --spacing-40: 10rem;    /* 160px */
+  --tracking-widest: 0.3em;
 
-  /* ── Layout ───────────────────────────────────────── */
-  --max-width:        1280px;
-  --margin-desktop:   4rem;   /* 64px */
-  --margin-mobile:    1.25rem;/* 20px */
+  /* ---- Radius ---- */
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --radius-full: 9999px;
 
-  /* ── Grid Background Pattern ──────────────────────── */
-  /* Make grid lines slightly bluish and semi-transparent so they show on dark bg */
-  --grid-bg: linear-gradient(to right,  rgba(166,200,255,0.08) 1px, transparent 1px),
-             linear-gradient(to bottom, rgba(166,200,255,0.08) 1px, transparent 1px);
-  --grid-size: 40px 40px;
+  /* ---- Shadows & blur ---- */
+  --shadow-glow: 0 0 25px rgba(6, 182, 212, 0.2);
+  --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.4);
+  --shadow-card-hover: 0 0 0 1px var(--border-focus), 0 0 25px rgba(59, 130, 246, 0.12);
+  --backdrop-blur: blur(12px);
+
+  /* ---- Layout ---- */
+  --container-max: 1200px;
+  --gutter: 24px;
+  --section-pad-desktop: 96px;
+  --section-pad-mobile: 48px;
+
+  /* ---- Z-index scale ---- */
+  --z-nav: 100;
+  --z-drawer: 110;
+  --z-overlay: 90;
 }

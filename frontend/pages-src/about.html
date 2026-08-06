@@ -1,158 +1,183 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <title>About Hack Orbit — Core Philosophy & Vision</title>
-  {{include:head}}
-  <meta name="description" content="Learn about the origin of Hack Orbit, founded by Sabarna Barik, and discover our core principles of framework-free performance and developer sovereignty.">
-</head>
-<body class="bg-surface-base font-body-md text-on-surface grid-bg min-h-screen">
-  <a href="#main-content" class="skip-link">Skip to main content</a>
-  
-  {{include:nav}}
+  <head>
+    <!-- {{HEAD}} -->
+    <title>About Hack Orbit — Mission, Philosophy &amp; Founder</title>
+    <meta
+      name="description"
+      content="About Hack Orbit, an open-source technology organisation founded by Sabarna Barik. Our mission, the Build. Contribute. Orbit Together. philosophy, and our founding story."
+    />
+    <link rel="canonical" href="{{SITE_URL}}/about" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="About Hack Orbit — Mission, Philosophy &amp; Founder" />
+    <meta
+      property="og:description"
+      content="Hack Orbit is an open-source technology organisation and developer community founded by Sabarna Barik."
+    />
+    <meta property="og:url" content="{{SITE_URL}}/about" />
+    <meta property="og:image" content="{{SITE_URL}}/assets/logo/logo.svg" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="About Hack Orbit" />
+    <meta name="twitter:description" content="Mission, philosophy, and founder of Hack Orbit." />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Organization",
+            "@id": "{{SITE_URL}}/#organization",
+            "name": "Hack Orbit",
+            "url": "{{SITE_URL}}/",
+            "logo": "{{SITE_URL}}/assets/logo/logo.svg",
+            "founder": {
+              "@type": "Person",
+              "@id": "{{SITE_URL}}/about/#sabarna-barik",
+              "name": "Sabarna Barik"
+            }
+          },
+          {
+            "@type": "Person",
+            "@id": "{{SITE_URL}}/about/#sabarna-barik",
+            "name": "Sabarna Barik",
+            "jobTitle": "Founder",
+            "worksFor": { "@id": "{{SITE_URL}}/#organization" },
+            "memberOf": { "@id": "{{SITE_URL}}/#organization" }
+          }
+        ]
+      }
+    </script>
+  </head>
+  <body>
+    <!-- {{NAV}} -->
+    <main id="main">
+      <section class="section" aria-labelledby="mission-title">
+        <div class="container" style="max-width: 780px">
+          <span class="eyebrow">About Hack Orbit</span>
+          <h1 id="mission-title">An open-source organisation for builders.</h1>
+          <p class="lead" style="margin-top: 24px">
+            Hack Orbit is an open-source technology organisation and developer community. It was
+            founded on a simple idea: that people who build things should have a real, participatory
+            home — a place to ship projects, contribute to shared open-source work, and grow together
+            as a community.
+          </p>
+        </div>
+      </section>
 
-  <main id="main-content" class="w-full pt-16 bg-transparent relative z-10">
-    <div class="flex flex-col w-full overflow-hidden">
-      
-      <!-- About Hero -->
-      <section class="relative py-24 overflow-hidden">
-        <div class="container relative z-10">
-          <div style="max-width: 800px; display: flex; flex-direction: column; gap: var(--spacing-6);">
-            <div class="flex items-center gap-3 px-3 py-1 bg-primary/10 border-l-2 border-primary" style="width: fit-content;">
-              <span class="text-mono text-primary uppercase font-semibold" style="font-size: var(--text-label-sm); letter-spacing: 0.2em;">Genesis // Whitepaper</span>
+      <section class="section" aria-labelledby="philosophy-title" style="background: var(--surface-container-low)">
+        <div class="container">
+          <div class="section-heading">
+            <div>
+              <span class="eyebrow">Our philosophy</span>
+              <h2 id="philosophy-title">Build. Contribute. Orbit together.</h2>
             </div>
-            
-            <h1 class="text-text-primary uppercase" style="font-size: clamp(3rem, 7vw, 4.5rem); leading-trim: both; line-height: 0.95;">
-              The Genesis of <br/>
-              <span class="text-primary font-italic">Hack Orbit.</span>
-            </h1>
-            
-            <p class="text-muted" style="font-size: var(--text-body-lg); line-height: 1.6;">
-              Hack Orbit was founded to establish a sanctuary for developer sovereignty, zero-cost abstraction, and verifiable open-source contribution tracking.
+          </div>
+          <div class="grid grid-cols-3">
+            <article class="card card--hover">
+              <h3 class="card__title">Build</h3>
+              <p class="card__text">
+                We believe in shipping real things. Members build projects that range across the
+                technology spectrum — web development, DevOps, AI/ML, and general software
+                engineering.
+              </p>
+            </article>
+            <article class="card card--hover">
+              <h3 class="card__title">Contribute</h3>
+              <p class="card__text">
+                We believe in shared work. Contributions to Hack Orbit's official repositories are
+                tracked, recognised, and reflected on every member's public profile.
+              </p>
+            </article>
+            <article class="card card--hover">
+              <h3 class="card__title">Orbit together</h3>
+              <p class="card__text">
+                We believe in community. Growth happens collectively — through collaboration,
+                mentoring, and building a durable record of work that members can carry forward.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="positioning-title">
+        <div class="container" style="max-width: 780px">
+          <span class="eyebrow">Positioning</span>
+          <h2 id="positioning-title">Technology-neutral by design.</h2>
+          <div class="stack-lg" style="margin-top: 24px">
+            <p>
+              Hack Orbit is an engineering organisation, not a cybersecurity brand. The word
+              "hack" is used in its original sense — to build, create, and tinker — not to imply
+              security or breaching. Our community spans web development, DevOps, AI/ML, and
+              technology broadly, and no single domain is privileged over the others.
+            </p>
+            <p>
+              Hack Orbit is <strong>not</strong> a cybersecurity or hacking-focused organisation.
+              It is not an event-management platform, and it is not a certificate-download portal.
+              It is a community where developers build and are recognised for real, verifiable work.
             </p>
           </div>
         </div>
       </section>
 
-      <!-- The Triumvirate Section -->
-      <section class="py-24 bg-surface" style="border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border);">
+      <section class="section" aria-labelledby="history-title" style="background: var(--surface-container-low)">
+        <div class="container" style="max-width: 780px">
+          <span class="eyebrow">History</span>
+          <h2 id="history-title">From a founding idea to an open community.</h2>
+          <div class="stack-lg" style="margin-top: 24px">
+            <p>
+              Hack Orbit was founded by Sabarna Barik as a from-scratch initiative with a clear
+              mission: give builders a participatory home and a durable, verifiable record of
+              their open-source work. The organisation is built around a verified identity system —
+              one real person, one Member ID, one public profile — anchored by Google and confirmed
+              through GitHub and Discord.
+            </p>
+            <p>
+              Today Hack Orbit is an online-first organisation, operated by its founder and built
+              to scale into a global developer community — while remaining honest about what it is
+              and never fabricating its numbers.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="founder-title">
         <div class="container">
-          <div class="flex flex-col md:flex-row justify-between items-end gap-8 mb-16">
+          <div class="grid" style="grid-template-columns: auto 1fr; gap: 48px; align-items: start">
+            <img
+              src="/assets/images/founder-placeholder.svg"
+              alt="Sabarna Barik, founder of Hack Orbit"
+              width="300"
+              height="360"
+            />
             <div>
-              <span class="text-mono text-primary uppercase font-semibold" style="font-size: var(--text-label-sm); letter-spacing: 0.1em; display: block;">THE TRIUMVIRATE</span>
-              <h2>Mission, Vision, and Philosophy</h2>
-            </div>
-            <div class="text-mono text-muted" style="font-size: var(--text-label-sm);">// STITCH PROTOCOL</div>
-          </div>
-
-          <div class="grid grid-cols-1 grid-md-3 gap-8">
-            <!-- Mission -->
-            <div class="bento-card">
-              <div>
-                <span class="card-num">// 01</span>
-                <h3 class="text-text-primary" style="margin-bottom: var(--spacing-4);">Our Mission</h3>
-                <p class="text-muted" style="font-size: var(--text-body-md);">
-                  To champion technical excellence and build resilient systems that perform under any load. We eliminate bloated runtimes and focus on native hardware execution.
+              <span class="eyebrow">Founder · Member HO-000001</span>
+              <h2 id="founder-title">Sabarna Barik</h2>
+              <div class="stack-md" style="margin-top: 20px; max-width: 68ch">
+                <p>
+                  Sabarna Barik is the founder of Hack Orbit. The organisation grew out of a belief
+                  that open source is one of the most reliable ways to build systems that are
+                  resilient, transparent, and long-lived — and that the people who contribute to
+                  them deserve a credible, verifiable record of that work.
+                </p>
+                <p>
+                  Under Sabarna's leadership, Hack Orbit is built around three commitments:
+                  precision (engineering without compromise), performance (fast, accessible,
+                  high-quality software), and purpose (building things that matter to a community).
+                </p>
+                <p>
+                  As the organisation's first verified member, Sabarna holds Member ID
+                  <span class="mono">HO-000001</span> and the Founder badge.
                 </p>
               </div>
-            </div>
-
-            <!-- Vision -->
-            <div class="bento-card">
-              <div>
-                <span class="card-num">// 02</span>
-                <h3 class="text-text-primary" style="margin-bottom: var(--spacing-4);">The Vision</h3>
-                <p class="text-muted" style="font-size: var(--text-body-md);">
-                  A completely decentralized contributor network where proof-of-work is cryptographically secure, visible, and permanently stored on a public ledger.
-                </p>
-              </div>
-            </div>
-
-            <!-- Philosophy -->
-            <div class="bento-card">
-              <div>
-                <span class="card-num">// 03</span>
-                <h3 class="text-text-primary" style="margin-bottom: var(--spacing-4);">Core Philosophy</h3>
-                <p class="text-muted" style="font-size: var(--text-body-md);">
-                  Technology neutrality. Developers should pick the absolute best tool: Go for distributed web, Rust for systems, Python for AI, and Vanilla Web for lightning performance.
-                </p>
+              <div class="form-actions" style="margin-top: 28px">
+                <a class="btn btn--secondary" href="/contact">Contact Hack Orbit</a>
+                <a class="btn btn--ghost" href="/join">Join Hack Orbit</a>
               </div>
             </div>
           </div>
         </div>
       </section>
-
-      <!-- Founder Portrait Detail -->
-      <section class="py-24 bg-surface-base">
-        <div class="container">
-          <div class="flex flex-col lg:flex-row items-center gap-20">
-            
-            <!-- Orbit rings with local founder.jpg -->
-            <div class="founder-orbit-container">
-              <div class="orbit-ring-1"></div>
-              <div class="orbit-ring-2"></div>
-              <div class="founder-img-wrapper">
-                <img src="/frontend/assets/images/founder.jpg" alt="Sabarna Barik Portrait" class="founder-img">
-              </div>
-              <div class="founder-badge">FOUNDER</div>
-            </div>
-
-            <!-- Bio -->
-            <div style="flex-grow: 1;">
-              <span class="text-mono text-primary uppercase font-semibold" style="font-size: var(--text-label-sm); letter-spacing: 0.15em; margin-bottom: var(--spacing-4); display: block;">About the Founder</span>
-              <h2 style="margin-bottom: var(--spacing-6);">Sabarna Barik</h2>
-              <div style="display: flex; flex-direction: column; gap: var(--spacing-6); max-width: 650px;">
-                <p style="font-size: var(--text-body-lg); line-height: 1.7;">
-                  Hack Orbit was conceptualized by Sabarna Barik, an advocate for performance engineering and high-fidelity product design. Disillusioned by modern software engineering patterns that favor convenience over efficiency, Sabarna set out to build an ecosystem that rewards raw merit and architectural purity.
-                </p>
-                <p class="text-muted" style="font-size: var(--text-body-md);">
-                  "Our goal is to build things that last. By connecting GitHub pipelines directly to digital credentials, we ensure that every line of code committed is recognized and verifiable indefinitely."
-                </p>
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </section>
-
-      <!-- Non-functional specs -->
-      <section class="py-24 bg-surface" style="border-top: 1px solid var(--color-border);">
-        <div class="container">
-          <div style="max-width: 650px; margin-bottom: var(--spacing-12);">
-            <span class="text-mono text-primary uppercase font-semibold" style="font-size: var(--text-label-sm); letter-spacing: 0.1em; display: block;">Technical Architecture</span>
-            <h2>Our Non-Functional Requirements (NFRs)</h2>
-          </div>
-
-          <div class="grid grid-cols-1 grid-md-3 gap-8">
-            <div style="background-color: var(--color-surface-elevated); padding: var(--spacing-8); border: 1px solid var(--color-border); border-radius: var(--radius-md);">
-              <span class="material-symbols-outlined text-primary" style="font-size: 36px; margin-bottom: var(--spacing-4);">speed</span>
-              <h3 style="margin-bottom: var(--spacing-2);">100/100 Lighthouse</h3>
-              <p class="text-muted">
-                Pre-rendered static HTML structures combined with highly optimized serverless API nodes. Zero heavy hydration or layout shift.
-              </p>
-            </div>
-
-            <div style="background-color: var(--color-surface-elevated); padding: var(--spacing-8); border: 1px solid var(--color-border); border-radius: var(--radius-md);">
-              <span class="material-symbols-outlined text-primary" style="font-size: 36px; margin-bottom: var(--spacing-4);">shield</span>
-              <h3 style="margin-bottom: var(--spacing-2);">Sovereign Identity</h3>
-              <p class="text-muted">
-                Your contributions are tied to a cryptographically verifiable public record, independent of proprietary platforms.
-              </p>
-            </div>
-
-            <div style="background-color: var(--color-surface-elevated); padding: var(--spacing-8); border: 1px solid var(--color-border); border-radius: var(--radius-md);">
-              <span class="material-symbols-outlined text-primary" style="font-size: 36px; margin-bottom: var(--spacing-4);">accessibility</span>
-              <h3 style="margin-bottom: var(--spacing-2);">Universal Access</h3>
-              <p class="text-muted">
-                Strict WCAG 2.1 AA keyboard nav, semantic landmarks, aria labels, and optimal high-contrast readability.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-    </div>
-  </main>
-
-  {{include:footer}}
-</body>
+    </main>
+    <!-- {{FOOTER}} -->
+    <script type="module" src="/js/main.js"></script>
+  </body>
 </html>

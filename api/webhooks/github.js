@@ -1,69 +1,90 @@
-/**
- * api/webhooks/github.js
- * POST /api/webhooks/github
- * Validates GitHub HMAC signature, ingests PR merge / issue / review events.
- *
- * Env vars required:
- *   GITHUB_WEBHOOK_SECRET
- */
-'use strict';
-const crypto             = require('crypto');
-const { callAppsScript } = require('../../lib/appsScriptClient');
+import { json, error } from '../../lib/session.js';
+import { readRawBody } from '../../lib/http.js';
+import { verifyWebhookSignature, extractContribution, GithubError } from '../../lib/github.js';
+import { callAppsScript } from '../../lib/appsScriptClient.js';
 
-async function readRawBody(req) {
-  return new Promise((resolve, reject) => {
-    const chunks = [];
-    req.on('data', c => chunks.push(c));
-    req.on('end', () => resolve(Buffer.concat(chunks)));
-    req.on('error', reject);
-  });
-}
+const ORG = process.env.GITHUB_ORG_NAME;
 
-function verifySignature(rawBody, sigHeader) {
-  const secret = process.env.GITHUB_WEBHOOK_SECRET;
-  if (!secret) return false;
-  const expected = 'sha256=' + crypto.createHmac('sha256', secret).update(rawBody).digest('hex');
-  try {
-    return crypto.timingSafeEqual(Buffer.from(sigHeader), Buffer.from(expected));
-  } catch { return false; }
-}
-
-module.exports = async (req, res) => {
-  if (req.method !== 'POST') return res.status(405).end('Method Not Allowed');
-
-  const rawBody = await readRawBody(req);
-  const sig     = req.headers['x-hub-signature-256'] || '';
-
-  if (!verifySignature(rawBody, sig)) {
-    return res.status(401).json({ ok: false, error_code: 'INVALID_SIGNATURE' });
+export default async function handler(req, res) {
+  if (req.method !== 'POST') {
+    res.statusCode = 405;
+    res.setHeader('Allow', 'POST');
+    return res.end();
   }
 
-  const event   = req.headers['x-github-event'];
-  const payload = JSON.parse(rawBody.toString('utf8'));
-  const deliveryId = req.headers['x-github-delivery'] || crypto.randomUUID();
+  const secret = process.env.GITHUB_WEBHOOK_SECRET;
+  if (!secret) {
+    console.error('[webhooks/github] GITHUB_WEBHOOK_SECRET not configured');
+    return error(res, 500, 'WEBHOOK_CONFIG', 'Webhook not configured.');
+  }
 
-  // Only act on merged pull_request events for now
-  if (event === 'pull_request' && payload.action === 'closed' && payload.pull_request?.merged) {
-    const login = payload.pull_request.user?.login;
-    if (!login) return res.status(200).json({ ok: true, skipped: 'no_user_login' });
+  let rawBody;
+  try {
+    rawBody = await readRawBody(req);
+  } catch {
+    return error(res, 400, 'BAD_PAYLOAD', 'Unable to read payload.');
+  }
 
-    try {
-      // Resolve GitHub login → member_id (Apps Script does the lookup)
-      await callAppsScript('addContribution', {
-        contribution_id: deliveryId,
-        github_login:    login,
-        type:            'pr_merged',
-        repo:            payload.repository?.full_name || '',
-        reference_url:   payload.pull_request?.html_url || '',
-        occurred_at:     payload.pull_request?.merged_at || new Date().toISOString(),
-        source:          'webhook',
-      });
-    } catch (err) {
-      console.error('[webhooks/github] addContribution failed:', err.message);
-      // Return 500 so GitHub retries
-      return res.status(500).json({ ok: false, message: err.message });
+  try {
+    verifyWebhookSignature(rawBody, req.headers['x-hub-signature-256'], secret);
+  } catch (err) {
+    return error(res, err.status || 401, err.code || 'INVALID_SIGNATURE', err.message);
+  }
+
+  const eventName = req.headers['x-github-event'];
+  const deliveryId = req.headers['x-github-delivery'];
+
+  if (!eventName || !deliveryId) {
+    return error(res, 400, 'BAD_PAYLOAD', 'Missing GitHub event headers.');
+  }
+
+  let payload;
+  try {
+    payload = rawBody ? JSON.parse(rawBody) : null;
+  } catch {
+    return error(res, 400, 'BAD_PAYLOAD', 'Invalid JSON payload.');
+  }
+
+  const contribution = extractContribution(eventName, payload);
+  if (!contribution) {
+    return json(res, 200, { ok: true, processed: false, reason: 'event_not_tracked' });
+  }
+
+  if (ORG && contribution.repo) {
+    const repoOrg = contribution.repo.split('/')[0];
+    if (repoOrg !== ORG) {
+      return json(res, 200, { ok: true, processed: false, reason: 'repo_out_of_scope' });
     }
   }
 
-  res.status(200).json({ ok: true, event });
-};
+  try {
+    const member = await callAppsScript('getMemberByGithubUsername', {
+      github_username: contribution.github_username,
+    });
+
+    if (!member) {
+      return json(res, 200, { ok: true, processed: false, reason: 'actor_unresolved' });
+    }
+
+    await callAppsScript('addContribution', {
+      contribution_id: deliveryId,
+      member_id: member.member_id,
+      type: contribution.type,
+      repo: contribution.repo,
+      reference_url: contribution.reference_url,
+      occurred_at: contribution.occurred_at,
+      source: 'webhook',
+    });
+
+    return json(res, 200, { ok: true, processed: true, member_id: member.member_id });
+  } catch (err) {
+    if (err.code === 'DUPLICATE_CONTRIBUTION') {
+      return json(res, 200, { ok: true, processed: false, reason: 'duplicate' });
+    }
+    if (err.code === 'MEMBER_NOT_FOUND') {
+      return json(res, 200, { ok: true, processed: false, reason: 'actor_unresolved' });
+    }
+    console.error('[webhooks/github]', err);
+    return error(res, 500, 'PROCESSING_ERROR', 'Contribution processing failed.');
+  }
+}

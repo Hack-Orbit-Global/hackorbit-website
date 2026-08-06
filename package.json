@@ -1,22 +1,23 @@
 {
   "name": "hackorbit-website",
   "version": "1.0.0",
-  "description": "Hack Orbit organization website — HTML/CSS/Vanilla JS + Vercel Serverless Functions",
+  "private": true,
+  "description": "Hack Orbit — official open-source technology organisation website. Plain HTML5/CSS3/Vanilla JS + Vercel Serverless Functions + Google Sheets/Apps Script.",
+  "type": "module",
   "scripts": {
-    "build": "node frontend/build.js && node seo/sitemap-generate.js > sitemap.xml && node -e \"const fs=require('fs'); const path=require('path'); const src='sitemap.xml'; const dest=path.join('frontend','build-output','sitemap.xml'); if (fs.existsSync(src)) { fs.mkdirSync(path.dirname(dest), { recursive: true }); fs.copyFileSync(src, dest); }\"",
-    "sitemap": "node seo/sitemap-generate.js > sitemap.xml",
+    "build": "node frontend/build.js && node seo/sitemap-generate.js",
     "dev": "vercel dev",
-    "test": "node --test tests/*.test.js"
-  },
-  "dependencies": {
-    "jose": "^5.6.3"
-  },
-  "devDependencies": {
-    "@playwright/test": "^1.62.0",
-    "vercel": "^37.0.0"
+    "start": "vercel dev",
+    "test": "node --test tests/",
+    "test:build": "node frontend/build.js && node --test tests/build-structure.test.js"
   },
   "engines": {
-    "node": ">=20"
+    "node": ">=18.0.0"
   },
-  "private": true
+  "dependencies": {
+    "jose": "^5.9.6"
+  },
+  "devDependencies": {
+    "esbuild": "^0.24.0"
+  }
 }

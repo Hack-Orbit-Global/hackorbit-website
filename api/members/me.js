@@ -1,46 +1,53 @@
-/**
- * api/members/me.js
- * PATCH /api/members/me
- * Authenticated profile self-edit endpoint.
- */
-'use strict';
-const { getSession }     = require('../../lib/session');
-const { callAppsScript } = require('../../lib/appsScriptClient');
+import { getSessionCookie, verifySession, json, error } from '../../lib/session.js';
+import { callAppsScript } from '../../lib/appsScriptClient.js';
+import { readBody, rateLimit } from '../../lib/http.js';
+import { assertString, assertOptionalString, assertOptionalArray, assertOptionalUrl } from '../../lib/validation/validate.js';
 
-async function readBody(req) {
-  return new Promise((resolve, reject) => {
-    let data = '';
-    req.on('data', chunk => (data += chunk));
-    req.on('end', () => { try { resolve(JSON.parse(data)); } catch { resolve({}); } });
-    req.on('error', reject);
-  });
-}
-
-module.exports = async (req, res) => {
-  if (req.method !== 'PATCH') return res.status(405).end('Method Not Allowed');
-
-  const session = await getSession(req);
-  if (!session || session.status !== 'verified') {
-    return res.status(401).json({ ok: false, error_code: 'UNAUTHENTICATED' });
+export default async function handler(req, res) {
+  if (req.method !== 'PATCH') {
+    res.statusCode = 405;
+    res.setHeader('Allow', 'PATCH');
+    return res.end();
   }
 
-  const body = await readBody(req);
+  const token = getSessionCookie(req);
+  if (!token) return error(res, 401, 'UNAUTHENTICATED', 'You must be signed in.');
 
-  // Whitelist allowed fields — never let the client set member_id, status, etc.
-  const allowed = ['display_name', 'avatar_url', 'bio', 'skills', 'linkedin_url'];
-  const update  = Object.fromEntries(
-    Object.entries(body).filter(([k]) => allowed.includes(k))
-  );
+  let session;
+  try {
+    session = await verifySession(token);
+  } catch {
+    return error(res, 401, 'UNAUTHENTICATED', 'Your session has expired.');
+  }
 
-  if (Object.keys(update).length === 0) {
-    return res.status(400).json({ ok: false, error_code: 'VALIDATION_ERROR', message: 'No valid fields provided' });
+  if (!session.google_sub) return error(res, 401, 'UNAUTHENTICATED', 'Missing identity anchor.');
+
+  const limiter = rateLimit(`me:${session.google_sub}`, 10, 60_000);
+  if (limiter.limited) return error(res, 429, 'RATE_LIMITED', 'Too many updates. Try again shortly.');
+
+  let body;
+  try {
+    body = await readBody(req);
+  } catch {
+    return error(res, 400, 'VALIDATION_ERROR', 'Invalid request body.');
   }
 
   try {
-    await callAppsScript('updateProfile', { member_id: session.member_id, ...update });
-    return res.status(200).json({ ok: true });
+    const displayName = assertString(body.display_name, 'Display name is required');
+    const payload = {
+      google_sub: session.google_sub,
+      display_name: displayName,
+      bio: assertOptionalString(body.bio, 'Bio must be text', 500),
+      skills: assertOptionalArray(body.skills, 'Skills must be an array'),
+      linkedin_url: assertOptionalUrl(body.linkedin_url, 'LinkedIn URL'),
+      other_links: assertOptionalArray(body.other_links, 'Other links must be an array'),
+    };
+
+    const updated = await callAppsScript('updateProfileByGoogleSub', payload);
+    return json(res, 200, updated);
   } catch (err) {
+    if (err.code === 'VALIDATION_ERROR') return error(res, 400, 'VALIDATION_ERROR', err.message);
     console.error('[members/me]', err);
-    return res.status(500).json({ ok: false, error_code: 'INTERNAL_ERROR', message: err.message });
+    return error(res, 500, 'INTERNAL_ERROR', 'Failed to update profile.');
   }
-};
+}

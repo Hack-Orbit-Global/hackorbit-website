@@ -1,14 +1,38 @@
-/* Animations */
+/* ---- CSS-only transitions & keyframes.
+ *      All animation uses transform/opacity only (compositor-friendly) and
+ *      respects `prefers-reduced-motion`. ---- */
 
-/* Fade In */
-.fade-in {
-  animation: fadeIn 0.3s ease-in-out forwards;
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
 }
 
-@keyframes fadeIn {
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+@keyframes pulse-ring {
+  0%,
+  100% {
+    opacity: 0.15;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  50% {
+    opacity: 0.4;
+    transform: translate(-50%, -50%) scale(1.04);
+  }
+}
+
+@keyframes fade-in-up {
   from {
     opacity: 0;
-    transform: translateY(10px);
+    transform: translateY(24px);
   }
   to {
     opacity: 1;
@@ -16,18 +40,56 @@
   }
 }
 
-/* Reduced Motion Override */
+@keyframes gradient-x {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+.hero__rings {
+  animation: pulse-ring 8s ease-in-out infinite;
+}
+
+.gradient-text {
+  background-size: 200% 200%;
+  animation: gradient-x 6s ease infinite;
+}
+
+/* Scroll-triggered reveal: JS toggles `.is-visible`. */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Global focus visibility (accessibility requirement). */
+:focus-visible {
+  outline: 2px solid var(--border-focus);
+  outline-offset: 2px;
+}
+
+/* Reduced motion: disable all non-essential motion. */
 @media (prefers-reduced-motion: reduce) {
-  * {
-    animation-delay: 0s !important;
-    animation-duration: 0s !important;
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
-    transition-duration: 0s !important;
+    transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
-  
-  .skeleton {
-    animation: none !important;
-    background: #f0f0f0 !important;
+
+  .reveal {
+    opacity: 1;
+    transform: none;
   }
 }

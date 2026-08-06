@@ -1,155 +1,182 @@
-const fs = require('fs');
-const path = require('path');
+/**
+ * Hack Orbit — zero-dependency build script.
+ *
+ * Assembles `frontend/pages-src/*.html` + `frontend/partials/*` into
+ * deployable static HTML, concatenates+minifies the CSS design system into a
+ * single hashed `styles.css`, and copies `js/` + `assets/` to the static root.
+ *
+ * Tokens inside `pages-src/*.html`:
+ *   <!-- {{HEAD}} -->     replaced with `partials/head.html`
+ *   <!-- {{NAV}} -->      replaced with `partials/nav.html`
+ *   <!-- {{FOOTER}} -->   replaced with `partials/footer.html`
+ *
+ * Output goes to `public/` (Vercel `outputDirectory`).
+ */
+import { readFileSync, readdirSync, writeFileSync, mkdirSync, cpSync, existsSync, statSync } from 'node:fs';
+import { createHash } from 'node:crypto';
+import { join, dirname, basename, extname } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
-// Configuration
-const FRONTEND_DIR = __dirname;                        // frontend/
-const PROJECT_ROOT = path.join(FRONTEND_DIR, '..');
-const SRC_DIR    = path.join(FRONTEND_DIR, 'pages-src');
-const PARTIALS_DIR = path.join(FRONTEND_DIR, 'partials');
-const CSS_DIR    = path.join(FRONTEND_DIR, 'css');
-const OUTPUT_DIR = path.join(FRONTEND_DIR, 'build-output');
+const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
+const FRONTEND = join(ROOT, 'frontend');
+const PAGES_SRC = join(FRONTEND, 'pages-src');
+const PARTIALS = join(FRONTEND, 'partials');
+const CSS_SRC = join(FRONTEND, 'css');
+const JS_SRC = join(FRONTEND, 'js');
+const ASSETS_SRC = join(FRONTEND, 'assets');
+const OUT = join(ROOT, 'public');
 
-// Helper: Minify CSS (simple whitespace and comment removal)
-function minifyCSS(cssText) {
-  return cssText
-    .replace(/\/\*[\s\S]*?\*\//g, '') // remove comments
-    .replace(/\s+/g, ' ')            // collapse whitespace
-    .replace(/\s*([\{\}:;\,])\s*/g, '$1') // remove spaces around brackets and punctuation
-    .replace(/;}/g, '}')             // remove trailing semicolon
-    .trim();
+const TOKENS = {
+  '{{HEAD}}': 'head.html',
+  '{{NAV}}': 'nav.html',
+  '{{FOOTER}}': 'footer.html',
+};
+
+/** Site base URL — override via SITE_URL env var at build/deploy time. */
+const SITE_URL = process.env.SITE_URL || 'https://hackorbit.example';
+
+/** Normalise a file to a plain text string. */
+function read(path) {
+  return readFileSync(path, 'utf8');
 }
 
-// 1. Concatenate and Minify CSS
-function buildCSS() {
-  console.log('Building and minifying CSS...');
-  const cssFiles = [
-    'reset.css',
-    'variables.css',
-    'global.css',
-    'components.css',
-    'animations.css',
-    'responsive.css'
-  ];
-
-  let combinedCSS = '';
-  const importRules = []; // Collect @import rules — they MUST come first per CSS spec
-
-  cssFiles.forEach(file => {
-    const filePath = path.join(CSS_DIR, file);
-    if (fs.existsSync(filePath)) {
-      let source = fs.readFileSync(filePath, 'utf8');
-      // Extract all @import lines before concatenating so they stay at the top
-      // Handle potential semicolons inside url(...) queries (e.g. Google Fonts)
-      source = source.replace(/@import\s+(?:url\([^)]+\)|"[^"]+"|'[^']+')\s*;/g, (match) => {
-        if (!importRules.includes(match.trim())) {
-          importRules.push(match.trim());
-        }
-        return ''; // Remove from inline position
-      });
-      combinedCSS += source + '\n';
-    } else {
-      console.warn(`Warning: CSS file not found: ${file}`);
-    }
-  });
-
-  // Prepend deduplicated @import rules, then the rest of the minified CSS
-  // Each @import must be on its own line (some browsers count column positions strictly)
-  const minifiedBody = minifyCSS(combinedCSS);
-  const minifiedCSS = importRules.join('\n') + '\n' + minifiedBody;
-  const outputCSSPath = path.join(CSS_DIR, 'styles.css');
-  fs.writeFileSync(outputCSSPath, minifiedCSS, 'utf8');
-  console.log(`CSS build completed: ${outputCSSPath} (${minifiedCSS.length} bytes)`);
+function readPartial(name) {
+  return read(join(PARTIALS, name));
 }
 
-function prepareOutputDirectory() {
-  fs.rmSync(OUTPUT_DIR, { recursive: true, force: true });
-  fs.mkdirSync(OUTPUT_DIR, { recursive: true });
+/** Validate a built HTML document for the structural quality gates. */
+function validateHtml(html, pageName) {
+  const errors = [];
 
-  const frontendOutputDir = path.join(OUTPUT_DIR, 'frontend');
-  fs.mkdirSync(frontendOutputDir, { recursive: true });
+  if (!html.includes('<!doctype html>')) errors.push(`${pageName}: missing <!doctype html>`);
+  if ((html.match(/<html/gi) || []).length !== 1) errors.push(`${pageName}: expected exactly one <html>`);
+  if ((html.match(/<h1\b/gi) || []).length !== 1) errors.push(`${pageName}: expected exactly one <h1>`);
+  if (!html.includes('<nav')) errors.push(`${pageName}: missing <nav>`);
+  if (!html.includes('<main')) errors.push(`${pageName}: missing <main>`);
+  if (!html.includes('<footer')) errors.push(`${pageName}: missing <footer>`);
+  if (!html.includes('rel="canonical"')) errors.push(`${pageName}: missing canonical link`);
+  if (!html.includes('name="description"')) errors.push(`${pageName}: missing meta description`);
+  if (!html.includes('<title>')) errors.push(`${pageName}: missing <title>`);
 
-  fs.readdirSync(FRONTEND_DIR, { withFileTypes: true }).forEach(entry => {
-    if (entry.name === 'build-output') {
-      return;
-    }
-
-    const srcPath = path.join(FRONTEND_DIR, entry.name);
-    const destPath = path.join(frontendOutputDir, entry.name);
-
-    if (entry.isDirectory()) {
-      fs.cpSync(srcPath, destPath, { recursive: true });
-    } else {
-      fs.copyFileSync(srcPath, destPath);
-    }
-  });
-
-  const sitemapSource = path.join(PROJECT_ROOT, 'sitemap.xml');
-  if (fs.existsSync(sitemapSource)) {
-    fs.copyFileSync(sitemapSource, path.join(OUTPUT_DIR, 'sitemap.xml'));
+  // Every <img> must carry width/height + alt (CLS + accessibility gates).
+  const imgRe = /<img\b[^>]*>/gi;
+  let m;
+  while ((m = imgRe.exec(html)) !== null) {
+    const tag = m[0];
+    if (!/\balt=/.test(tag)) errors.push(`${pageName}: <img> without alt`);
+    if (!/\bwidth=/.test(tag) || !/\bheight=/.test(tag)) errors.push(`${pageName}: <img> without width/height`);
   }
 
-  const robotsSource = path.join(PROJECT_ROOT, 'seo', 'robots.txt');
-  if (fs.existsSync(robotsSource)) {
-    fs.copyFileSync(robotsSource, path.join(OUTPUT_DIR, 'robots.txt'));
+  // Every <a> that links to external http(s) should not be a bare javascript: href.
+  if (/href="javascript:/i.test(html)) errors.push(`${pageName}: contains javascript: href`);
+
+  // No leftover build tokens.
+  for (const token of Object.keys(TOKENS)) {
+    if (html.includes(token)) errors.push(`${pageName}: unreplaced token ${token}`);
   }
+
+  return errors;
 }
 
-function cleanGeneratedOutput(sourceFiles) {
-  const expectedOutputNames = new Set(sourceFiles);
+/** Concatenate CSS in dependency order and minify via esbuild. */
+async function buildCss() {
+  const order = ['variables.css', 'reset.css', 'global.css', 'components.css', 'animations.css', 'responsive.css'];
+  const src = order.map((f) => `/* ${f} */\n` + read(join(CSS_SRC, f))).join('\n');
 
-  fs.readdirSync(OUTPUT_DIR, { withFileTypes: true }).forEach(entry => {
-    if (!entry.isFile() || path.extname(entry.name) !== '.html') {
-      return;
-    }
-
-    if (!expectedOutputNames.has(entry.name)) {
-      fs.unlinkSync(path.join(OUTPUT_DIR, entry.name));
-      console.log(`Removed stale output: ${entry.name}`);
-    }
-  });
-}
-
-// 2. Assemble Pages from Source and Partials
-function buildPages() {
-  console.log('Assembling HTML pages...');
-  
-  // Load partials
-  const head = fs.readFileSync(path.join(PARTIALS_DIR, 'head.html'), 'utf8');
-  const nav = fs.readFileSync(path.join(PARTIALS_DIR, 'nav.html'), 'utf8');
-  const footer = fs.readFileSync(path.join(PARTIALS_DIR, 'footer.html'), 'utf8');
-
-  const partials = { head, nav, footer };
-
-  // Read all files from pages-src/
-  const files = fs.readdirSync(SRC_DIR).filter(file => path.extname(file) === '.html');
-  cleanGeneratedOutput(files);
-
-  files.forEach(file => {
-    const srcPath = path.join(SRC_DIR, file);
-    let content = fs.readFileSync(srcPath, 'utf8');
-
-    // Replace include placeholders: {{include:name}}
-    content = content.replace(/\{\{include:([a-zA-Z0-9_-]+)\}\}/g, (match, partialName) => {
-      if (partials[partialName] !== undefined) {
-        return partials[partialName];
-      }
-      console.warn(`Warning: Partial "${partialName}" not found in ${file}`);
-      return match;
+  let minified = src;
+  try {
+    const esbuild = await import('esbuild');
+    const result = await esbuild.transform(minified, {
+      loader: 'css',
+      minify: true,
+      charset: 'utf8',
     });
+    minified = result.code;
+  } catch {
+    // Fall back to naive whitespace-trim if esbuild is unavailable.
+    minified = src.replace(/\/\*[\s\S]*?\*\//g, '').replace(/\s+/g, ' ').trim();
+  }
 
-    const destPath = path.join(OUTPUT_DIR, file);
-    fs.writeFileSync(destPath, content, 'utf8');
-    console.log(`Assembled: ${file} -> ${destPath}`);
-  });
+  const hash = createHash('sha256').update(minified).digest('hex').slice(0, 12);
+  const name = `styles.${hash}.css`;
+  const outDir = join(OUT, 'css');
+  mkdirSync(outDir, { recursive: true });
+  writeFileSync(join(outDir, name), minified);
+  writeFileSync(join(outDir, 'manifest.json'), JSON.stringify({ stylesheet: `/css/${name}` }));
+
+  return { name, manifestPath: `/css/${name}` };
 }
 
-// Main Runner
-try {
-  prepareOutputDirectory();
-  buildCSS();
-  buildPages();
-  console.log('Build completed successfully!');
-} catch (err) {
-  console.error('Build failed:', err);
+/** Copy a directory tree recursively. */
+function copyDir(src, dest) {
+  if (!existsSync(src)) return;
+  mkdirSync(dest, { recursive: true });
+  for (const entry of readdirSync(src)) {
+    const from = join(src, entry);
+    const to = join(dest, entry);
+    if (statSync(from).isDirectory()) {
+      copyDir(from, to);
+    } else {
+      mkdirSync(dirname(to), { recursive: true });
+      cpSync(from, to);
+    }
+  }
+}
+
+/** Copy the built output directory into place (handles full `public/` reset). */
+function cleanOut() {
+  if (existsSync(OUT)) {
+    for (const entry of readdirSync(OUT)) {
+      rmSync(join(OUT, entry), { recursive: true, force: true });
+    }
+  }
+  mkdirSync(OUT, { recursive: true });
+}
+
+let rmSync;
+async function main() {
+  rmSync = (await import('node:fs')).rmSync;
+
+  const partials = {};
+  for (const token of Object.keys(TOKENS)) {
+    partials[token] = readPartial(TOKENS[token]);
+  }
+
+  cleanOut();
+
+  // Resolve the hashed stylesheet href and inject it into the head partial.
+  const { manifestPath } = await buildCss();
+  partials['{{HEAD}}'] = partials['{{HEAD}}'].replaceAll('{{CSS_HREF}}', manifestPath);
+
+  // Build each page.
+  const pages = readdirSync(PAGES_SRC).filter((f) => f.endsWith('.html'));
+  const validationErrors = [];
+
+  for (const page of pages) {
+    let html = read(join(PAGES_SRC, page));
+    html = html.replaceAll('{{SITE_URL}}', SITE_URL);
+    for (const token of Object.keys(TOKENS)) {
+      html = html.replaceAll(token, partials[token]);
+    }
+    validationErrors.push(...validateHtml(html, page));
+    writeFileSync(join(OUT, page), html);
+    console.log(`[build] ${page}`);
+  }
+
+  // Copy JS modules and assets.
+  copyDir(JS_SRC, join(OUT, 'js'));
+  copyDir(ASSETS_SRC, join(OUT, 'assets'));
+
+  if (validationErrors.length > 0) {
+    console.error('\n[build] Validation errors:');
+    for (const err of validationErrors) console.error(`  - ${err}`);
+    process.exit(1);
+  }
+
+  console.log('\n[build] Done. Output: public/');
+}
+
+main().catch((err) => {
+  console.error(err);
   process.exit(1);
-}
+});

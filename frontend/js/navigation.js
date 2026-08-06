@@ -1,57 +1,50 @@
 export function initNavigation() {
-  const toggleBtns = document.querySelectorAll('.mobile-toggle');
-  const drawer = document.getElementById('mobile-drawer');
-  const overlay = document.getElementById('mobile-drawer-overlay');
-  
-  if (toggleBtns.length === 0 || !drawer || !overlay) return;
+  const toggle = document.querySelector('.nav__toggle');
+  const drawer = document.querySelector('.nav-drawer');
+  if (!toggle || !drawer) return;
 
-  function openDrawer() {
-    drawer.classList.add('open');
-    overlay.classList.add('show');
-    toggleBtns.forEach(btn => btn.setAttribute('aria-expanded', 'true'));
-    
-    // Focus first link in drawer
-    const focusable = drawer.querySelectorAll('a, button, input, select, textarea');
-    if (focusable.length > 0) {
-      focusable[0].focus();
+  let lastFocused = null;
+
+  function setOpen(open) {
+    toggle.setAttribute('aria-expanded', String(open));
+    toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    if (open) {
+      drawer.hidden = false;
+      requestAnimationFrame(() => drawer.classList.add('is-open'));
+      lastFocused = document.activeElement;
+      const first = drawer.querySelector('a');
+      if (first) first.focus();
+    } else {
+      drawer.classList.remove('is-open');
+      drawer.hidden = true;
+      if (lastFocused && document.contains(lastFocused)) lastFocused.focus();
     }
   }
 
-  function closeDrawer() {
-    drawer.classList.remove('open');
-    overlay.classList.remove('show');
-    toggleBtns.forEach(btn => btn.setAttribute('aria-expanded', 'false'));
-    
-    // Return focus to first toggle button
-    toggleBtns[0].focus();
-  }
-
-  toggleBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      const isOpen = drawer.classList.contains('open');
-      if (isOpen) {
-        closeDrawer();
-      } else {
-        openDrawer();
-      }
-    });
-  });
-
-  overlay.addEventListener('click', closeDrawer);
+  toggle.addEventListener('click', () => setOpen(drawer.hidden));
 
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && drawer.classList.contains('open')) {
-      closeDrawer();
-    }
+    if (e.key === 'Escape' && !drawer.hidden) setOpen(false);
   });
 
-  // Set active class on navigation items based on window location
-  const currentPath = window.location.pathname;
-  const navItems = document.querySelectorAll('.nav-item');
-  navItems.forEach(item => {
-    const href = item.getAttribute('href');
-    if (href && (currentPath === href || (href !== '/index.html' && currentPath.includes(href)))) {
-      item.classList.add('active');
-    }
+  const links = drawer.querySelectorAll('a');
+  if (links.length > 0) {
+    const first = links[0];
+    const last = links[links.length - 1];
+    drawer.addEventListener('keydown', (e) => {
+      if (e.key === 'Tab') {
+        if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        } else if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        }
+      }
+    });
+  }
+
+  window.addEventListener('resize', () => {
+    if (window.innerWidth >= 769 && !drawer.hidden) setOpen(false);
   });
 }

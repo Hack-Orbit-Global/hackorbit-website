@@ -1,44 +1,59 @@
-/**
- * api/auth/github/callback.js
- * GET /api/auth/github/callback
- */
-'use strict';
-const { exchangeCode, getUserInfo } = require('../../../lib/oauth/github');
-const { callAppsScript }            = require('../../../lib/appsScriptClient');
-const { getSession, createSession } = require('../../../lib/session');
+import { exchangeGithubCode, getGithubUser } from '../../../lib/oauth/github.js';
+import { getOAuthStateCookie, clearOAuthStateCookie } from '../../../lib/oauth/stateCookie.js';
+import { getSessionCookie, verifySession, signSession, setSessionCookie, redirect } from '../../../lib/session.js';
+import { callAppsScript } from '../../../lib/appsScriptClient.js';
+import { getBaseUrl } from '../../../lib/http.js';
 
-function parseCookies(req) {
-  return Object.fromEntries(
-    (req.headers.cookie || '').split(';').map(c => c.trim().split('=').map(decodeURIComponent))
-  );
-}
+export default async function handler(req, res) {
+  if (req.method !== 'GET') {
+    res.statusCode = 405;
+    res.setHeader('Allow', 'GET');
+    return res.end();
+  }
 
-module.exports = async (req, res) => {
-  const { code, state, error } = req.query || {};
-  const cookies = parseCookies(req);
-  const session = await getSession(req);
+  const token = getSessionCookie(req);
+  const oauthState = getOAuthStateCookie(req);
+  const { code, state, error } = req.query;
 
-  if (error || !session) return res.redirect(302, '/join?error=github_denied');
-  if (!state || state !== cookies.ho_oauth_state) return res.redirect(302, '/join?error=invalid_state');
+  const fail = (codeStr) => redirect(res, `/join?error=${codeStr || 'github_failed'}`);
+
+  if (error || !code || !state) return fail();
+  if (!token) return fail('unauthenticated');
+  if (!oauthState || oauthState.provider !== 'github' || oauthState.state !== state) return fail('state_mismatch');
+
+  let session;
+  try {
+    session = await verifySession(token);
+  } catch {
+    return fail('session_expired');
+  }
 
   try {
-    const tokens  = await exchangeCode(code);
-    const profile = await getUserInfo(tokens.access_token);
+    const oauthToken = await exchangeGithubCode({
+      code,
+      redirectUri: getBaseUrl(req) + '/api/auth/github/callback',
+    });
+    const ghUser = await getGithubUser(oauthToken.access_token);
 
     await callAppsScript('linkIdentity', {
-      member_id:           session.member_id,
-      provider:            'github',
-      provider_account_id: String(profile.id),
-      github_username:     profile.login,
+      google_sub: session.google_sub,
+      provider: 'github',
+      provider_account_id: String(ghUser.id),
+      github_username: ghUser.login,
     });
 
-    // Refresh session with github_linked:true
-    const updated = await createSession({ ...session, github_linked: true, github_username: profile.login });
-    res.setHeader('Set-Cookie', [updated, 'ho_oauth_state=; Max-Age=0; Path=/']);
-    res.redirect(302, '/join');
+    clearOAuthStateCookie(res);
+
+    const updated = await signSession({
+      ...session,
+      github_username: ghUser.login,
+      step: 'github',
+    });
+    setSessionCookie(res, updated);
+    return redirect(res, '/join');
   } catch (err) {
-    console.error('[github/callback]', err);
-    const code = err.error_code === 'ALREADY_LINKED' ? 'github_already_linked' : 'github_failed';
-    res.redirect(302, `/join?error=${code}`);
+    console.error('[auth/github/callback]', err);
+    const codeStr = err.code || 'github_failed';
+    return fail(codeStr === 'GITHUB_ALREADY_LINKED' ? 'github_already_linked' : 'github_failed');
   }
-};
+}

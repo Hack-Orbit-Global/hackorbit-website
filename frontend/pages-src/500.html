@@ -1,42 +1,30 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <title>500 // Internal Core Failure — Hack Orbit</title>
-  {{include:head}}
-  <meta name="description" content="Internal system error. The core processor is experiencing thermal overload. Please standby.">
-</head>
-<body class="bg-surface-base font-body-md text-on-surface grid-bg min-h-screen">
-  <a href="#main-content" class="skip-link">Skip to main content</a>
-  
-  {{include:nav}}
-
-  <main id="main-content" class="w-full pt-32 pb-32 bg-transparent relative z-10 flex items-center justify-center" style="min-height: 70vh;">
-    <div class="container" style="max-width: 600px; text-align: center;">
-      
-      <div style="font-size: 5rem; font-family: var(--font-mono); color: var(--color-error); font-weight: 700; line-height: 1; margin-bottom: var(--spacing-6); text-shadow: 0 0 16px rgba(255, 180, 171, 0.3);">
-        500
-      </div>
-
-      <span class="text-mono text-primary uppercase font-bold" style="font-size: var(--text-label-sm); letter-spacing: 0.25em; color: var(--color-error) !important;">// Core Fault Detected</span>
-      
-      <h1 style="margin-top: var(--spacing-4); margin-bottom: var(--spacing-4); text-transform: uppercase; font-size: var(--text-headline-lg);">System Collision</h1>
-      
-      <p class="text-muted" style="font-size: var(--text-body-md); line-height: 1.7; margin-bottom: var(--spacing-8); max-width: 480px; margin-left: auto; margin-right: auto;">
-        An unexpected structural fault has been logged on our data plane. Our engineers are investigating the system telemetry.
-      </p>
-
-      <div style="display: flex; gap: var(--spacing-4); justify-content: center; flex-wrap: wrap;">
-        <a href="/index.html" class="btn btn-primary btn-arrow">
-          Re-establish Connection <span class="material-symbols-outlined">refresh</span>
-        </a>
-        <a href="/contact.html" class="btn btn-secondary">
-          Submit Incident Report
-        </a>
-      </div>
-
-    </div>
-  </main>
-
-  {{include:footer}}
-</body>
+  <head>
+    <!-- {{HEAD}} -->
+    <title>Something Went Wrong — Hack Orbit</title>
+    <meta name="description" content="An unexpected error occurred. Please try again shortly." />
+    <meta name="robots" content="noindex, follow" />
+    <link rel="canonical" href="{{SITE_URL}}/500" />
+  </head>
+  <body>
+    <!-- {{NAV}} -->
+    <main id="main">
+      <section class="section orbital" aria-labelledby="error-title">
+        <div class="container" style="max-width: 640px; text-align: center">
+          <span class="eyebrow">Error 500</span>
+          <h1 id="error-title">Something went wrong.</h1>
+          <p class="lead" style="margin: 16px auto 32px; max-width: 44ch">
+            An unexpected error occurred. Please try again in a moment — if it persists,
+            <a class="link-arrow" href="/contact" style="display: inline-flex">contact us →</a>
+          </p>
+          <div class="hero__actions" style="justify-content: center">
+            <a class="btn btn--primary btn--lg" href="/">Back to home</a>
+          </div>
+        </div>
+      </section>
+    </main>
+    <!-- {{FOOTER}} -->
+    <script type="module" src="/js/main.js"></script>
+  </body>
 </html>

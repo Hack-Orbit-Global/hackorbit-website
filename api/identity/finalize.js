@@ -1,55 +1,46 @@
-/**
- * api/identity/finalize.js
- * POST /api/identity/finalize
- * Promotes pending → verified, assigns Member ID, optionally saves display_name/skills.
- */
-'use strict';
-const { getSession, createSession } = require('../../lib/session');
-const { callAppsScript }            = require('../../lib/appsScriptClient');
+import { getSessionCookie, verifySession, signSession, setSessionCookie, json, error } from '../../lib/session.js';
+import { callAppsScript } from '../../lib/appsScriptClient.js';
 
-module.exports = async (req, res) => {
-  if (req.method !== 'POST') return res.status(405).end('Method Not Allowed');
+export default async function handler(req, res) {
+  if (req.method !== 'POST') {
+    res.statusCode = 405;
+    res.setHeader('Allow', 'POST');
+    return res.end();
+  }
 
-  const session = await getSession(req);
-  if (!session) return res.status(401).json({ ok: false, error_code: 'UNAUTHENTICATED' });
+  const token = getSessionCookie(req);
+  if (!token) return error(res, 401, 'UNAUTHENTICATED', 'You must be signed in.');
 
-  if (!session.google_linked || !session.github_linked || !session.discord_linked) {
-    return res.status(400).json({
-      ok: false,
-      error_code: 'INCOMPLETE_VERIFICATION',
-      message: 'All three providers (Google, GitHub, Discord) must be connected before finalizing.',
-    });
+  let session;
+  try {
+    session = await verifySession(token);
+  } catch {
+    return error(res, 401, 'UNAUTHENTICATED', 'Your session has expired.');
+  }
+
+  if (session.status === 'verified') {
+    return json(res, 200, { member_id: session.member_id, status: 'verified' });
   }
 
   try {
-    let body = {};
-    if (req.headers['content-type']?.includes('application/json')) {
-      // Collect body chunks
-      const raw = await new Promise((resolve, reject) => {
-        let data = '';
-        req.on('data', c => (data += c));
-        req.on('end', () => resolve(data));
-        req.on('error', reject);
-      });
-      body = raw ? JSON.parse(raw) : {};
-    }
+    const result = await callAppsScript('finalizeVerificationByGoogleSub', { google_sub: session.google_sub });
 
-    const result = await callAppsScript('finalizeVerification', {
-      member_id:    session.member_id,
-      display_name: body.displayName ?? session.display_name,
-      skills:       body.skills ?? '',
-    });
-
-    const updated = await createSession({
+    const updated = await signSession({
       ...session,
       member_id: result.member_id,
-      status:    'verified',
+      status: 'verified',
+      step: 'finalized',
     });
+    setSessionCookie(res, updated);
 
-    res.setHeader('Set-Cookie', updated);
-    res.status(200).json({ ok: true, member_id: result.member_id, status: 'verified' });
+    return json(res, 200, { member_id: result.member_id, status: 'verified' });
   } catch (err) {
     console.error('[identity/finalize]', err);
-    res.status(500).json({ ok: false, error_code: err.error_code || 'INTERNAL_ERROR', message: err.message });
+    const code = err.code || 'FINALIZE_FAILED';
+    const message =
+      err.code === 'INCOMPLETE_VERIFICATION'
+        ? 'Connect Google, GitHub, and Discord before completing verification.'
+        : err.message || 'Verification failed.';
+    return error(res, err.status || 400, code, message);
   }
-};
+}

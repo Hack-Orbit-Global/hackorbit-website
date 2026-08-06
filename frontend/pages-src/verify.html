@@ -1,144 +1,87 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <title>Verify Certificate — Hack Orbit Ledger</title>
-  {{include:head}}
-  <meta name="description" content="Verify Hack Orbit credentials and certificates. Enter a valid certificate serial to query the public organization ledger.">
-</head>
-<body class="bg-surface-base font-body-md text-on-surface grid-bg min-h-screen">
-  <a href="#main-content" class="skip-link">Skip to main content</a>
-  
-  {{include:nav}}
-
-  <main id="main-content" class="w-full pt-24 pb-32 bg-transparent relative z-10">
-    <div class="container" style="max-width: 600px;">
-      
-      <header style="margin-bottom: var(--spacing-12); text-align: center;">
-        <span class="text-mono text-primary uppercase font-semibold" style="font-size: var(--text-label-sm); letter-spacing: 0.25em;">// Cryptographic Ledger</span>
-        <h1 style="margin-top: var(--spacing-2); margin-bottom: var(--spacing-4); text-transform: uppercase;">Verify Certificate</h1>
-        <p class="text-muted" style="font-size: var(--text-body-md);">
-          Query our atomic credential ledger to verify the signature of any certificate issued by Hack Orbit.
-        </p>
-      </header>
-
-      <div class="bento-card" style="margin-bottom: var(--spacing-8); padding: var(--spacing-8);">
-        <form id="verify-form">
-          <div class="form-group">
-            <label class="form-label" for="cert-id">Signature ID // Certificate Serial</label>
-            <input class="form-input text-mono" type="text" id="cert-id" name="certId" autocomplete="off" required placeholder="HO-CERT-2026-000001" style="text-transform: uppercase;">
-          </div>
-          <button type="submit" class="btn btn-primary btn-arrow" style="width: 100%; margin-top: var(--spacing-4);">
-            Query Ledger <span class="material-symbols-outlined">search</span>
-          </button>
-        </form>
-      </div>
-
-      <!-- Result Card -->
-      <div id="verify-result-card" class="bento-card" style="display: none; padding: var(--spacing-8);">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--spacing-6); border-bottom: 1px solid var(--color-border); padding-bottom: var(--spacing-4);">
-          <h2 style="font-size: 1.25rem; text-transform: uppercase;">Ledger Record</h2>
-          <span id="cert-status" class="status status-valid">
-            <span class="status-dot" style="display: inline-block; width: 8px; height: 8px; border-radius: 50%;"></span>
-            <span class="status-text text-mono" style="font-size: var(--text-label-sm); font-weight: 700;">VALID</span>
-          </span>
-        </div>
-
-        <div style="display: flex; flex-direction: column; gap: var(--spacing-6);">
-          <div>
-            <span class="text-mono text-muted" style="font-size: var(--text-label-sm); display: block; margin-bottom: 4px;">RECIPIENT SIGNATURE</span>
-            <p id="cert-member" style="font-weight: 700; font-size: var(--text-body-lg); color: var(--color-text-primary);"></p>
-          </div>
-
-          <div>
-            <span class="text-mono text-muted" style="font-size: var(--text-label-sm); display: block; margin-bottom: 4px;">CREDENTIAL CATEGORY</span>
-            <p id="cert-type" class="text-primary font-bold text-mono" style="font-size: var(--text-label-md);"></p>
-          </div>
-
-          <div>
-            <span class="text-mono text-muted" style="font-size: var(--text-label-sm); display: block; margin-bottom: 4px;">ORBITAL SCOPE</span>
-            <p id="cert-event" style="font-weight: 600;"></p>
-          </div>
-
-          <div>
-            <span class="text-mono text-muted" style="font-size: var(--text-label-sm); display: block; margin-bottom: 4px;">ACHIEVEMENT RECORD</span>
-            <p id="cert-description" class="text-muted" style="font-size: var(--text-body-md); line-height: 1.6;"></p>
-          </div>
-
-          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--spacing-6); border-top: 1px solid var(--color-border); padding-top: var(--spacing-6);">
-            <div>
-              <span class="text-mono text-muted" style="font-size: var(--text-label-sm); display: block; margin-bottom: 4px;">REGISTRATION DATE</span>
-              <p id="cert-date" style="font-weight: 600; font-size: var(--text-label-md);"></p>
-            </div>
-            <div>
-              <span class="text-mono text-muted" style="font-size: var(--text-label-sm); display: block; margin-bottom: 4px;">ISSUING NODE</span>
-              <p id="cert-issuer" style="font-weight: 600; font-size: var(--text-label-md);"></p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Error Card -->
-      <div id="verify-error-card" class="bento-card" style="display: none; border-color: var(--color-error); padding: var(--spacing-8);">
-        <div style="display: flex; align-items: flex-start; gap: var(--spacing-4);">
-          <span class="material-symbols-outlined text-primary" style="font-size: 28px; color: var(--color-error) !important;">warning</span>
-          <div>
-            <h3 style="font-size: 1.25rem; color: var(--color-error); text-transform: uppercase;">Query Failed</h3>
-            <p id="verify-error-text" class="text-muted" style="font-size: var(--text-body-md); margin-top: var(--spacing-2);"></p>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </main>
-
-  <script type="module">
-    import { apiCall } from '/frontend/js/api.js';
-
-    document.getElementById('verify-form').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const certId = document.getElementById('cert-id').value.trim().toUpperCase();
-      
-      const resultCard = document.getElementById('verify-result-card');
-      const errorCard = document.getElementById('verify-error-card');
-      resultCard.style.display = 'none';
-      errorCard.style.display = 'none';
-
-      const response = await apiCall(`/api/certificates/verify?id=${encodeURIComponent(certId)}`);
-      
-      if (response.ok && response.data && response.data.found) {
-        const cert = response.data.certificate;
-        
-        document.getElementById('cert-member').innerText = cert.display_name;
-        document.getElementById('cert-type').innerText = cert.type.toUpperCase();
-        document.getElementById('cert-event').innerText = cert.event_name || 'N/A';
-        document.getElementById('cert-description').innerText = cert.achievement_description;
-        document.getElementById('cert-date').innerText = cert.issue_date;
-        document.getElementById('cert-issuer').innerText = cert.issued_by;
-
-        const statusNode = document.getElementById('cert-status');
-        const dot = statusNode.querySelector('.status-dot');
-        const text = statusNode.querySelector('.status-text');
-        
-        if (cert.status === 'valid') {
-          dot.style.backgroundColor = 'var(--color-secondary)';
-          dot.style.boxShadow = '0 0 8px var(--color-secondary)';
-          text.style.color = 'var(--color-secondary)';
-          text.innerText = 'VALID';
-        } else {
-          dot.style.backgroundColor = 'var(--color-error)';
-          dot.style.boxShadow = '0 0 8px var(--color-error)';
-          text.style.color = 'var(--color-error)';
-          text.innerText = 'REVOKED';
-        }
-
-        resultCard.style.display = 'block';
-      } else {
-        document.getElementById('verify-error-text').innerText = response.message || 'The requested Certificate Serial could not be located in the ledger.';
-        errorCard.style.display = 'block';
+  <head>
+    <!-- {{HEAD}} -->
+    <title>Verify a Hack Orbit Certificate</title>
+    <meta
+      name="description"
+      content="Verify a Hack Orbit certificate. Enter a certificate ID to confirm its validity, recipient, event, and issue date. Metadata only — no downloadable files."
+    />
+    <link rel="canonical" href="{{SITE_URL}}/verify" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Verify a Hack Orbit Certificate" />
+    <meta
+      property="og:description"
+      content="Publicly verify the authenticity of a Hack Orbit certificate by ID."
+    />
+    <meta property="og:url" content="{{SITE_URL}}/verify" />
+    <meta property="og:image" content="{{SITE_URL}}/assets/logo/logo.svg" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Verify a Hack Orbit Certificate" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Home", "item": "{{SITE_URL}}/" },
+          { "@type": "ListItem", "position": 2, "name": "Verify", "item": "{{SITE_URL}}/verify" }
+        ]
       }
-    });
-  </script>
+    </script>
+  </head>
+  <body>
+    <!-- {{NAV}} -->
+    <main id="main">
+      <section class="section orbital" aria-labelledby="verify-title">
+        <div class="container" style="max-width: 680px">
+          <span class="eyebrow">Certificate verification</span>
+          <h1 id="verify-title">Verify a Hack Orbit certificate</h1>
+          <p class="lead" style="margin-top: 16px">
+            Enter a certificate ID (for example
+            <span class="mono">HO-CERT-2026-000001</span>) to confirm its validity. Verification
+            shows metadata only — the certificate record, never a downloadable file.
+          </p>
 
-  {{include:footer}}
-</body>
+          <div class="verify-form" style="margin-top: 40px">
+            <form id="verify-form" novalidate>
+              <div class="form-group" style="margin-bottom: 0">
+                <label for="certificate-id">Certificate ID <span class="required" aria-hidden="true">*</span></label>
+                <div style="display: flex; gap: 12px; align-items: flex-start">
+                  <input
+                    class="form-input"
+                    id="certificate-id"
+                    name="id"
+                    type="text"
+                    inputmode="text"
+                    autocomplete="off"
+                    spellcheck="false"
+                    placeholder="HO-CERT-2026-000001"
+                    required
+                    aria-required="true"
+                    aria-describedby="verify-status"
+                    style="font-family: var(--font-mono)"
+                  />
+                  <button class="btn btn--primary" type="submit" style="white-space: nowrap">Verify</button>
+                </div>
+              </div>
+            </form>
+            <p class="form-status" id="verify-status" aria-live="polite" style="margin-top: 16px"></p>
+          </div>
+
+          <div id="verify-result" class="stack-md" style="margin-top: 32px"></div>
+
+          <div class="callout callout--info" style="margin-top: 40px">
+            <p>
+              A certificate that has been revoked is reported honestly as
+              <strong>Revoked</strong> — the record is never hidden. Unknown IDs simply show
+              "not found".
+            </p>
+          </div>
+        </div>
+      </section>
+    </main>
+    <!-- {{FOOTER}} -->
+    <script type="module" src="/js/main.js"></script>
+    <script type="module" src="/js/certificates.js"></script>
+  </body>
 </html>

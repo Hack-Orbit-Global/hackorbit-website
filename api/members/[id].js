@@ -1,28 +1,24 @@
-/**
- * api/members/[id].js
- * GET /api/members/:member_id
- * Returns public profile JSON — used by client JS for progressive enhancement.
- */
-'use strict';
-const { callAppsScript } = require('../../lib/appsScriptClient');
+import { json, error } from '../../lib/session.js';
+import { callAppsScript } from '../../lib/appsScriptClient.js';
+import { isMemberId } from '../../lib/validation/validate.js';
 
-module.exports = async (req, res) => {
-  if (req.method !== 'GET') return res.status(405).end('Method Not Allowed');
-
-  const memberId = (req.query?.id || '').toUpperCase();
-  if (!/^HO-\d{6}$/.test(memberId)) {
-    return res.status(400).json({ ok: false, error_code: 'INVALID_ID', message: 'Invalid member ID format' });
+export default async function handler(req, res) {
+  if (req.method !== 'GET') {
+    res.statusCode = 405;
+    res.setHeader('Allow', 'GET');
+    return res.end();
   }
+
+  const { id } = req.query;
+  if (!isMemberId(id)) return error(res, 404, 'MEMBER_NOT_FOUND', 'No such member.');
 
   try {
-    const result = await callAppsScript('getMember', { member_id: memberId });
-    res.setHeader('Cache-Control', 'public, max-age=60, stale-while-revalidate=30');
-    return res.status(200).json(result);
+    const member = await callAppsScript('getMember', { member_id: id });
+    if (!member) return error(res, 404, 'MEMBER_NOT_FOUND', 'No such member.');
+    return json(res, 200, member);
   } catch (err) {
-    if (err.error_code === 'MEMBER_NOT_FOUND') {
-      return res.status(404).json({ ok: false, error_code: 'MEMBER_NOT_FOUND', message: 'Member not found' });
-    }
+    if (err.code === 'MEMBER_NOT_FOUND') return error(res, 404, 'MEMBER_NOT_FOUND', 'No such member.');
     console.error('[members/[id]]', err);
-    return res.status(500).json({ ok: false, error_code: 'INTERNAL_ERROR', message: 'Internal error' });
+    return error(res, 500, 'INTERNAL_ERROR', 'Something went wrong.');
   }
-};
+}

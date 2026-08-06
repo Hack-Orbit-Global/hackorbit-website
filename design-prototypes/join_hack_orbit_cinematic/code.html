@@ -1,0 +1,167 @@
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500&amp;family=Geist+Sans:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;background-color:#070A0F;}body{overscroll-behavior:none;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={theme:{extend:{"colors":{"surface-base":"#070A0F","on-surface":"#e0e2ea","primary":"#a6c8ff"},"fontFamily":{"body-md":["Geist Sans"]}}}}</script></head><body class="bg-surface-base font-body-md text-on-surface flex items-center justify-center min-h-screen"><main class="w-full"><div class="flex flex-col w-full min-h-[819px] items-center justify-center relative overflow-hidden">
+<!-- Atmospheric Background Elements -->
+<div class="absolute inset-0 overflow-hidden pointer-events-none">
+<div class="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-primary/5 blur-[120px] rounded-full"></div>
+<div class="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-secondary/5 blur-[120px] rounded-full"></div>
+<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full opacity-[0.03]" style="background-image: radial-gradient(circle at 2px 2px, #a6c8ff 1px, transparent 0); background-size: 40px 40px;"></div>
+</div>
+<div class="relative z-10 w-full max-w-container-max px-gutter flex flex-col items-center">
+<!-- Progress Indicator -->
+<div class="flex items-center gap-grid-unit mb-16">
+<div class="flex flex-col items-center">
+<div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-on-primary ring-4 ring-primary/20">
+<span class="material-symbols-outlined text-[20px]">fingerprint</span>
+</div>
+<span class="font-label-sm text-primary mt-2">IDENTITY</span>
+</div>
+<div class="w-16 h-[1px] bg-outline-variant mb-6"></div>
+<div class="flex flex-col items-center opacity-40">
+<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-on-surface">
+<span class="material-symbols-outlined text-[20px]">terminal</span>
+</div>
+<span class="font-label-sm text-on-surface mt-2">NODE</span>
+</div>
+<div class="w-16 h-[1px] bg-outline-variant mb-6"></div>
+<div class="flex flex-col items-center opacity-40">
+<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-on-surface">
+<span class="material-symbols-outlined text-[20px]">verified_user</span>
+</div>
+<span class="font-label-sm text-on-surface mt-2">ACCESS</span>
+</div>
+</div>
+<!-- Main Entry Card -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-12 w-full items-center">
+<!-- Content Section -->
+<div class="lg:col-span-5 flex flex-col space-y-8">
+<div class="space-y-4">
+<div class="inline-flex items-center gap-2 px-3 py-1 bg-primary/10 border border-primary/20 rounded-full">
+<span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+<span class="font-label-sm text-primary uppercase tracking-widest">Protocol Entry Point</span>
+</div>
+<h1 class="font-headline-xl text-text-primary leading-tight">
+            Initialize Your <br/><span class="text-primary italic">Digital Signature</span>
+</h1>
+<p class="font-body-lg text-on-surface-variant max-w-md">
+            Hack Orbit utilizes decentralized identity markers. Start by linking your verified professional profile to generate your unique node identifier.
+          </p>
+</div>
+<div class="space-y-6">
+<div class="flex items-start gap-4 p-4 bg-surface-container-low rounded-xl border border-border-subtle group hover:border-primary/30 transition-colors">
+<span class="material-symbols-outlined text-primary mt-1">shield_with_heart</span>
+<div>
+<h4 class="font-label-md text-text-primary">Encrypted Verification</h4>
+<p class="font-body-md text-on-surface-variant text-sm mt-1">Your data is hashed and never stored in plain text. We only verify your identity status.</p>
+</div>
+</div>
+<div class="flex items-start gap-4 p-4 bg-surface-container-low rounded-xl border border-border-subtle group hover:border-primary/30 transition-colors">
+<span class="material-symbols-outlined text-secondary mt-1">account_tree</span>
+<div>
+<h4 class="font-label-md text-text-primary">Node Mapping</h4>
+<p class="font-body-md text-on-surface-variant text-sm mt-1">Your identity becomes an immutable node in the orbit, allowing for transparent attribution.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Interaction Section -->
+<div class="lg:col-span-7 relative">
+<!-- Visual Orbit Motif -->
+<div class="absolute -inset-24 opacity-20 pointer-events-none">
+<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] border border-primary/40 rounded-full animate-[spin_60s_linear_infinite]"></div>
+<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] border border-secondary/20 rounded-full animate-[spin_40s_linear_infinite_reverse]"></div>
+</div>
+<div class="relative bg-surface-elevated p-12 rounded-xl border border-border-subtle shadow-2xl flex flex-col items-center text-center">
+<!-- Orbital Node Decor -->
+<div class="absolute -top-1 -left-1 w-4 h-4 border-t-2 border-l-2 border-primary"></div>
+<div class="absolute -bottom-1 -right-1 w-4 h-4 border-b-2 border-r-2 border-secondary"></div>
+<div class="w-20 h-20 mb-8 relative">
+<div class="absolute inset-0 bg-primary/20 blur-xl rounded-full"></div>
+<div class="relative w-full h-full bg-surface-overlay border border-primary/30 rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-4xl">key_visualizer</span>
+</div>
+</div>
+<h2 class="font-headline-lg text-text-primary mb-2">Secure Authentication</h2>
+<p class="font-body-md text-on-surface-variant mb-10 max-w-sm">
+            Select your provider to begin the identity handshake. No password required for initial node setup.
+          </p>
+<div class="w-full space-y-4 max-w-sm">
+<button class="w-full flex items-center justify-center gap-4 py-4 bg-primary text-on-primary font-label-md rounded-lg hover:brightness-110 transition-all active:scale-[0.98] group" id="auth-trigger">
+<svg class="w-6 h-6 fill-current group-hover:rotate-12 transition-transform" viewbox="0 0 24 24">
+<path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"></path>
+<path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"></path>
+<path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"></path>
+<path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 12-4.53z" fill="#EA4335"></path>
+</svg>
+<span>CONTINUE WITH GOOGLE</span>
+</button>
+<button class="w-full flex items-center justify-center gap-4 py-4 border border-border-subtle text-on-surface font-label-md rounded-lg hover:bg-surface-container transition-all">
+<span class="material-symbols-outlined">passkey</span>
+<span>USE PASSKEY</span>
+</button>
+</div>
+<div class="mt-12 pt-8 border-t border-border-subtle w-full flex justify-between items-center opacity-60">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+<span class="font-label-sm uppercase tracking-tighter">System Ready</span>
+</div>
+<div class="font-label-sm text-xs">ENCRYPTION: AES-256</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Technical Footer Decor -->
+<div class="mt-24 w-full grid grid-cols-2 lg:grid-cols-4 gap-8 opacity-40">
+<div class="flex flex-col gap-2">
+<div class="h-[1px] bg-outline-variant w-full"></div>
+<span class="font-label-sm text-[10px]">01 // IDENTITY_ROOT</span>
+</div>
+<div class="flex flex-col gap-2">
+<div class="h-[1px] bg-outline-variant w-full"></div>
+<span class="font-label-sm text-[10px]">02 // NODE_SYNDICATION</span>
+</div>
+<div class="flex flex-col gap-2">
+<div class="h-[1px] bg-outline-variant w-full"></div>
+<span class="font-label-sm text-[10px]">03 // ACCESS_LAYER</span>
+</div>
+<div class="flex flex-col gap-2">
+<div class="h-[1px] bg-outline-variant w-full"></div>
+<span class="font-label-sm text-[10px]">04 // CORE_VERIFIED</span>
+</div>
+</div>
+</div>
+</div>
+<script>
+  document.getElementById('auth-trigger').addEventListener('click', function() {
+    const btn = this;
+    const originalContent = btn.innerHTML;
+    
+    // Simulate authentication processing
+    btn.disabled = true;
+    btn.classList.add('opacity-80');
+    btn.innerHTML = `
+      <svg class="animate-spin h-5 w-5 text-on-primary" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+      </svg>
+      <span>INITIALIZING HANDSHAKE...</span>
+    `;
+
+    setTimeout(() => {
+      // Simulate success state for a moment before transitioning
+      btn.innerHTML = `
+        <span class="material-symbols-outlined text-on-primary">check_circle</span>
+        <span>IDENTITY VERIFIED</span>
+      `;
+      btn.classList.replace('bg-primary', 'bg-secondary');
+      
+      // In a real app, this would route to Step 2
+      setTimeout(() => {
+        alert('Identity Initialized. Transitioning to Step 2: Node Configuration.');
+        btn.innerHTML = originalContent;
+        btn.disabled = false;
+        btn.classList.replace('bg-secondary', 'bg-primary');
+        btn.classList.remove('opacity-80');
+      }, 1000);
+    }, 2000);
+  });
+</script></main></body></html>

@@ -1,25 +1,23 @@
-/**
- * api/auth/google/start.js
- * GET /api/auth/google/start
- * Generates PKCE + state, stores verifier in a temp cookie, redirects to Google.
- */
+import { buildGoogleAuthUrl } from '../../../lib/oauth/google.js';
+import { generateState, generateCodeVerifier, generateCodeChallenge, redirectUri } from '../../../lib/oauth/common.js';
+import { setOAuthStateCookie } from '../../../lib/oauth/stateCookie.js';
+import { redirect } from '../../../lib/session.js';
+import { getBaseUrl } from '../../../lib/http.js';
 
-'use strict';
+export default function handler(req, res) {
+  if (req.method !== 'GET') {
+    res.statusCode = 405;
+    res.setHeader('Allow', 'GET');
+    return res.end();
+  }
 
-const { generatePKCE, generateState, buildAuthUrl } = require('../../../lib/oauth/google');
-
-module.exports = async (req, res) => {
-  if (req.method !== 'GET') return res.status(405).end('Method Not Allowed');
-
-  const { verifier, challenge } = generatePKCE();
   const state = generateState();
+  const codeVerifier = generateCodeVerifier();
+  const codeChallenge = generateCodeChallenge(codeVerifier);
+  const redirectTo = getBaseUrl(req) + '/api/auth/google/callback';
 
-  // Store verifier + state in short-lived temp cookies (SameSite=Lax, 10 min TTL)
-  const cookieOpts = 'HttpOnly; Secure; SameSite=Lax; Max-Age=600; Path=/';
-  res.setHeader('Set-Cookie', [
-    `ho_pkce_verifier=${verifier}; ${cookieOpts}`,
-    `ho_oauth_state=${state}; ${cookieOpts}`,
-  ]);
+  setOAuthStateCookie(res, { state, codeVerifier, provider: 'google' });
 
-  res.redirect(302, buildAuthUrl(state, challenge));
-};
+  const url = buildGoogleAuthUrl({ state, codeChallenge, redirectUri: redirectTo });
+  return redirect(res, url);
+}

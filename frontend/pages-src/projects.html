@@ -1,132 +1,116 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <title>Active Repositories — Hack Orbit Projects</title>
-  {{include:head}}
-  <meta name="description" content="Explore active official and community-driven projects under the Hack Orbit collective, including Void DB, Aether Core, and Nova UI.">
-</head>
-<body class="bg-surface-base font-body-md text-on-surface grid-bg min-h-screen">
-  <a href="#main-content" class="skip-link">Skip to main content</a>
-  
-  {{include:nav}}
+  <head>
+    <!-- {{HEAD}} -->
+    <title>Official &amp; Community Projects — Hack Orbit</title>
+    <meta
+      name="description"
+      content="Explore official and community projects at Hack Orbit. Official projects are owned by the Hack Orbit GitHub organisation; community projects are member-led."
+    />
+    <link rel="canonical" href="{{SITE_URL}}/projects" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Official &amp; Community Projects — Hack Orbit" />
+    <meta
+      property="og:description"
+      content="Official and community projects at Hack Orbit, an open-source technology organisation."
+    />
+    <meta property="og:url" content="{{SITE_URL}}/projects" />
+    <meta property="og:image" content="{{SITE_URL}}/assets/logo/logo.svg" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Projects — Hack Orbit" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Home", "item": "{{SITE_URL}}/" },
+          { "@type": "ListItem", "position": 2, "name": "Projects", "item": "{{SITE_URL}}/projects" }
+        ]
+      }
+    </script>
+  </head>
+  <body>
+    <!-- {{NAV}} -->
+    <main id="main">
+      <nav class="container breadcrumbs" aria-label="Breadcrumb">
+        <a href="/">Home</a><span aria-hidden="true">/</span><span aria-current="page">Projects</span>
+      </nav>
 
-  <main id="main-content" class="w-full pt-24 pb-32 bg-transparent relative z-10">
-    <div class="container">
-      
-      <header style="margin-bottom: var(--spacing-16); text-align: center;">
-        <span class="text-mono text-primary uppercase font-semibold" style="font-size: var(--text-label-sm); letter-spacing: 0.25em;">// Repository Index</span>
-        <h1 style="margin-top: var(--spacing-2); margin-bottom: var(--spacing-4); text-transform: uppercase;">Active Projects</h1>
-        <p class="text-muted" style="max-width: 600px; margin-left: auto; margin-right: auto; font-size: var(--text-body-lg);">
-          The official open-source codebase registry of Hack Orbit. Filter by status or organization level.
-        </p>
-      </header>
+      <section class="section--tight orbital" aria-labelledby="projects-title">
+        <div class="container">
+          <span class="eyebrow">Projects</span>
+          <h1 id="projects-title">Official &amp; community projects</h1>
+          <p class="lead" style="max-width: 62ch; margin-top: 16px">
+            Hack Orbit hosts two kinds of projects, kept deliberately distinct: official projects
+            owned and maintained by the organisation, and community projects led by members.
+            Contributions to official repositories are tracked on member profiles.
+          </p>
+        </div>
+      </section>
 
-      <!-- Filters -->
-      <div style="display: flex; justify-content: center; gap: var(--spacing-4); margin-bottom: var(--spacing-16); flex-wrap: wrap;">
-        <button class="btn btn-primary btn-filter" data-filter="all">All Projects</button>
-        <button class="btn btn-secondary btn-filter" data-filter="official">Official</button>
-        <button class="btn btn-secondary btn-filter" data-filter="community">Community</button>
-      </div>
-
-      <!-- Grid -->
-      <div class="grid grid-cols-1 grid-md-3 gap-8" id="projects-grid">
-        
-        <!-- Project 1 -->
-        <div class="project-card bento-card" data-type="official" style="padding: 0;">
-          <div class="project-card-image">
-            <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDE6KwLwF3E7DdnCaiI0WcYVZLob7QXvbzQpyOC2z6SiaHwvLBqUy4iiRylWmdElfz_ibW3hXm9wL8V6r8y7gLNg96Oib_SIlA2OQ5gZjV0b186fGb9SsHkNbJcji9KwGJlDUl1kRF1FSqxYy5jK9oMpxAcA1cgVmloTVBACMAw5DoJwFX6rlKI-nvFGIBZNQUtJB385CDUXM-iBRJRieJY40DAX45kDVk40ivBbNDncbktzSc9mRYmu12NauvmwPUBHDVKUNRKRYiI" alt="Aether Core System Graphic">
-            <div class="absolute inset-0 bg-gradient-to-t from-surface-base to-transparent opacity-60"></div>
-            <div class="badge badge-official" style="position: absolute; top: var(--spacing-4); right: var(--spacing-4); background-color: var(--color-primary); color: var(--color-on-primary);">OFFICIAL</div>
-          </div>
-          <div class="project-card-content">
-            <h3 style="margin-bottom: var(--spacing-2);">Aether Core</h3>
-            <p class="text-muted" style="font-size: var(--text-body-md); margin-bottom: var(--spacing-6); flex-grow: 1;">
-              The backbone of the Orbit event layer. A high-throughput, low-latency message broker optimized for edge networks.
-            </p>
-            <div class="flex justify-between items-center" style="border-top: 1px solid var(--color-border); padding-top: var(--spacing-4);">
-              <span class="text-mono" style="font-size: var(--text-label-sm); color: var(--color-primary);">Rust / Go</span>
-              <a href="https://github.com/hackorbit/aether-core" target="_blank" rel="noopener noreferrer" class="text-mono nav-item flex items-center gap-1" style="font-size: var(--text-label-sm);">
-                CODEBASE <span class="material-symbols-outlined" style="font-size: 14px;">open_in_new</span>
-              </a>
-            </div>
+      <section class="section--tight" aria-labelledby="types-title">
+        <div class="container">
+          <div class="grid grid-cols-2">
+            <article class="card card--hover">
+              <span class="chip chip--blue">Official</span>
+              <h2 id="types-title" class="card__title" style="margin-top: 12px">Official Hack Orbit projects</h2>
+              <p class="card__text">
+                Owned and maintained by Hack Orbit in our GitHub organisation. Official projects
+                are where organisation-scoped contribution tracking applies — merged pull requests,
+                resolved issues, and reviews are attributed to members automatically.
+              </p>
+            </article>
+            <article class="card card--hover">
+              <span class="chip chip--green">Community</span>
+              <h2 class="card__title" style="margin-top: 12px">Community projects</h2>
+              <p class="card__text">
+                Proposed and led by Hack Orbit members. Community projects are showcased with a
+                clear label so the distinction from official work is never ambiguous. A community
+                project can be adopted as official over time.
+              </p>
+            </article>
           </div>
         </div>
+      </section>
 
-        <!-- Project 2 -->
-        <div class="project-card bento-card" data-type="official" style="padding: 0;">
-          <div class="project-card-image">
-            <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDd52RoMailzUhkCIyb-bB98zx_epZj2YRvIFOWEmWsdYGaklYguLA9xltva6GO3HT_sKrp5AL0c63TuBqGg7Su_HL5hVKUr6DT3QFlj2Ytofxn6GMj_Wkjkj6Wxefmfp3Znqnc-D7v1SJZO_mPSOrNULZMcRRX3tM_m6zasGFupYQZBg62Ha1kT3sjSyO8ioNy1ylovFmWSFyIC7bzg1qRcIApJnahwCHh0R7v5wJaazn6BVymMwHG1_L3jelU_DKpje699jnsPuZG" alt="Void DB Storage Graphic">
-            <div class="absolute inset-0 bg-gradient-to-t from-surface-base to-transparent opacity-60"></div>
-            <div class="badge badge-official" style="position: absolute; top: var(--spacing-4); right: var(--spacing-4); background-color: var(--color-primary); color: var(--color-on-primary);">OFFICIAL</div>
+      <section class="section" aria-labelledby="browse-title">
+        <div class="container">
+          <div class="section-heading">
+            <h2 id="browse-title">Browse projects</h2>
           </div>
-          <div class="project-card-content">
-            <h3 style="margin-bottom: var(--spacing-2);">Void DB</h3>
-            <p class="text-muted" style="font-size: var(--text-body-md); margin-bottom: var(--spacing-6); flex-grow: 1;">
-              An immutable, cryptographic ledger-based storage engine built specifically for tamper-proof audit trails.
-            </p>
-            <div class="flex justify-between items-center" style="border-top: 1px solid var(--color-border); padding-top: var(--spacing-4);">
-              <span class="text-mono" style="font-size: var(--text-label-sm); color: var(--color-primary);">C++</span>
-              <a href="https://github.com/hackorbit/void-db" target="_blank" rel="noopener noreferrer" class="text-mono nav-item flex items-center gap-1" style="font-size: var(--text-label-sm);">
-                CODEBASE <span class="material-symbols-outlined" style="font-size: 14px;">open_in_new</span>
-              </a>
+          <div class="filter-tabs" role="group" aria-label="Filter projects by type">
+            <button class="filter-tab" type="button" data-filter="all" aria-pressed="true">All</button>
+            <button class="filter-tab" type="button" data-filter="official" aria-pressed="false">Official</button>
+            <button class="filter-tab" type="button" data-filter="community" aria-pressed="false">Community</button>
+          </div>
+          <div id="projects-grid" class="grid grid-cols-3" aria-live="polite">
+            <div class="card" style="grid-column: 1 / -1; text-align: center; padding: 64px 32px">
+              <h3 class="card__title">Projects are being seeded.</h3>
+              <p class="card__text" style="max-width: 52ch; margin: 12px auto 24px">
+                Hack Orbit's official repositories are currently being set up. As soon as projects
+                launch, they'll appear here with clear official/community labelling.
+              </p>
+              <a class="btn btn--primary" href="/contribute">Get ready to contribute</a>
             </div>
           </div>
+          <script type="application/json" id="projects-data">[]</script>
         </div>
+      </section>
 
-        <!-- Project 3 -->
-        <div class="project-card bento-card" data-type="community" style="padding: 0;">
-          <div class="project-card-image">
-            <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuA_EUbIIqrdwz2C6vRs8T6v9FC4F98itOYashEhCNUXcBs95olPblW0YMwf-hrZwIM8BAJ4RmtYfebd3SJGYvS8GypQQDHv5ffkX2hEHKjD0tOFh7uH-mwmZul4h-QneqYGoiQYwEaGyTeOBPTRUt5D-Gaiuq9Ts3aLmvJ5O5E7HweGKI3ErxY-Aw7NIAANWsgQStA1HCYU1CPIGriy6iZVzSkHiMDYMUhMErMndiP0BCaIJ1tT-9sNBcW-ctIBYdaDsc-qLjfSzn8f" alt="Nova UI Components Graphic">
-            <div class="absolute inset-0 bg-gradient-to-t from-surface-base to-transparent opacity-60"></div>
-            <div class="badge badge-community" style="position: absolute; top: var(--spacing-4); right: var(--spacing-4); background-color: var(--color-secondary); color: var(--color-on-secondary);">COMMUNITY</div>
-          </div>
-          <div class="project-card-content">
-            <h3 style="margin-bottom: var(--spacing-2);">Nova UI</h3>
-            <p class="text-muted" style="font-size: var(--text-body-md); margin-bottom: var(--spacing-6); flex-grow: 1;">
-              A component library designed for high typographic fidelity and absolute fluid accessibility.
-            </p>
-            <div class="flex justify-between items-center" style="border-top: 1px solid var(--color-border); padding-top: var(--spacing-4);">
-              <span class="text-mono" style="font-size: var(--text-label-sm); color: var(--color-primary);">CSS / JS</span>
-              <a href="https://github.com/hackorbit/nova-ui" target="_blank" rel="noopener noreferrer" class="text-mono nav-item flex items-center gap-1" style="font-size: var(--text-label-sm);">
-                CODEBASE <span class="material-symbols-outlined" style="font-size: 14px;">open_in_new</span>
-              </a>
-            </div>
-          </div>
+      <section class="section" aria-labelledby="propose-title" style="background: var(--surface-container-low)">
+        <div class="container" style="max-width: 720px; text-align: center">
+          <span class="eyebrow">Have an idea?</span>
+          <h2 id="propose-title">Propose a community project</h2>
+          <p class="lead" style="margin: 16px auto 32px; max-width: 52ch">
+            Built something worth sharing? Reach out through our contact page with your project
+            idea, and the founder will review it for community or official showcase.
+          </p>
+          <a class="btn btn--secondary btn--lg" href="/contact">Propose a project</a>
         </div>
-
-      </div>
-    </div>
-  </main>
-
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const filters = document.querySelectorAll('.btn-filter');
-      const cards = document.querySelectorAll('.project-card');
-
-      filters.forEach(filter => {
-        filter.addEventListener('click', () => {
-          const type = filter.getAttribute('data-filter');
-
-          filters.forEach(btn => {
-            btn.classList.remove('btn-primary');
-            btn.classList.add('btn-secondary');
-          });
-          filter.classList.remove('btn-secondary');
-          filter.classList.add('btn-primary');
-
-          cards.forEach(card => {
-            const cardType = card.getAttribute('data-type');
-            if (type === 'all' || cardType === type) {
-              card.style.display = 'flex';
-            } else {
-              card.style.display = 'none';
-            }
-          });
-        });
-      });
-    });
-  </script>
-
-  {{include:footer}}
-</body>
+      </section>
+    </main>
+    <!-- {{FOOTER}} -->
+    <script type="module" src="/js/main.js"></script>
+    <script type="module" src="/js/components.js"></script>
+  </body>
 </html>

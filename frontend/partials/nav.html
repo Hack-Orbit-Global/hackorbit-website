@@ -1,52 +1,43 @@
-<header class="header-nav">
-  <div class="header-container">
-    <a href="/index.html" class="header-logo">
-      <img src="/frontend/assets/logo/logo.svg" alt="Hack Orbit Logo" style="width: 32px; height: 32px;">
-      <span class="header-logo-text">Hack Orbit</span>
-    </a>
-    
-    <nav class="nav-menu" aria-label="Primary Navigation">
-      <a href="/index.html" class="nav-item" data-path="home">Home</a>
-      <a href="/about.html" class="nav-item" data-path="about">About</a>
-      <a href="/projects.html" class="nav-item" data-path="projects">Projects</a>
-      <a href="/contribute.html" class="nav-item" data-path="contribute">Contribute</a>
-      <a href="/contact.html" class="nav-item" data-path="contact">Contact</a>
-    </nav>
-    
-    <div class="header-actions">
-      <a href="/join.html" class="btn btn-primary" style="padding: var(--spacing-2) var(--spacing-4); font-size: 0.8125rem;">Join Hack Orbit</a>
-      <a href="/settings.html" class="user-avatar-btn" aria-label="Account Settings" id="nav-avatar-btn" style="display: none;">
-        <span class="material-symbols-outlined">person</span>
+<a class="skip-link" href="#main">Skip to main content</a>
+<header class="site-header">
+  <div class="container">
+    <nav class="nav" aria-label="Primary">
+      <a class="nav__brand" href="/">
+        <img src="/assets/logo/logo.svg" alt="Hack Orbit logo" width="34" height="34" />
+        <span>Hack Orbit</span>
       </a>
-      <button class="mobile-toggle" aria-label="Toggle menu" id="mobile-drawer-toggle">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <line x1="3" y1="12" x2="21" y2="12"></line>
-          <line x1="3" y1="6" x2="21" y2="6"></line>
-          <line x1="3" y1="18" x2="21" y2="18"></line>
-        </svg>
+      <div class="nav__links">
+        <a class="nav__link" href="/about">About</a>
+        <a class="nav__link" href="/projects">Projects</a>
+        <a class="nav__link" href="/contribute">Contribute</a>
+      </div>
+      <div class="nav__cta">
+        <a class="btn btn--primary" href="/join">Join Hack Orbit</a>
+      </div>
+      <button
+        class="nav__toggle"
+        type="button"
+        aria-expanded="false"
+        aria-controls="nav-drawer"
+        aria-label="Open menu"
+      >
+        <span></span>
+        <span></span>
+        <span></span>
       </button>
-    </div>
+    </nav>
+  </div>
+  <div class="nav-drawer" id="nav-drawer" hidden>
+    <nav aria-label="Mobile">
+      <div class="nav-drawer__links">
+        <a class="nav-drawer__link" href="/">Home</a>
+        <a class="nav-drawer__link" href="/about">About</a>
+        <a class="nav-drawer__link" href="/projects">Projects</a>
+        <a class="nav-drawer__link" href="/contribute">Contribute</a>
+        <a class="nav-drawer__link" href="/verify">Verify a certificate</a>
+        <a class="nav-drawer__link" href="/contact">Contact</a>
+        <a class="nav-drawer__link" href="/join">Join Hack Orbit</a>
+      </div>
+    </nav>
   </div>
 </header>
-
-<!-- Mobile Navigation Drawer -->
-<div class="drawer-overlay" id="mobile-drawer-overlay"></div>
-<div class="drawer" id="mobile-drawer" role="dialog" aria-modal="true" aria-label="Mobile Navigation">
-  <div class="flex justify-between items-center" style="margin-bottom: var(--spacing-8);">
-    <span class="text-mono font-semibold text-primary" style="letter-spacing: 0.1em;">NAVIGATION</span>
-    <button class="mobile-toggle" aria-label="Close menu" id="mobile-drawer-close" style="display: flex;">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <line x1="18" y1="6" x2="6" y2="18"></line>
-        <line x1="6" y1="6" x2="18" y2="18"></line>
-      </svg>
-    </button>
-  </div>
-  <nav class="flex flex-col gap-6" aria-label="Mobile Primary Navigation">
-    <a href="/index.html" class="nav-item">Home</a>
-    <a href="/about.html" class="nav-item">About</a>
-    <a href="/projects.html" class="nav-item">Projects</a>
-    <a href="/contribute.html" class="nav-item">Contribute</a>
-    <a href="/contact.html" class="nav-item">Contact</a>
-    <a href="/join.html" class="btn btn-primary" style="margin-top: var(--spacing-4);">Join Hack Orbit</a>
-  </nav>
-</div>
