@@ -1,10 +1,16 @@
 # Hack Orbit Website — Master Implementation Plan
 
 > **Document Status:** Active / Production Baseline  
-> **Source Documents:** `docs/00` through `docs/25`, `docs/ANTIGRAVITY-STARTER-PROMPT.md`  
+> **Source Documents:** `docs/00` through `docs/26`, `docs/ANTIGRAVITY-STARTER-PROMPT.md`  
 > **Target Output:** `/home/sabarna/hackorbit-website/implementation.md`  
 > **Architecture Constraint:** Plain HTML5 + CSS3 + Vanilla JavaScript + Vercel Serverless Functions + Google Sheets / Apps Script (Zero Frontend Frameworks)  
 > **Target Quality Standard:** 100/100/100/100 Lighthouse Scores (Performance, Accessibility, Best Practices, SEO)  
+>
+> **⚠️ Current status (2026):** the site is temporarily deployed as a **static-only
+> frontend** — the `api/` Serverless Functions were removed from the repo (no OAuth,
+> profiles, verification, webhooks, or cron for now). The `join`/`settings`/`verify`
+> pages are `noindex` "coming soon" placeholders. This plan remains the reference
+> for re-enabling the backend.  
 
 ---
 

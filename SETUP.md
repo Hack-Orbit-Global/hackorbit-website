@@ -1,5 +1,12 @@
 # Hack Orbit Website — Setup Guide
 
+> **Current status: static-only site.** The site currently ships as a purely static
+> frontend (10 pages, no Serverless Functions). Membership onboarding, profiles,
+> certificate verification, OAuth, and the GitHub webhook are **on hold** — the
+> `api/` layer was removed from the repo. Sections 1–4 below document the full
+> backend setup for when those features are re-enabled; for today's static deploy,
+> jump straight to §5.
+
 Complete guide to get every Hack Orbit feature running: static site, OAuth
 sign-in, member IDs, public profiles, GitHub contribution tracking, Discord
 linking, badges, and certificate verification.
@@ -135,12 +142,18 @@ How it behaves:
 
 ## 5. Deploy
 
+The static build needs **no environment variables and no Serverless Functions**:
+
 ```bash
 npm install
 npm run build   # builds public/, sitemap.xml, robots.txt
-npm test        # 39 tests, expect 0 failures
+npm test        # 34 tests, expect 0 failures
 vercel --prod   # or just push to the connected branch
 ```
+
+`vercel.json` sets the output directory and static cache headers. In the Vercel
+project settings, make sure **Framework Preset = Other** and **Output Directory =
+`public`**.
 
 ---
 
@@ -148,14 +161,12 @@ vercel --prod   # or just push to the connected branch
 
 | Feature | How to check |
 |---|---|
-| Health check | `GET /api/health` → `{"ok":true,"status":"healthy"}` |
-| Join flow | `/join`: Google → GitHub → Discord → Finalize; new member gets `HO-XXXXXX`, founder gets `HO-000001` |
-| Public profile | `/profile/HO-000001` → pre-rendered HTML with Person schema, **no private email** |
-| Settings | `/settings` → PATCH round-trips display name, bio, skills, links |
-| Webhook | POST a signed payload twice; second delivery returns `duplicate` |
-| Certificates | Issue via `/api/admin/certificates/issue`, then check `/verify` and `/verify-result/<id>` (metadata only, no file link); revoke and re-check |
-| Cron | Vercel → Cron tab shows `/api/cron/github-reconcile` every 6h; logs show `skipped` when org vars unset |
+| Static pages | All 10 pages render from `public/` with valid nav/footer, canonical, meta description |
+| Join / Verify / Settings | `noindex` "coming soon" placeholders (not in sitemap or navigation) |
 | Lighthouse | 100 on Performance, Accessibility, Best Practices, SEO |
+
+> The API-backed checks below (health, join flow, profiles, webhooks, certificates,
+> cron) apply again once the backend is re-enabled per sections 1–4.
 
 ---
 

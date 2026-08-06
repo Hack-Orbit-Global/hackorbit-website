@@ -2,32 +2,20 @@
 <html lang="en">
   <head>
     <!-- {{HEAD}} -->
-    <title>Verify a Hack Orbit Certificate</title>
+    <title>Verify a Hack Orbit Certificate — Coming Soon</title>
     <meta
       name="description"
-      content="Verify a Hack Orbit certificate. Enter a certificate ID to confirm its validity, recipient, event, and issue date. Metadata only — no downloadable files."
+      content="Hack Orbit certificate verification is coming soon. Certificates will be publicly verifiable by ID."
     />
+    <meta name="robots" content="noindex, nofollow" />
     <link rel="canonical" href="{{SITE_URL}}/verify" />
     <meta property="og:type" content="website" />
     <meta property="og:title" content="Verify a Hack Orbit Certificate" />
-    <meta
-      property="og:description"
-      content="Publicly verify the authenticity of a Hack Orbit certificate by ID."
-    />
+    <meta property="og:description" content="Publicly verify the authenticity of a Hack Orbit certificate by ID." />
     <meta property="og:url" content="{{SITE_URL}}/verify" />
     <meta property="og:image" content="{{SITE_URL}}/assets/logo/logo.svg" />
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:title" content="Verify a Hack Orbit Certificate" />
-    <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": "BreadcrumbList",
-        "itemListElement": [
-          { "@type": "ListItem", "position": 1, "name": "Home", "item": "{{SITE_URL}}/" },
-          { "@type": "ListItem", "position": 2, "name": "Verify", "item": "{{SITE_URL}}/verify" }
-        ]
-      }
-    </script>
   </head>
   <body>
     <!-- {{NAV}} -->
@@ -37,44 +25,14 @@
           <span class="eyebrow">Certificate verification</span>
           <h1 id="verify-title">Verify a Hack Orbit certificate</h1>
           <p class="lead" style="margin-top: 16px">
-            Enter a certificate ID (for example
-            <span class="mono">HO-CERT-2026-000001</span>) to confirm its validity. Verification
-            shows metadata only — the certificate record, never a downloadable file.
+            Public certificate verification is coming soon. Once certificates are issued, you'll
+            be able to confirm a certificate's validity, recipient, event, and issue date by
+            entering its ID here.
           </p>
-
-          <div class="verify-form" style="margin-top: 40px">
-            <form id="verify-form" novalidate>
-              <div class="form-group" style="margin-bottom: 0">
-                <label for="certificate-id">Certificate ID <span class="required" aria-hidden="true">*</span></label>
-                <div style="display: flex; gap: 12px; align-items: flex-start">
-                  <input
-                    class="form-input"
-                    id="certificate-id"
-                    name="id"
-                    type="text"
-                    inputmode="text"
-                    autocomplete="off"
-                    spellcheck="false"
-                    placeholder="HO-CERT-2026-000001"
-                    required
-                    aria-required="true"
-                    aria-describedby="verify-status"
-                    style="font-family: var(--font-mono)"
-                  />
-                  <button class="btn btn--primary" type="submit" style="white-space: nowrap">Verify</button>
-                </div>
-              </div>
-            </form>
-            <p class="form-status" id="verify-status" aria-live="polite" style="margin-top: 16px"></p>
-          </div>
-
-          <div id="verify-result" class="stack-md" style="margin-top: 32px"></div>
-
-          <div class="callout callout--info" style="margin-top: 40px">
+          <div class="callout callout--info" style="margin-top: 32px">
             <p>
-              A certificate that has been revoked is reported honestly as
-              <strong>Revoked</strong> — the record is never hidden. Unknown IDs simply show
-              "not found".
+              A revoked certificate is reported honestly as revoked — it is never hidden. Unknown
+              IDs simply show "not found".
             </p>
           </div>
         </div>
@@ -82,6 +40,5 @@
     </main>
     <!-- {{FOOTER}} -->
     <script type="module" src="/js/main.js"></script>
-    <script type="module" src="/js/certificates.js"></script>
   </body>
 </html>

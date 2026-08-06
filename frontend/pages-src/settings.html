@@ -3,7 +3,7 @@
   <head>
     <!-- {{HEAD}} -->
     <title>Profile Settings — Hack Orbit</title>
-    <meta name="description" content="Edit your Hack Orbit public profile: display name, bio, skills, and links." />
+    <meta name="description" content="Hack Orbit profile settings are coming soon." />
     <meta name="robots" content="noindex, nofollow" />
     <link rel="canonical" href="{{SITE_URL}}/settings" />
   </head>
@@ -15,52 +15,19 @@
           <span class="eyebrow">Account</span>
           <h1 id="settings-title">Profile settings</h1>
           <p class="lead" style="margin-top: 12px">
-            These details appear on your public profile at
-            <span class="mono" id="profile-link">/profile/HO-XXXXXX</span>.
+            Profile settings will be available once verified membership launches. You'll be able
+            to manage your public display name, bio, skills, and links from here.
           </p>
-
-          <div id="session-gate" class="stack-md" style="margin-top: 32px">
-            <div class="callout callout--info">
-              <p id="settings-status" aria-live="polite">Checking your session…</p>
-            </div>
+          <div class="callout callout--info" style="margin-top: 32px">
+            <p>Want to help shape what Hack Orbit becomes? Start contributing today.</p>
           </div>
-
-          <form id="settings-form" class="card stack-md" style="margin-top: 24px" hidden novalidate>
-            <div class="form-group">
-              <label for="settings-name">Display name <span class="required" aria-hidden="true">*</span></label>
-              <input class="form-input" id="settings-name" name="display_name" type="text" autocomplete="name" required aria-required="true" placeholder="How you want to appear publicly" />
-              <p class="form-help">Your legal name is never required — this is your public name.</p>
-            </div>
-            <div class="form-group">
-              <label for="settings-bio">Bio</label>
-              <textarea class="form-textarea" id="settings-bio" name="bio" maxlength="500" placeholder="A short line about what you build."></textarea>
-              <p class="form-help">Up to 500 characters.</p>
-            </div>
-            <div class="form-group">
-              <label for="settings-skills">Skills &amp; technologies</label>
-              <input class="form-input" id="settings-skills" name="skills" type="text" autocomplete="off" placeholder="JavaScript, Kubernetes, PyTorch…" />
-              <p class="form-help">Comma-separated list shown as tags on your profile.</p>
-            </div>
-            <div class="form-group">
-              <label for="settings-linkedin">LinkedIn URL</label>
-              <input class="form-input" id="settings-linkedin" name="linkedin_url" type="url" autocomplete="url" placeholder="https://www.linkedin.com/in/you" />
-            </div>
-            <div class="form-group">
-              <label for="settings-other-links">Other links</label>
-              <input class="form-input" id="settings-other-links" name="other_links" type="text" autocomplete="url" placeholder="https://github.com/you, https://your.site" />
-              <p class="form-help">Comma-separated. GitHub is already shown from your verified connection.</p>
-            </div>
-            <div class="form-actions">
-              <button class="btn btn--primary" type="submit" id="settings-save">Save changes</button>
-              <button class="btn btn--ghost" type="button" id="logout-btn">Sign out</button>
-              <span class="form-status" aria-live="polite"></span>
-            </div>
-          </form>
+          <div class="form-actions" style="margin-top: 28px">
+            <a class="btn btn--primary" href="/contribute">Contribute to Hack Orbit</a>
+          </div>
         </div>
       </section>
     </main>
     <!-- {{FOOTER}} -->
     <script type="module" src="/js/main.js"></script>
-    <script type="module" src="/js/profile.js"></script>
   </body>
 </html>
