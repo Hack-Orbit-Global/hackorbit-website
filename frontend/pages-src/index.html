@@ -5,7 +5,7 @@
     <title>Hack Orbit — Open-Source Technology Organisation &amp; Developer Community</title>
     <meta
       name="description"
-      content="Hack Orbit is an open-source technology organisation and developer community founded by Sabarna Barik. Build. Contribute. Orbit together."
+      content="Hack Orbit is an open-source technology organisation and developer community. Build. Contribute. Orbit together."
     />
     <link rel="canonical" href="{{SITE_URL}}/" />
     <meta property="og:type" content="website" />
@@ -15,7 +15,7 @@
       content="An open-source technology organisation and developer community. Build. Contribute. Orbit together."
     />
     <meta property="og:url" content="{{SITE_URL}}/" />
-    <meta property="og:image" content="{{SITE_URL}}/assets/logo/logo.svg" />
+    <meta property="og:image" content="{{SITE_URL}}/assets/banner/banner.avif" />
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:title" content="Hack Orbit" />
     <meta
@@ -31,8 +31,7 @@
             "@id": "{{SITE_URL}}/#organization",
             "name": "Hack Orbit",
             "url": "{{SITE_URL}}/",
-            "logo": "{{SITE_URL}}/assets/logo/logo.svg",
-            "founder": { "@type": "Person", "name": "Sabarna Barik", "url": "{{SITE_URL}}/about" },
+            "logo": "{{SITE_URL}}/assets/logo/logo.avif",
             "sameAs": [
               "https://github.com/hackorbit",
               "https://discord.gg/hackorbit",
@@ -62,10 +61,18 @@
             <span class="gradient-text">Orbit together.</span>
           </h1>
           <p class="hero__subtitle">
-            Hack Orbit is a community where developers build real projects, contribute to
-            open-source repositories, and build a verifiable public record of the work they've
-            actually done — across web development, DevOps, AI/ML, and technology broadly.
+            Hack Orbit is a community where developers build real projects together, contribute
+            to open-source repositories, and grow as builders — across web development, DevOps,
+            AI/ML, and technology broadly.
           </p>
+          <img
+            class="hero__banner"
+            src="/assets/banner/banner.avif"
+            alt="Hack Orbit banner artwork"
+            width="1600"
+            height="595"
+            fetchpriority="high"
+          />
           <div class="hero__actions">
             <a class="btn btn--primary btn--lg" href="/join">Join Hack Orbit</a>
             <a class="btn btn--secondary btn--lg" href="/projects">Explore Projects</a>
@@ -103,50 +110,8 @@
             <article class="card card--hover">
               <h3 class="card__title">Orbit Together</h3>
               <p class="card__text">
-                Grow as a community, not as isolated users. Every verified member holds a
-                permanent Member ID and a public contribution-backed profile.
-              </p>
-            </article>
-          </div>
-        </div>
-      </section>
-
-      <section class="section" aria-labelledby="why-title" style="background: var(--surface-container-low)">
-        <div class="container">
-          <div class="section-heading">
-            <div>
-              <span class="eyebrow">Why join?</span>
-              <h2 id="why-title">Verified identity. Real work. Lasting record.</h2>
-            </div>
-          </div>
-          <div class="grid grid-cols-2">
-            <article class="card card--hover">
-              <h3 class="card__title">A permanent Member ID</h3>
-              <p class="card__text">
-                Complete the three-step verification flow (Google → GitHub → Discord) and receive
-                a permanent, sequential Member ID such as <code class="mono">HO-000042</code> —
-                never reused, never reassigned.
-              </p>
-            </article>
-            <article class="card card--hover">
-              <h3 class="card__title">A public, contribution-backed profile</h3>
-              <p class="card__text">
-                Your profile shows verified contributions, badges, and certificates — proof of
-                work you can share on resumes and applications, without exposing your email.
-              </p>
-            </article>
-            <article class="card card--hover">
-              <h3 class="card__title">Automated contribution tracking</h3>
-              <p class="card__text">
-                Merged pull requests and issues in Hack Orbit's official repositories are tracked
-                automatically via GitHub webhooks, so your record stays current.
-              </p>
-            </article>
-            <article class="card card--hover">
-              <h3 class="card__title">Verifiable certificates</h3>
-              <p class="card__text">
-                Earn organisation-issued certificates for events and achievements, publicly
-                verifiable by anyone through the certificate verification portal.
+                Grow as a community, not as isolated users. Learn in public, ship together, and
+                get better at building software as a team.
               </p>
             </article>
           </div>
@@ -167,10 +132,10 @@
               <div class="project-card__media">
                 <span class="project-card__tag chip chip--blue">Official</span>
                 <img
-                  src="/assets/logo/logo.svg"
+                  src="/assets/banner/banner.avif"
                   alt="Hack Orbit official projects are hosted in the Hack Orbit GitHub organisation"
-                  width="600"
-                  height="338"
+                  width="1600"
+                  height="595"
                   loading="lazy"
                 />
               </div>
@@ -178,7 +143,8 @@
                 <h3 class="project-card__title">Official Hack Orbit repos</h3>
                 <p class="project-card__desc">
                   Projects owned and maintained by Hack Orbit live in our GitHub organisation.
-                  Official repos are where contributions are tracked and recognised.
+                  Official repos are where the organisation's work happens — contributions are
+                  always welcome.
                 </p>
                 <div class="project-card__meta">
                   <span>Org-scoped tracking</span>
@@ -190,10 +156,10 @@
               <div class="project-card__media">
                 <span class="project-card__tag chip chip--green">Community</span>
                 <img
-                  src="/assets/logo/logo.svg"
+                  src="/assets/banner/banner.avif"
                   alt="Community projects proposed and led by Hack Orbit members"
-                  width="600"
-                  height="338"
+                  width="1600"
+                  height="595"
                   loading="lazy"
                 />
               </div>
@@ -213,10 +179,10 @@
               <div class="project-card__media">
                 <span class="project-card__tag chip chip--amber">Getting started</span>
                 <img
-                  src="/assets/logo/logo.svg"
+                  src="/assets/banner/banner.avif"
                   alt="First pull request in a Hack Orbit repository"
-                  width="600"
-                  height="338"
+                  width="1600"
+                  height="595"
                   loading="lazy"
                 />
               </div>
@@ -236,37 +202,11 @@
         </div>
       </section>
 
-      <section class="section" aria-labelledby="founder-title" style="background: var(--surface-container-low)">
-        <div class="container">
-          <div class="grid" style="grid-template-columns: auto 1fr; align-items: center; gap: 40px">
-            <img
-              src="/assets/images/founder-placeholder.svg"
-              alt="Sabarna Barik, founder of Hack Orbit"
-              width="220"
-              height="264"
-              loading="lazy"
-            />
-            <div>
-              <span class="eyebrow">Founded by</span>
-              <h2 id="founder-title">Sabarna Barik</h2>
-              <p class="lead" style="max-width: 60ch; margin-top: 12px">
-                Hack Orbit was founded by Sabarna Barik to give builders a real, participatory
-                home — a place to ship projects, contribute to shared open-source work, and build
-                a durable, verifiable record of what they've done.
-              </p>
-              <a class="link-arrow" href="/about" style="margin-top: 24px; display: inline-flex">
-                Read the founding story →
-              </a>
-            </div>
-          </div>
-        </div>
-      </section>
-
       <section class="section orbital" aria-labelledby="cta-title">
         <div class="container" style="text-align: center; max-width: 720px">
           <h2 id="cta-title">Ready to orbit together?</h2>
           <p class="lead" style="margin: 16px auto 32px; max-width: 52ch">
-            Verify your identity in under three minutes and become a member of Hack Orbit.
+            Join the community, pick a project, and start contributing.
           </p>
           <div class="hero__actions">
             <a class="btn btn--primary btn--lg" href="/join">Join Hack Orbit</a>

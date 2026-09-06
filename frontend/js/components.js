@@ -20,7 +20,7 @@ export function renderProjectCard(p) {
     <article class="project-card">
       <div class="project-card__media">
         <span class="project-card__tag chip ${official ? 'chip--blue' : 'chip--green'}">${official ? 'Official' : 'Community'}</span>
-        <img src="${escapeHtml(p.image || '/assets/logo/logo.svg')}" alt="${escapeHtml(p.name)}" width="600" height="338" loading="lazy" />
+        <img src="${escapeHtml(p.image || '/assets/logo/logo.avif')}" alt="${escapeHtml(p.name)}" width="600" height="338" loading="lazy" />
       </div>
       <div class="project-card__body">
         <h3 class="project-card__title">${escapeHtml(p.name)}</h3>
@@ -94,7 +94,8 @@ export function initContactForm() {
     const values = {};
     let valid = true;
     for (const f of fields) {
-      const group = form.querySelector(`.form-group:has(#contact-${f})`);
+      const input = form.elements[f];
+      const group = input ? input.closest('.form-group') : null;
       const value = getValue(f);
       values[f] = value;
       const ok = f === 'email' ? /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value) : value.length > 0;
@@ -117,7 +118,7 @@ export function initContactForm() {
     }
     const subject = encodeURIComponent(values.subject);
     const body = encodeURIComponent(`${values.name} <${values.email}>\n\n${values.message}`);
-    const mailto = `mailto:hello@hackorbit.example?subject=${subject}&body=${body}`;
+    const mailto = `mailto:hackorbitglobal@gmail.com?subject=${subject}&body=${body}`;
     status.textContent = 'Opening your email app…';
     window.location.href = mailto;
   });

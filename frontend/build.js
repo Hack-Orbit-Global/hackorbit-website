@@ -33,7 +33,7 @@ const TOKENS = {
 };
 
 /** Site base URL — override via SITE_URL env var at build/deploy time. */
-const SITE_URL = process.env.SITE_URL || 'https://hackorbit.example';
+const SITE_URL = process.env.SITE_URL || 'https://hackorbitglobal.vercel.app';
 
 /** Normalise a file to a plain text string. */
 function read(path) {

@@ -538,6 +538,15 @@
   margin-top: 40px;
 }
 
+.hero__banner {
+  margin: 48px auto 0;
+  max-width: 920px;
+  width: 100%;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-subtle);
+  box-shadow: var(--shadow-card-hover);
+}
+
 /* ============================= Stats ============================= */
 
 .stats {

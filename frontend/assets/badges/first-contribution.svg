@@ -1,6 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" role="img" aria-labelledby="t">
-  <title id="t">First Contribution badge</title>
-  <path d="M24 2 44 13v22L24 46 4 35V13Z" fill="#0b1622" stroke="#69de83" stroke-width="2"/>
-  <circle cx="24" cy="24" r="10" fill="#69de83"/>
-  <path d="M24 15v18M15 24h18" stroke="#0b1622" stroke-width="3" stroke-linecap="round"/>
-</svg>

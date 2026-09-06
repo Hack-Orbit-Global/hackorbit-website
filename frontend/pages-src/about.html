@@ -2,47 +2,35 @@
 <html lang="en">
   <head>
     <!-- {{HEAD}} -->
-    <title>About Hack Orbit — Mission, Philosophy &amp; Founder</title>
+    <title>About Hack Orbit — Mission &amp; Philosophy</title>
     <meta
       name="description"
-      content="About Hack Orbit, an open-source technology organisation founded by Sabarna Barik. Our mission, the Build. Contribute. Orbit Together. philosophy, and our founding story."
+      content="About Hack Orbit, an open-source technology organisation and developer community. Our mission and the Build. Contribute. Orbit Together. philosophy."
     />
     <link rel="canonical" href="{{SITE_URL}}/about" />
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="About Hack Orbit — Mission, Philosophy &amp; Founder" />
+    <meta property="og:title" content="About Hack Orbit — Mission &amp; Philosophy" />
     <meta
       property="og:description"
-      content="Hack Orbit is an open-source technology organisation and developer community founded by Sabarna Barik."
+      content="Hack Orbit is an open-source technology organisation and developer community for builders."
     />
     <meta property="og:url" content="{{SITE_URL}}/about" />
-    <meta property="og:image" content="{{SITE_URL}}/assets/logo/logo.svg" />
+    <meta property="og:image" content="{{SITE_URL}}/assets/banner/banner.avif" />
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:title" content="About Hack Orbit" />
-    <meta name="twitter:description" content="Mission, philosophy, and founder of Hack Orbit." />
+    <meta name="twitter:description" content="Mission and philosophy of Hack Orbit." />
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
-        "@graph": [
-          {
-            "@type": "Organization",
-            "@id": "{{SITE_URL}}/#organization",
-            "name": "Hack Orbit",
-            "url": "{{SITE_URL}}/",
-            "logo": "{{SITE_URL}}/assets/logo/logo.svg",
-            "founder": {
-              "@type": "Person",
-              "@id": "{{SITE_URL}}/about/#sabarna-barik",
-              "name": "Sabarna Barik"
-            }
-          },
-          {
-            "@type": "Person",
-            "@id": "{{SITE_URL}}/about/#sabarna-barik",
-            "name": "Sabarna Barik",
-            "jobTitle": "Founder",
-            "worksFor": { "@id": "{{SITE_URL}}/#organization" },
-            "memberOf": { "@id": "{{SITE_URL}}/#organization" }
-          }
+        "@type": "Organization",
+        "@id": "{{SITE_URL}}/#organization",
+        "name": "Hack Orbit",
+        "url": "{{SITE_URL}}/",
+        "logo": "{{SITE_URL}}/assets/logo/logo.avif",
+        "sameAs": [
+          "https://github.com/hackorbit",
+          "https://discord.gg/hackorbit",
+          "https://www.linkedin.com/company/hackorbit"
         ]
       }
     </script>
@@ -83,8 +71,8 @@
             <article class="card card--hover">
               <h3 class="card__title">Contribute</h3>
               <p class="card__text">
-                We believe in shared work. Contributions to Hack Orbit's official repositories are
-                tracked, recognised, and reflected on every member's public profile.
+                We believe in shared work. Contributions to Hack Orbit's official repositories
+                are recognised and valued by the community.
               </p>
             </article>
             <article class="card card--hover">
@@ -111,72 +99,14 @@
             </p>
             <p>
               Hack Orbit is <strong>not</strong> a cybersecurity or hacking-focused organisation.
-              It is not an event-management platform, and it is not a certificate-download portal.
-              It is a community where developers build and are recognised for real, verifiable work.
+              It is not an event-management platform. It is a community where developers build
+              together and share open-source work.
             </p>
           </div>
         </div>
       </section>
 
-      <section class="section" aria-labelledby="history-title" style="background: var(--surface-container-low)">
-        <div class="container" style="max-width: 780px">
-          <span class="eyebrow">History</span>
-          <h2 id="history-title">From a founding idea to an open community.</h2>
-          <div class="stack-lg" style="margin-top: 24px">
-            <p>
-              Hack Orbit was founded by Sabarna Barik as a from-scratch initiative with a clear
-              mission: give builders a participatory home and a durable, verifiable record of
-              their open-source work. The organisation is built around a verified identity system —
-              one real person, one Member ID, one public profile — anchored by Google and confirmed
-              through GitHub and Discord.
-            </p>
-            <p>
-              Today Hack Orbit is an online-first organisation, operated by its founder and built
-              to scale into a global developer community — while remaining honest about what it is
-              and never fabricating its numbers.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      <section class="section" aria-labelledby="founder-title">
-        <div class="container">
-          <div class="grid" style="grid-template-columns: auto 1fr; gap: 48px; align-items: start">
-            <img
-              src="/assets/images/founder-placeholder.svg"
-              alt="Sabarna Barik, founder of Hack Orbit"
-              width="300"
-              height="360"
-            />
-            <div>
-              <span class="eyebrow">Founder · Member HO-000001</span>
-              <h2 id="founder-title">Sabarna Barik</h2>
-              <div class="stack-md" style="margin-top: 20px; max-width: 68ch">
-                <p>
-                  Sabarna Barik is the founder of Hack Orbit. The organisation grew out of a belief
-                  that open source is one of the most reliable ways to build systems that are
-                  resilient, transparent, and long-lived — and that the people who contribute to
-                  them deserve a credible, verifiable record of that work.
-                </p>
-                <p>
-                  Under Sabarna's leadership, Hack Orbit is built around three commitments:
-                  precision (engineering without compromise), performance (fast, accessible,
-                  high-quality software), and purpose (building things that matter to a community).
-                </p>
-                <p>
-                  As the organisation's first verified member, Sabarna holds Member ID
-                  <span class="mono">HO-000001</span> and the Founder badge.
-                </p>
-              </div>
-              <div class="form-actions" style="margin-top: 28px">
-                <a class="btn btn--secondary" href="/contact">Contact Hack Orbit</a>
-                <a class="btn btn--ghost" href="/join">Join Hack Orbit</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-    </main>
+      </main>
     <!-- {{FOOTER}} -->
     <script type="module" src="/js/main.js"></script>
   </body>

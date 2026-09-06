@@ -4,9 +4,9 @@ import { fileURLToPath } from 'node:url';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const OUT = join(ROOT, 'public');
-const SITE_URL = (process.env.SITE_URL || 'https://hackorbit.example').replace(/\/$/, '');
+const SITE_URL = (process.env.SITE_URL || 'https://hackorbitglobal.vercel.app').replace(/\/$/, '');
 
-const EXCLUDE = new Set(['404.html', '500.html', 'join.html', 'settings.html', 'verify.html']);
+const EXCLUDE = new Set(['404.html', '500.html', 'settings.html', 'verify.html']);
 
 function staticUrls() {
   const files = readdirSync(OUT).filter((f) => f.endsWith('.html'));
