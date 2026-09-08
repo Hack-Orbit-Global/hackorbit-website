@@ -84,6 +84,15 @@
   .hero__actions .btn {
     width: 100%;
   }
+
+  .social-btn {
+    width: 48px;
+    height: 48px;
+  }
+
+  .social-row {
+    gap: 10px;
+  }
 }
 
 @media (min-width: 769px) {

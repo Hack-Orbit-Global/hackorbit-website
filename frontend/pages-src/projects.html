@@ -36,7 +36,7 @@
         <a href="/">Home</a><span aria-hidden="true">/</span><span aria-current="page">Projects</span>
       </nav>
 
-      <section class="section--tight orbital" aria-labelledby="projects-title">
+      <section class="section--tight orbital reveal" aria-labelledby="projects-title">
         <div class="container">
           <span class="eyebrow">Projects</span>
           <h1 id="projects-title">Official &amp; community projects</h1>
@@ -48,10 +48,10 @@
         </div>
       </section>
 
-      <section class="section--tight" aria-labelledby="types-title">
+      <section class="section--tight reveal" aria-labelledby="types-title">
         <div class="container">
-          <div class="grid grid-cols-2">
-            <article class="card card--hover">
+          <div class="grid grid-cols-2 reveal-group">
+            <article class="card card--hover reveal">
               <span class="chip chip--blue">Official</span>
               <h2 id="types-title" class="card__title" style="margin-top: 12px">Official Hack Orbit projects</h2>
               <p class="card__text">
@@ -60,7 +60,7 @@
                 issues, and reviews all count as contributions.
               </p>
             </article>
-            <article class="card card--hover">
+            <article class="card card--hover reveal">
               <span class="chip chip--green">Community</span>
               <h2 class="card__title" style="margin-top: 12px">Community projects</h2>
               <p class="card__text">
@@ -73,7 +73,7 @@
         </div>
       </section>
 
-      <section class="section" aria-labelledby="browse-title">
+      <section class="section reveal" aria-labelledby="browse-title">
         <div class="container">
           <div class="section-heading">
             <h2 id="browse-title">Browse projects</h2>
@@ -97,7 +97,7 @@
         </div>
       </section>
 
-      <section class="section" aria-labelledby="propose-title" style="background: var(--surface-container-low)">
+      <section class="section reveal" aria-labelledby="propose-title" style="background: var(--surface-container-low)">
         <div class="container" style="max-width: 720px; text-align: center">
           <span class="eyebrow">Have an idea?</span>
           <h2 id="propose-title">Propose a community project</h2>
@@ -105,7 +105,9 @@
             Built something worth sharing? Reach out through our contact page with your project
             idea, and the team will review it for community or official showcase.
           </p>
-          <a class="btn btn--secondary btn--lg" href="/contact">Propose a project</a>
+          <a class="btn btn--secondary btn--lg btn-arrow" href="/contact">Propose a project
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
         </div>
       </section>
     </main>

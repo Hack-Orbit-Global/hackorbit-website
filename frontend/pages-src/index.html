@@ -33,8 +33,8 @@
             "url": "{{SITE_URL}}/",
             "logo": "{{SITE_URL}}/assets/logo/logo.avif",
             "sameAs": [
-              "https://github.com/hackorbit",
-              "https://discord.gg/hackorbit",
+              "https://github.com/Hack-Orbit-Global",
+              "https://discord.gg/njkHdCpsc3",
               "https://www.linkedin.com/company/hackorbit"
             ]
           },
@@ -52,7 +52,7 @@
   <body>
     <!-- {{NAV}} -->
     <main id="main">
-      <section class="hero orbital" aria-labelledby="hero-title">
+      <section class="hero orbital reveal" aria-labelledby="hero-title">
         <div class="hero__rings" aria-hidden="true"></div>
         <div class="container hero__inner">
           <span class="eyebrow">Open-Source Technology Organisation</span>
@@ -74,13 +74,41 @@
             fetchpriority="high"
           />
           <div class="hero__actions">
-            <a class="btn btn--primary btn--lg" href="/join">Join Hack Orbit</a>
-            <a class="btn btn--secondary btn--lg" href="/projects">Explore Projects</a>
+            <a class="btn btn--primary btn--lg btn-arrow" href="https://github.com/Hack-Orbit-Global" target="_blank" rel="noopener noreferrer">Join Hack Orbit
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+            <a class="btn btn--secondary btn--lg btn-arrow" href="https://github.com/orgs/Hack-Orbit-Global/repositories" target="_blank" rel="noopener noreferrer">Explore Projects
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
           </div>
         </div>
       </section>
 
-      <section class="section orbital" aria-labelledby="what-title">
+      <section class="section--tight reveal" aria-labelledby="metrics-title" style="padding-top: 0">
+        <div class="container">
+          <h2 id="metrics-title" class="sr-only" style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0)">Community at a glance</h2>
+          <div class="stats reveal-group">
+            <div class="stat reveal">
+              <div class="stat__value">Open</div>
+              <div class="stat__label">Source-first, by design</div>
+            </div>
+            <div class="stat reveal">
+              <div class="stat__value">Build</div>
+              <div class="stat__label">Ship real projects</div>
+            </div>
+            <div class="stat reveal">
+              <div class="stat__value">Contribute</div>
+              <div class="stat__label">Track every merged PR</div>
+            </div>
+            <div class="stat reveal">
+              <div class="stat__value">Orbit</div>
+              <div class="stat__label">Grow as a community</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section orbital reveal" aria-labelledby="what-title">
         <div class="container">
           <div class="section-heading">
             <div>
@@ -92,43 +120,67 @@
               shipping projects, contributing to shared repos, and learning in public.
             </p>
           </div>
-          <div class="grid grid-cols-3">
-            <article class="card card--hover">
-              <h3 class="card__title">Build</h3>
-              <p class="card__text">
-                Ship real projects with a global collective. Technology-neutral by design — from
-                web applications to DevOps tooling to applied AI/ML.
-              </p>
+          <div class="grid grid-cols-3 reveal-group">
+            <article class="quick-card reveal">
+              <span class="quick-card__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+              </span>
+              <div>
+                <h3 class="quick-card__title">Build</h3>
+                <p class="quick-card__text">
+                  Ship real projects with a global collective. Technology-neutral by design — from
+                  web applications to DevOps tooling to applied AI/ML.
+                </p>
+              </div>
+              <a class="quick-card__link" href="https://github.com/orgs/Hack-Orbit-Global/repositories" target="_blank" rel="noopener noreferrer">See projects
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </a>
             </article>
-            <article class="card card--hover">
-              <h3 class="card__title">Contribute</h3>
-              <p class="card__text">
-                Contribute to Hack Orbit's official repositories and earn a tracked, verifiable
-                record of every merged PR, resolved issue, and review.
-              </p>
+            <article class="quick-card reveal">
+              <span class="quick-card__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l4 4L22 6"/><path d="M21 14v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14"/></svg>
+              </span>
+              <div>
+                <h3 class="quick-card__title">Contribute</h3>
+                <p class="quick-card__text">
+                  Contribute to Hack Orbit's official repositories and earn a tracked, verifiable
+                  record of every merged PR, resolved issue, and review.
+                </p>
+              </div>
+              <a class="quick-card__link" href="/contribute">Contribution guide
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </a>
             </article>
-            <article class="card card--hover">
-              <h3 class="card__title">Orbit Together</h3>
-              <p class="card__text">
-                Grow as a community, not as isolated users. Learn in public, ship together, and
-                get better at building software as a team.
-              </p>
+            <article class="quick-card reveal">
+              <span class="quick-card__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+              </span>
+              <div>
+                <h3 class="quick-card__title">Orbit Together</h3>
+                <p class="quick-card__text">
+                  Grow as a community, not as isolated users. Learn in public, ship together, and
+                  get better at building software as a team.
+                </p>
+              </div>
+              <a class="quick-card__link" href="https://github.com/Hack-Orbit-Global" target="_blank" rel="noopener noreferrer">Join the orbit
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </a>
             </article>
           </div>
         </div>
       </section>
 
-      <section class="section" aria-labelledby="projects-title">
+      <section class="section reveal" aria-labelledby="projects-title">
         <div class="container">
           <div class="section-heading">
             <div>
               <span class="eyebrow">Projects</span>
               <h2 id="projects-title">Official &amp; community projects</h2>
             </div>
-            <a class="link-arrow" href="/projects">View all projects →</a>
+            <a class="link-arrow" href="https://github.com/orgs/Hack-Orbit-Global/repositories" target="_blank" rel="noopener noreferrer">View all projects →</a>
           </div>
-          <div class="grid grid-cols-3">
-            <article class="project-card">
+          <div class="grid grid-cols-3 reveal-group">
+            <article class="project-card reveal">
               <div class="project-card__media">
                 <span class="project-card__tag chip chip--blue">Official</span>
                 <img
@@ -148,11 +200,11 @@
                 </p>
                 <div class="project-card__meta">
                   <span>Org-scoped tracking</span>
-                  <a href="https://github.com/hackorbit" target="_blank" rel="noopener noreferrer">GitHub →</a>
+                  <a href="https://github.com/orgs/Hack-Orbit-Global/repositories" target="_blank" rel="noopener noreferrer">GitHub →</a>
                 </div>
               </div>
             </article>
-            <article class="project-card">
+            <article class="project-card reveal">
               <div class="project-card__media">
                 <span class="project-card__tag chip chip--green">Community</span>
                 <img
@@ -175,7 +227,7 @@
                 </div>
               </div>
             </article>
-            <article class="project-card">
+            <article class="project-card reveal">
               <div class="project-card__media">
                 <span class="project-card__tag chip chip--amber">Getting started</span>
                 <img
@@ -202,14 +254,38 @@
         </div>
       </section>
 
-      <section class="section orbital" aria-labelledby="cta-title">
+      <section class="section orbital reveal" aria-labelledby="connect-title" style="background: var(--surface-container-low)">
+        <div class="container" style="max-width: 720px; text-align: center">
+          <span class="eyebrow">Stay in the orbit</span>
+          <h2 id="connect-title">Connect with Hack Orbit</h2>
+          <p class="lead" style="margin: 16px auto 32px; max-width: 52ch">
+            Join the conversation on GitHub, Discord, and LinkedIn — where members hang out,
+            share, and ship together.
+          </p>
+          <div class="social-row" style="justify-content: center">
+            <a class="social-btn" href="https://github.com/Hack-Orbit-Global" target="_blank" rel="noopener noreferrer" aria-label="Hack Orbit on GitHub">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.55v-2.15c-3.2.7-3.87-1.36-3.87-1.36-.52-1.33-1.28-1.68-1.28-1.68-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.23-1.28-5.23-5.68 0-1.26.45-2.28 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11 11 0 0 1 5.79 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.24 2.76.12 3.05.74.81 1.18 1.83 1.18 3.09 0 4.41-2.69 5.38-5.25 5.66.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.55A11.5 11.5 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5Z"/></svg>
+            </a>
+            <a class="social-btn" href="https://discord.gg/njkHdCpsc3" target="_blank" rel="noopener noreferrer" aria-label="Join Hack Orbit on Discord">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.32 4.37a19.8 19.8 0 0 0-4.89-1.52.07.07 0 0 0-.08.04c-.21.37-.44.87-.6 1.25a18.3 18.3 0 0 0-5.5 0 12.6 12.6 0 0 0-.61-1.25.08.08 0 0 0-.08-.04 19.7 19.7 0 0 0-4.88 1.52.07.07 0 0 0-.03.03C.53 9.05-.32 13.58.1 18.06c0 .02.01.04.03.05a19.9 19.9 0 0 0 6 3.03.08.08 0 0 0 .08-.03c.46-.63.87-1.3 1.22-2a.08.08 0 0 0-.04-.11 13 13 0 0 1-1.87-.89.08.08 0 0 1-.01-.13c.13-.1.25-.2.37-.29a.07.07 0 0 1 .08-.01c3.93 1.8 8.18 1.8 12.06 0a.07.07 0 0 1 .08.01c.13.1.25.2.37.3a.08.08 0 0 1 0 .13c-.6.35-1.22.64-1.88.88a.08.08 0 0 0-.04.11c.36.7.77 1.37 1.22 2a.08.08 0 0 0 .09.03 19.8 19.8 0 0 0 6.02-3.03.08.08 0 0 0 .03-.05c.5-5.2-.84-9.68-3.55-13.66a.05.05 0 0 0-.03-.03ZM8.02 15.33c-1.18 0-2.16-1.08-2.16-2.42s.96-2.42 2.16-2.42c1.21 0 2.18 1.1 2.16 2.42 0 1.34-.96 2.42-2.16 2.42Zm7.97 0c-1.18 0-2.16-1.08-2.16-2.42s.96-2.42 2.16-2.42c1.21 0 2.18 1.1 2.16 2.42 0 1.34-.95 2.42-2.16 2.42Z"/></svg>
+            </a>
+            <a class="social-btn" href="https://www.linkedin.com/company/hackorbit" target="_blank" rel="noopener noreferrer" aria-label="Hack Orbit on LinkedIn">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28ZM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12ZM7.12 20.45H3.55V9h3.57v11.45ZM22.22 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.72V1.72C24 .77 23.2 0 22.22 0Z"/></svg>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section class="section orbital reveal" aria-labelledby="cta-title">
         <div class="container" style="text-align: center; max-width: 720px">
           <h2 id="cta-title">Ready to orbit together?</h2>
           <p class="lead" style="margin: 16px auto 32px; max-width: 52ch">
             Join the community, pick a project, and start contributing.
           </p>
           <div class="hero__actions">
-            <a class="btn btn--primary btn--lg" href="/join">Join Hack Orbit</a>
+            <a class="btn btn--primary btn--lg btn-arrow" href="https://github.com/Hack-Orbit-Global" target="_blank" rel="noopener noreferrer">Join Hack Orbit
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
           </div>
         </div>
       </section>
