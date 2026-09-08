@@ -559,6 +559,11 @@
 
 /* ============================= Forms ============================= */
 
+.contact-grid {
+  grid-template-columns: 1.2fr 1fr;
+  gap: 48px;
+}
+
 .form-group {
   margin-bottom: 20px;
 }

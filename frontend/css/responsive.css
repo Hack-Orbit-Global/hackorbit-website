@@ -1,4 +1,4 @@
-/* ---- Responsive breakpoints: 1024px tablet, 768px, 480px mobile. ---- */
+/* ---- Responsive breakpoints: 1024px tablet, 960px nav, 768px, 480px mobile. ---- */
 
 @media (max-width: 1024px) {
   .grid-cols-3 {
@@ -10,11 +10,7 @@
   }
 }
 
-@media (max-width: 768px) {
-  .section {
-    padding-block: var(--section-pad-mobile);
-  }
-
+@media (max-width: 960px) {
   .nav__links,
   .nav__cta {
     display: none;
@@ -23,6 +19,12 @@
   .nav__toggle {
     display: flex;
   }
+}
+
+@media (max-width: 768px) {
+  .section {
+    padding-block: var(--section-pad-mobile);
+  }
 
   .stats {
     grid-template-columns: repeat(2, 1fr);
@@ -30,6 +32,11 @@
 
   .grid-cols-2 {
     grid-template-columns: 1fr;
+  }
+
+  .contact-grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
   }
 
   .footer-grid {
@@ -85,6 +92,10 @@
     width: 100%;
   }
 
+  .hero__actions .btn--lg {
+    padding: 14px 28px;
+  }
+
   .social-btn {
     width: 48px;
     height: 48px;
@@ -93,9 +104,14 @@
   .social-row {
     gap: 10px;
   }
+
+  .eyebrow {
+    letter-spacing: 0.14em;
+    line-height: 1.5;
+  }
 }
 
-@media (min-width: 769px) {
+@media (min-width: 961px) {
   .nav-drawer {
     display: none !important;
   }

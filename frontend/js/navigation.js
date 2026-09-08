@@ -50,7 +50,7 @@ export function initNavigation() {
   }
 
   window.addEventListener('resize', () => {
-    if (window.innerWidth >= 769 && !drawer.hidden) setOpen(false);
+    if (window.innerWidth >= 961 && !drawer.hidden) setOpen(false);
   });
 
   // Mobile accordion panels
